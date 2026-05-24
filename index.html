@@ -3,1104 +3,775 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ethical Hacking Test Bank</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<title>O6U Communication Skills Study Hub</title>
 <style>
   :root {
-    --bg: #0a0e17;
-    --surface: #0f1623;
-    --card: #131c2e;
-    --border: #1e2d47;
-    --accent: #00e5ff;
-    --accent2: #7b2fff;
-    --correct: #00e676;
-    --wrong: #ff1744;
-    --warn: #ffab00;
-    --text: #c8d6e8;
-    --muted: #4a6080;
-    --mono: 'Share Tech Mono', monospace;
-    --sans: 'Rajdhani', sans-serif;
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --surface2: #334155;
+    --border: #475569;
+    --accent: #14b8a6;
+    --accent-hover: #0d9488;
+    --green: #10b981;
+    --red: #f43f5e;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --radius: 16px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; min-height: 100vh; line-height: 1.5; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    font-size: 16px;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Grid background */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Glow blobs */
-  body::after {
-    content: '';
-    position: fixed;
-    top: -200px; left: -200px;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(123,47,255,0.08) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .wrapper { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 20px 60px; }
-
-  /* Header */
   header {
-    padding: 40px 0 30px;
+    background: var(--surface);
     border-bottom: 1px solid var(--border);
-    margin-bottom: 30px;
-  }
-
-  .header-tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    opacity: 0.8;
-  }
-
-  h1 {
-    font-family: var(--sans);
-    font-size: clamp(28px, 5vw, 46px);
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: #fff;
-    line-height: 1.1;
-  }
-
-  h1 span {
-    color: var(--accent);
-    text-shadow: 0 0 20px rgba(0,229,255,0.5);
-  }
-
-  .subtitle {
-    margin-top: 10px;
-    color: var(--muted);
-    font-size: 15px;
-    font-family: var(--mono);
-  }
-
-  /* Controls */
-  .controls {
+    padding: 16px 24px;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: 12px;
-    margin-bottom: 28px;
-    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
-
-  .btn {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 10px 20px;
-    border: 1px solid;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: transparent;
-  }
-
-  .btn-primary {
-    border-color: var(--accent);
+  .logo-wrap { display: flex; align-items: center; gap: 10px; }
+  .logo-icon {
+    background: rgba(20, 184, 166, 0.15);
     color: var(--accent);
-  }
-  .btn-primary:hover { background: rgba(0,229,255,0.1); box-shadow: 0 0 12px rgba(0,229,255,0.2); }
-
-  .btn-secondary {
-    border-color: var(--accent2);
-    color: var(--accent2);
-  }
-  .btn-secondary:hover { background: rgba(123,47,255,0.1); box-shadow: 0 0 12px rgba(123,47,255,0.2); }
-
-  .btn-warn {
-    border-color: var(--warn);
-    color: var(--warn);
-  }
-  .btn-warn:hover { background: rgba(255,171,0,0.1); }
-
-  .mode-toggle {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-left: auto;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-  }
-
-  .toggle-switch {
-    width: 40px; height: 22px;
-    background: var(--border);
-    border-radius: 11px;
-    position: relative;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .toggle-switch.on { background: var(--accent2); }
-  .toggle-switch::after {
-    content: '';
-    position: absolute;
-    top: 3px; left: 3px;
-    width: 16px; height: 16px;
-    background: #fff;
-    border-radius: 50%;
-    transition: transform 0.2s;
-  }
-  .toggle-switch.on::after { transform: translateX(18px); }
-
-  /* Stats bar */
-  .stats-bar {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 24px;
-    padding: 14px 18px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-family: var(--mono);
-    font-size: 13px;
-    flex-wrap: wrap;
-  }
-
-  .stat { display: flex; gap: 8px; align-items: center; }
-  .stat-label { color: var(--muted); }
-  .stat-val { color: #fff; font-weight: bold; }
-  .stat-val.green { color: var(--correct); }
-  .stat-val.red { color: var(--wrong); }
-  .stat-val.blue { color: var(--accent); }
-
-  .progress-bar {
-    height: 3px;
-    background: var(--border);
-    border-radius: 2px;
-    margin-bottom: 28px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent2), var(--accent));
-    border-radius: 2px;
-    transition: width 0.4s ease;
-  }
-
-  /* Filter tabs */
-  .filter-tabs {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-  }
-
-  .tab {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 1px;
-    padding: 6px 14px;
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    cursor: pointer;
-    color: var(--muted);
-    background: transparent;
-    transition: all 0.2s;
-    text-transform: uppercase;
-  }
-  .tab:hover { border-color: var(--accent); color: var(--accent); }
-  .tab.active { border-color: var(--accent); color: var(--accent); background: rgba(0,229,255,0.07); }
-
-  /* Search */
-  .search-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 24px;
-    padding: 10px 16px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    transition: border-color 0.2s;
-  }
-  .search-box:focus-within { border-color: var(--accent); }
-  .search-box input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: 13px;
-  }
-  .search-icon { color: var(--muted); font-size: 14px; }
-
-  /* Question card */
-  .question-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 16px;
-    overflow: hidden;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    animation: fadeIn 0.3s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .question-card:hover { border-color: rgba(0,229,255,0.2); }
-  .question-card.answered-correct { border-color: rgba(0,230,118,0.3); }
-  .question-card.answered-wrong { border-color: rgba(255,23,68,0.3); }
-
-  .question-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 18px 20px 14px;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .q-number {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--accent2);
-    background: rgba(123,47,255,0.12);
-    border: 1px solid rgba(123,47,255,0.3);
-    padding: 3px 8px;
-    border-radius: 3px;
-    white-space: nowrap;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .q-text {
-    font-size: 15px;
-    font-weight: 600;
-    color: #dce8f8;
-    line-height: 1.5;
-    flex: 1;
-  }
-
-  .q-status {
-    font-size: 18px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  /* Answers */
-  .answers {
-    padding: 0 20px 16px;
-    display: grid;
-    gap: 8px;
-  }
-
-  .answer-option {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 11px 14px;
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.15s;
-    font-size: 14px;
-    font-weight: 500;
-    background: rgba(255,255,255,0.02);
-  }
-
-  .answer-option:hover:not(.disabled) {
-    border-color: rgba(0,229,255,0.35);
-    background: rgba(0,229,255,0.06);
-  }
-
-  .answer-option.correct {
-    border-color: var(--correct);
-    background: rgba(0,230,118,0.08);
-    color: var(--correct);
-  }
-
-  .answer-option.wrong {
-    border-color: var(--wrong);
-    background: rgba(255,23,68,0.08);
-    color: var(--wrong);
-  }
-
-  .answer-option.reveal-correct {
-    border-color: rgba(0,230,118,0.5);
-    background: rgba(0,230,118,0.05);
-    color: rgba(0,230,118,0.7);
-  }
-
-  .answer-option.disabled { cursor: default; }
-
-  .option-letter {
-    font-family: var(--mono);
-    font-size: 11px;
+    padding: 8px;
+    border-radius: 12px;
     font-weight: bold;
-    width: 22px; height: 22px;
-    display: flex; align-items: center; justify-content: center;
-    border: 1px solid currentColor;
-    border-radius: 3px;
-    flex-shrink: 0;
-    opacity: 0.7;
-  }
-
-  /* Essay section */
-  .section-divider {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: 40px 0 28px;
-  }
-  .section-divider::before, .section-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-  .section-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--accent2);
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .essay-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 14px;
-    overflow: hidden;
-  }
-
-  .essay-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 16px 20px;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .essay-header:hover { background: rgba(255,255,255,0.02); }
-
-  .essay-q {
-    font-size: 14px;
-    font-weight: 600;
-    color: #dce8f8;
-    flex: 1;
-    line-height: 1.5;
-  }
-
-  .essay-chevron {
-    font-size: 12px;
-    color: var(--muted);
-    transition: transform 0.2s;
-    flex-shrink: 0;
-    margin-top: 3px;
-  }
-  .essay-card.open .essay-chevron { transform: rotate(180deg); }
-
-  .essay-answer {
-    display: none;
-    padding: 0 20px 18px;
-    border-top: 1px solid var(--border);
-    margin-top: 0;
-  }
-  .essay-card.open .essay-answer { display: block; }
-
-  .answer-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--accent);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin: 14px 0 10px;
-  }
-
-  .essay-answer ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .essay-answer li {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    font-size: 14px;
-    color: var(--text);
-    line-height: 1.5;
-  }
-
-  .essay-answer li::before {
-    content: '▸';
-    color: var(--accent2);
-    flex-shrink: 0;
-    margin-top: 1px;
-    font-size: 11px;
-  }
-
-  /* Pagination */
-  .pagination {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    margin-top: 32px;
-    flex-wrap: wrap;
   }
+  .logo-text h1 { font-size: 16px; font-weight: 800; tracking-wide: 0.5px; }
+  .logo-text p { font-size: 11px; color: var(--muted); }
 
-  .page-btn {
-    font-family: var(--mono);
-    font-size: 12px;
-    padding: 7px 13px;
+  .header-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+  select, button {
+    background: var(--surface2);
+    color: var(--text);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
-    color: var(--muted);
-    background: transparent;
-    transition: all 0.15s;
+    transition: all 0.15s ease;
   }
-  .page-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .page-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(0,229,255,0.08); }
-  .page-btn:disabled { opacity: 0.3; cursor: default; }
+  select:hover, button:hover { border-color: var(--accent); }
+  select:focus { outline: none; border-color: var(--accent); }
+  .btn-primary { background: var(--accent); color: #0f172a; border-color: var(--accent); }
+  .btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
 
-  /* Tooltip */
-  .score-ring {
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    background: conic-gradient(var(--accent) 0% var(--pct, 0%), var(--border) var(--pct, 0%) 100%);
-    display: flex; align-items: center; justify-content: center;
-    margin-left: auto;
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    padding: 24px 24px 0;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .stat-val { font-size: 26px; font-weight: 900; }
+  .stat-lbl { font-size: 10px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 1px; }
+  .val-green { color: var(--green); }
+  .val-red { color: var(--red); }
+  .val-accent { color: var(--accent); }
+
+  .progress-wrap { padding: 18px 24px 0; max-width: 860px; margin: 0 auto; }
+  .progress-track { height: 8px; background: #020617; border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--green)); border-radius: 4px; transition: width 0.3s ease; }
+  .progress-label { font-size: 11px; color: var(--muted); margin-top: 6px; display: flex; justify-content: space-between; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  main { max-width: 860px; margin: 0 auto; padding: 24px 24px 60px; }
+
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    transition: all 0.2s ease;
+  }
+  .q-card.correct-card { border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.05); }
+  .q-card.wrong-card { border-color: rgba(244, 63, 94, 0.4); box-shadow: 0 4px 20px rgba(244, 63, 94, 0.05); }
+
+  .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .q-num { font-size: 12px; font-weight: 800; color: var(--accent); background: rgba(20, 184, 166, 0.1); padding: 4px 10px; border-radius: 8px; }
+  .q-badge {
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: var(--surface2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .q-text { font-size: 16px; font-weight: 700; line-height: 1.6; margin-bottom: 18px; color: #f8fafc; }
+
+  .options { display: grid; gap: 10px; }
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: rgba(15, 23, 42, 0.3);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: left;
+    color: var(--text);
+    transition: all 0.15s ease;
+    width: 100%;
+  }
+  .opt:not(:disabled):hover { border-color: var(--accent); background: rgba(20, 184, 166, 0.05); }
+  .opt:disabled { cursor: default; }
+  .opt.opt-correct { border-color: var(--green); background: rgba(16, 185, 129, 0.1); color: #a7f3d0; }
+  .opt.opt-wrong { border-color: var(--red); background: rgba(244, 63, 94, 0.1); color: #fecdd3; }
+  
+  .opt-label {
+    min-width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 850;
+    color: var(--muted);
     flex-shrink: 0;
   }
-  .score-ring-inner {
-    width: 42px; height: 42px;
-    background: var(--surface);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--accent);
-    font-weight: bold;
+  .opt-correct .opt-label { background: var(--green); color: #022c22; }
+  .opt-wrong .opt-label { background: var(--red); color: #4c0519; }
+
+  .sa-input {
+    width: 100%;
+    background: #0f172a;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    resize: none;
+    margin-bottom: 10px;
+    transition: border-color 0.15s;
   }
+  .sa-input:focus { outline: none; border-color: var(--accent); }
+  .sa-input:disabled { opacity: 0.7; }
 
-  .hidden { display: none !important; }
+  .feedback { font-size: 13px; margin-top: 14px; padding: 12px; border-radius: 10px; background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border); line-height: 1.6; }
+  .feedback.fb-correct { color: #6ee7b7; border-color: rgba(16, 185, 129, 0.2); }
+  .feedback.fb-wrong { color: #fca5a5; border-color: rgba(244, 63, 94, 0.2); }
+  .feedback-title { font-weight: 800; text-transform: uppercase; font-size: 10px; tracking-wide: 0.5px; margin-bottom: 4px; display: block; }
 
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+  .nav-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; flex-wrap: wrap; gap: 12px; }
+  .page-info { font-size: 13px; color: var(--muted); font-weight: 700; }
+
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: auto;
+  }
+  footer p { margin-bottom: 4px; }
+
+  @media(max-width:600px){
+    .stats-bar { grid-template-columns: repeat(2,1fr); }
+    .stat-val { font-size: 22px; }
+    header { padding: 12px 16px; }
+    main { padding: 16px; }
+  }
 </style>
 </head>
 <body>
-<div class="wrapper">
 
-  <header>
-    <div class="header-tag">// Test Bank v1.0</div>
-    <h1>ETHICAL <span>HACKING</span></h1>
-    <div class="subtitle">230 MCQ + 50 Essay Questions · Answers shuffled on each load</div>
-  </header>
-
-  <div class="controls">
-    <button class="btn btn-primary" onclick="reshuffleAll()">⟳ Reshuffle Answers</button>
-    <button class="btn btn-secondary" onclick="resetAll()">↺ Reset Progress</button>
-    <button class="btn btn-warn" onclick="revealAll()">⚡ Reveal All</button>
-    <div class="mode-toggle">
-      <span>Study Mode</span>
-      <div class="toggle-switch" id="studyToggle" onclick="toggleStudyMode()"></div>
+<header>
+  <div class="logo-wrap">
+    <div class="logo-icon">O6U</div>
+    <div class="logo-text">
+      <h1>Communication Skills</h1>
+      
     </div>
   </div>
-
-  <div class="stats-bar">
-    <div class="stat"><span class="stat-label">Questions:</span><span class="stat-val blue" id="statTotal">230</span></div>
-    <div class="stat"><span class="stat-label">Answered:</span><span class="stat-val" id="statAnswered">0</span></div>
-    <div class="stat"><span class="stat-label">Correct:</span><span class="stat-val green" id="statCorrect">0</span></div>
-    <div class="stat"><span class="stat-label">Wrong:</span><span class="stat-val red" id="statWrong">0</span></div>
-    <div class="stat"><span class="stat-label">Score:</span><span class="stat-val" id="statScore">—</span></div>
-    <div class="score-ring" id="scoreRing" style="--pct:0%">
-      <div class="score-ring-inner" id="scoreRingText">0%</div>
-    </div>
+  <div class="header-controls">
+    <select id="section-sel" onchange="filterSection()">
+      <option value="all">All Lectures Combined</option>
+      <option value="L1">Lecture 1: Introduction (1–24)</option>
+      <option value="L23">Lecture 2 & 3: Process (25–72)</option>
+      <option value="L4">Lecture 4: Types (73–105)</option>
+      <option value="L5">Lecture 5: Effective Comm. & Process (106–161)</option>
+      <option value="L6">Lecture 6: Models of Comm. (162–216)</option>
+      <option value="L7">Lecture 7: Comm. Different Styles (217–239)</option>
+      <option value="L89">Lecture 8 & 9: Meaning & Definition (240–248)</option>
+    </select>
+    <button class="btn-primary" onclick="resetQuiz()">Reset Quiz</button>
   </div>
+</header>
 
-  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-
-  <div class="filter-tabs">
-    <button class="tab active" onclick="setFilter('all',this)">All (230)</button>
-    <button class="tab" onclick="setFilter('unanswered',this)">Unanswered</button>
-    <button class="tab" onclick="setFilter('correct',this)">Correct</button>
-    <button class="tab" onclick="setFilter('wrong',this)">Wrong</button>
-  </div>
-
-  <div class="search-box">
-    <span class="search-icon">🔍</span>
-    <input type="text" placeholder="Search questions..." id="searchInput" oninput="onSearch()">
-  </div>
-
-  <div id="questionsContainer"></div>
-
-  <div class="pagination" id="pagination"></div>
-
-  <div class="section-divider"><span class="section-label">Essay Questions</span></div>
-
-  <div id="essayContainer"></div>
-
+<div class="stats-bar">
+  <div class="stat-card"><div class="stat-val val-accent" id="st-total">248</div><div class="stat-lbl">Total</div></div>
+  <div class="stat-card"><div class="stat-val" id="st-answered">0</div><div class="stat-lbl">Answered</div></div>
+  <div class="stat-card"><div class="stat-val val-green" id="st-correct">0</div><div class="stat-lbl">Correct</div></div>
+  <div class="stat-card"><div class="stat-val val-red" id="st-wrong">0</div><div class="stat-lbl">Wrong</div></div>
 </div>
 
+<div class="progress-wrap">
+  <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+  <div class="progress-label">
+    <span>Quiz Progress</span>
+    <span id="prog-label">0 / 248 answered</span>
+  </div>
+</div>
+
+<main>
+  <div id="q-container"></div>
+  <div class="nav-bar">
+    <button onclick="prevPage()">← Previous</button>
+    <span class="page-info" id="page-info">Page 1 / 25</span>
+    <button onclick="nextPage()">Next →</button>
+  </div>
+</main>
+
+<footer>
+  <p className="font-semibold">October 6 University, Egypt — Faculty of Information Systems & Computer Science</p>
+  <p>Practice mode • Instant verification & grading</p>
+</footer>
+
 <script>
-// ═══════════════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════════════
-const rawQuestions = [
-  {q:"What is the primary purpose of footprinting in ethical hacking?",options:["Encrypt sensitive data","Gather information about a target","Destroy firewall rules","Disable antivirus software"],correct:1},
-  {q:"Which protocol is commonly used for secure remote administration?",options:["FTP","SSH","Telnet","SNMP"],correct:1},
-  {q:"Which attack involves sending excessive traffic to exhaust server resources?",options:["SQL Injection","Buffer Overflow","DDoS Attack","ARP Inspection"],correct:2},
-  {q:"What is the main objective of privilege escalation?",options:["Reduce user permissions","Gain higher-level access rights","Compress log files","Block DNS traffic"],correct:1},
-  {q:"Which tool is commonly used for packet capturing and analysis?",options:["Nmap","Wireshark","Aircrack-ng","Nessus"],correct:1},
-  {q:"Which attack injects malicious scripts into trusted websites?",options:["XSS Attack","DNS Spoofing","Brute Force","Packet Filtering"],correct:0},
-  {q:"Which Metasploit module delivers malicious code to a target?",options:["Payload","Auxiliary","Listener","Session"],correct:0},
-  {q:"What is the purpose of a vulnerability scanner?",options:["Increase CPU speed","Detect security weaknesses","Format hard drives","Disable encryption"],correct:1},
-  {q:"Which attack targets database queries through malicious input?",options:["SQL Injection","VLAN Hopping","MAC Flooding","Session Logging"],correct:0},
-  {q:"Which mitigation technique helps prevent brute-force attacks?",options:["Password reuse","Account lockout policies","Open authentication","Weak hashing"],correct:1},
-  {q:"Which type of malware hides its existence while maintaining unauthorized access?",options:["Worm","Rootkit","Trojan","Spyware"],correct:1},
-  {q:"What does CIA stand for in cybersecurity?",options:["Confidentiality, Integrity, Availability","Control, Internet, Access","Cipher, Inspection, Authorization","Central Intelligence Access"],correct:0},
-  {q:"Which ethical hacking phase involves actively exploiting vulnerabilities?",options:["Reconnaissance","Exploitation","Reporting","Enumeration"],correct:1},
-  {q:"Which attack attempts to intercept communication between two systems?",options:["MITM Attack","Buffer Overflow","Port Mirroring","Phishing Filter"],correct:0},
-  {q:"Which tool is commonly used for wireless password cracking?",options:["Wireshark","Aircrack-ng","Cain and Abel","Burp Suite"],correct:1},
-  {q:"What is phishing primarily designed to do?",options:["Improve bandwidth","Trick users into revealing sensitive information","Compress network packets","Monitor processor speed"],correct:1},
-  {q:"Which protocol transfers web pages securely?",options:["HTTP","HTTPS","FTP","TFTP"],correct:1},
-  {q:"Which tool is widely used for web application penetration testing?",options:["Metasploit","Burp Suite","Hydra","Tcpdump"],correct:1},
-  {q:"Which attack exploits improper bounds checking in memory?",options:["Buffer Overflow","ARP Spoofing","SQL Mapping","Packet Routing"],correct:0},
-  {q:"Which malware encrypts files and demands payment?",options:["Adware","Ransomware","Spyware","Worm"],correct:1},
-  {q:"What is the primary function of a firewall?",options:["Improve graphics rendering","Filter network traffic","Increase processor frequency","Create malware samples"],correct:1},
-  {q:"Which attack uses precomputed hash tables to crack passwords?",options:["Rainbow Table Attack","Dictionary Attack","Session Hijacking","Smurf Attack"],correct:0},
-  {q:"Which Linux command changes file permissions?",options:["ls","chmod","grep","touch"],correct:1},
-  {q:"Which type of hacker performs authorized security testing?",options:["Black Hat Hacker","White Hat Hacker","Gray Hat Hacker","Script Kiddie"],correct:1},
-  {q:"What is enumeration in ethical hacking?",options:["Removing malware","Extracting detailed target information","Encrypting traffic","Replacing passwords"],correct:1},
-  {q:"Which protocol resolves domain names into IP addresses?",options:["DNS","SMTP","SSH","POP3"],correct:0},
-  {q:"Which attack floods a switch with fake MAC addresses?",options:["SQL Injection","MAC Flooding","DNSSEC","Key Escrow"],correct:1},
-  {q:"Which security practice protects data confidentiality during transmission?",options:["Fragmentation","Encryption","Debugging","Formatting"],correct:1},
-  {q:"Which attack captures user keystrokes secretly?",options:["Keylogging","Session Monitoring","Packet Routing","Port Knocking"],correct:0},
-  {q:"Which penetration testing approach provides no prior knowledge to testers?",options:["White Box Testing","Black Box Testing","Gray Box Testing","Static Analysis"],correct:1},
-  {q:"Which protocol is considered insecure for remote login?",options:["SSH","Telnet","HTTPS","IPSec"],correct:1},
-  {q:"What is the primary role of IDS systems?",options:["Create backups","Detect suspicious activities","Disable routing","Encrypt hard drives"],correct:1},
-  {q:"Which attack involves impersonating another device's IP address?",options:["IP Spoofing","SQL Injection","Session Storage","DNS Relay"],correct:0},
-  {q:"Which tool is commonly used for password brute-force attacks?",options:["Hydra","Nessus","Ettercap","OpenVAS"],correct:0},
-  {q:"Which mitigation reduces SQL Injection risks?",options:["Parameterized queries","Open ports","Plaintext passwords","Weak authentication"],correct:0},
-  {q:"What is the purpose of salting passwords?",options:["Reduce bandwidth","Make hash cracking harder","Increase packet loss","Disable hashing"],correct:1},
-  {q:"Which attack tricks users through fake login pages?",options:["Phishing","Port Scanning","DNS Caching","VLAN Trunking"],correct:0},
-  {q:"Which Metasploit component contains attack code?",options:["Exploit","Session","Payload","Listener"],correct:0},
-  {q:"Which tool scans networks for open ports?",options:["Nmap","Burp Suite","Hashcat","John the Ripper"],correct:0},
-  {q:"Which type of attack forces users offline by exhausting resources?",options:["DoS Attack","Keylogging","Enumeration","Packet Sniffing"],correct:0},
-  {q:"What is the purpose of social engineering?",options:["Manipulate people into revealing information","Improve encryption","Increase bandwidth","Secure routers"],correct:0},
-  {q:"Which protocol is used to send email messages?",options:["SMTP","FTP","DNS","SNMP"],correct:0},
-  {q:"Which attack exploits user trust in web browsers?",options:["Cross-Site Scripting","VLAN Hopping","MAC Filtering","RAID Spoofing"],correct:0},
-  {q:"Which tool is commonly used to crack password hashes?",options:["John the Ripper","Nessus","Nikto","Tcpdump"],correct:0},
-  {q:"What is the primary purpose of patch management?",options:["Fix known vulnerabilities","Increase malware persistence","Disable updates","Remove authentication"],correct:0},
-  {q:"Which malware replicates itself without attaching to files?",options:["Worm","Trojan","Rootkit","Spyware"],correct:0},
-  {q:"Which attack abuses weak session identifiers?",options:["Session Hijacking","DNS Reflection","Port Blocking","Proxy Routing"],correct:0},
-  {q:"Which protocol secures network communications using encryption?",options:["IPSec","FTP","TFTP","ARP"],correct:0},
-  {q:"What is the purpose of reconnaissance?",options:["Collect target information","Delete evidence","Disable antivirus","Modify firmware"],correct:0},
-  {q:"Which attack targets user passwords through repeated guessing?",options:["Brute-Force Attack","ARP Inspection","DNS Logging","VLAN Segmentation"],correct:0},
-  {q:"Which security principle ensures data accuracy?",options:["Availability","Integrity","Confidentiality","Redundancy"],correct:1},
-  {q:"Which attack redirects traffic to a malicious website?",options:["Session Fixation","DNS Spoofing","Port Knocking","MAC Filtering"],correct:1},
-  {q:"Which type of malware disguises itself as legitimate software?",options:["Worm","Trojan Horse","Rootkit","Spyware"],correct:1},
-  {q:"What does CVE stand for?",options:["Central Virus Engine","Common Vulnerabilities and Exposures","Cyber Validation Exchange","Critical Virtual Encryption"],correct:1},
-  {q:"Which attack captures packets traveling through a network?",options:["Session Hijacking","Packet Sniffing","Brute Force","SQL Injection"],correct:1},
-  {q:"Which security mechanism verifies user identity?",options:["Compression","Authentication","Routing","Fragmentation"],correct:1},
-  {q:"Which attack exploits unsecured wireless networks?",options:["SQL Injection","Evil Twin Attack","DNS Relay","Token Ring Spoofing"],correct:1},
-  {q:"Which protocol assigns IP addresses automatically?",options:["FTP","DHCP","SMTP","SNMP"],correct:1},
-  {q:"Which web vulnerability allows attackers to execute database commands?",options:["Cross-Site Scripting","SQL Injection","Session Replay","Packet Crafting"],correct:1},
-  {q:"Which mitigation is effective against phishing attacks?",options:["Disabling updates","User awareness training","Weak passwords","Open relays"],correct:1},
-  {q:"Which tool is commonly used for vulnerability assessment in networks?",options:["Nessus","Photoshop","VLC Media Player","Notepad"],correct:0},
-  {q:"What is the primary purpose of enumeration in penetration testing?",options:["Destroy backups","Gather detailed system information","Increase bandwidth","Disable switches"],correct:1},
-  {q:"Which attack attempts to exploit race conditions in applications?",options:["Buffer Overflow","Race Condition Attack","DNS Spoofing","ARP Poisoning"],correct:1},
-  {q:"Which security mechanism blocks unauthorized inbound traffic?",options:["Firewall","Packet Generator","Keylogger","Rootkit"],correct:0},
-  {q:"Which type of scanning sends packets to identify active hosts?",options:["Host Discovery Scanning","Session Logging","Database Mapping","RAID Mirroring"],correct:0},
-  {q:"Which attack targets cookies to impersonate authenticated users?",options:["Session Hijacking","Port Forwarding","VLAN Trunking","Packet Shaping"],correct:0},
-  {q:"What is the primary role of SIEM systems?",options:["Collect and analyze security logs","Replace routers","Create malware","Encrypt CPUs"],correct:0},
-  {q:"Which attack manipulates ARP tables to intercept traffic?",options:["SQL Injection","ARP Spoofing","Session Locking","DNSSEC"],correct:1},
-  {q:"Which tool is commonly used for password hash cracking with GPUs?",options:["Nessus","Hashcat","Tcpdump","Nikto"],correct:1},
-  {q:"Which web vulnerability forces users to execute unwanted actions?",options:["XSS","CSRF","Keylogging","Brute Force"],correct:1},
-  {q:"Which Linux file stores hashed user passwords?",options:["/etc/group","/etc/shadow","/etc/hosts","/etc/network"],correct:1},
-  {q:"What is the main purpose of penetration testing reports?",options:["Hide vulnerabilities","Document findings and recommendations","Increase malware infections","Disable logging"],correct:1},
-  {q:"Which attack abuses trust relationships between systems?",options:["DNS Reflection","Pass-the-Hash Attack","Smurf Attack","SYN Flood"],correct:1},
-  {q:"Which protocol secures email transmission using encryption?",options:["POP3","SMTPS","FTP","SNMP"],correct:1},
-  {q:"Which malware collects user activity secretly?",options:["Worm","Spyware","Adware","Ransomware"],correct:1},
-  {q:"Which attack overloads systems with TCP connection requests?",options:["SYN Flood Attack","SQL Injection","DNS Enumeration","Session Replay"],correct:0},
-  {q:"Which ethical hacking phase validates discovered vulnerabilities?",options:["Exploitation","Reconnaissance","Reporting","Enumeration"],correct:0},
-  {q:"Which attack targets weak wireless encryption standards?",options:["WEP Cracking","RAID Spoofing","MAC Binding","DNS Routing"],correct:0},
-  {q:"Which command displays active network connections in Linux?",options:["netstat","mkdir","chmod","grep"],correct:0},
-  {q:"Which mitigation helps secure web applications against XSS?",options:["Output encoding","Weak authentication","Open ports","Plaintext storage"],correct:0},
-  {q:"Which protocol securely tunnels network traffic?",options:["VPN","FTP","HTTP","TFTP"],correct:0},
-  {q:"Which attack modifies DNS responses to redirect users?",options:["DNS Spoofing","SQL Injection","Packet Filtering","Session Replay"],correct:0},
-  {q:"Which Metasploit command launches an exploit?",options:["use","exploit","search","connect"],correct:1},
-  {q:"Which attack exploits weak password complexity?",options:["Smurf Attack","Dictionary Attack","ARP Inspection","DNS Caching"],correct:1},
-  {q:"Which mitigation prevents unauthorized privilege escalation?",options:["Shared administrator accounts","Least privilege principle","Open permissions","Disabled auditing"],correct:1},
-  {q:"Which tool identifies vulnerabilities in web servers?",options:["Wireshark","Nikto","Metasploit","Aircrack-ng"],correct:1},
-  {q:"Which attack hides malicious communication within DNS traffic?",options:["SQL Injection","DNS Tunneling","Packet Shaping","Session Logging"],correct:1},
-  {q:"Which cybersecurity concept ensures systems remain operational?",options:["Confidentiality","Availability","Integrity","Authentication"],correct:1},
-  {q:"Which protocol is vulnerable due to plaintext credential transmission?",options:["HTTPS","Telnet","IPSec","SSH"],correct:1},
-  {q:"Which malware grants remote unauthorized control over systems?",options:["RAT (Remote Access Trojan)","Adware","Worm","Rootkit"],correct:0},
-  {q:"Which attack targets cached DNS information?",options:["DNS Cache Poisoning","Brute Force","Buffer Overflow","SYN Flood"],correct:0},
-  {q:"Which tool is widely used for Active Directory exploitation?",options:["BloodHound","VLC Player","WinZip","Excel"],correct:0},
-  {q:"Which attack exploits insecure deserialization processes?",options:["Insecure Deserialization Attack","Port Mirroring","VLAN Tagging","Packet Bridging"],correct:0},
-  {q:"Which mitigation improves password security significantly?",options:["Multi-factor authentication","Password reuse","Shared credentials","Disabled logging"],correct:0},
-  {q:"Which attack uses forged emails pretending to be trusted entities?",options:["Spear Phishing","Packet Filtering","RAID Spoofing","SQL Mapping"],correct:0},
-  {q:"Which protocol manages network devices remotely?",options:["SNMP","FTP","SMTP","SSH"],correct:0},
-  {q:"Which attack exploits memory corruption vulnerabilities?",options:["Heap Overflow","DNS Caching","Session Replay","Port Translation"],correct:0},
-  {q:"Which security technique isolates applications from the operating system?",options:["Sandboxing","Packet Injection","Open Authentication","Port Knocking"],correct:0},
-  {q:"Which attack abuses Kerberos authentication tickets?",options:["Golden Ticket Attack","SQL Injection","DNS Reflection","SYN Flood"],correct:0},
-  {q:"Which tool automates exploitation tasks in penetration testing?",options:["Metasploit Framework","Microsoft Word","Calculator","File Explorer"],correct:0},
-  {q:"Which attack captures login credentials over unsecured networks?",options:["Packet Sniffing","RAID Mirroring","DNSSEC","VLAN Isolation"],correct:0},
-  {q:"Which mitigation reduces the impact of ransomware attacks?",options:["Regular backups","Disabled updates","Open SMB shares","Weak passwords"],correct:0},
-  {q:"Which attack floods ICMP echo requests to overwhelm targets?",options:["Smurf Attack","SQL Injection","Session Hijacking","Port Redirection"],correct:0},
-  {q:"Which protocol is commonly used for secure file transfer?",options:["SFTP","FTP","TFTP","Telnet"],correct:0},
-  {q:"Which type of assessment evaluates wireless network security?",options:["Wireless Penetration Testing","Database Normalization","RAID Testing","Traffic Shaping"],correct:0},
-  {q:"Which attack uses malicious macros in documents?",options:["Macro Malware Attack","DNS Routing","Session Enumeration","VLAN Bridging"],correct:0},
-  {q:"Which mitigation protects against command injection attacks?",options:["Input validation","Shared credentials","Open shells","Plaintext storage"],correct:0},
-  {q:"Which attack abuses SMB vulnerabilities for lateral movement?",options:["EternalBlue Exploit","SQL Mapping","DNS Reflection","Session Logging"],correct:0},
-  {q:"Which security process identifies assets and vulnerabilities?",options:["Risk Assessment","Port Flooding","Packet Crafting","Session Replay"],correct:0},
-  {q:"Which attack steals browser session tokens?",options:["Cookie Hijacking","RAID Spoofing","DNS Routing","VLAN Hopping"],correct:0},
-  {q:"Which protocol secures remote command execution?",options:["FTP","SSH","HTTP","ARP"],correct:1},
-  {q:"Which attack exploits users through fraudulent phone calls?",options:["Keylogging","Vishing","Packet Sniffing","SQL Injection"],correct:1},
-  {q:"Which mitigation technique hides internal IP addresses?",options:["DNSSEC","Network Address Translation (NAT)","Packet Injection","Port Scanning"],correct:1},
-  {q:"Which attack abuses trust in browser cookies?",options:["SQL Injection","Session Fixation","SYN Flood","Smurf Attack"],correct:1},
-  {q:"Which tool performs automated web vulnerability scanning?",options:["Tcpdump","OWASP ZAP","Wireshark","Aircrack-ng"],correct:1},
-  {q:"Which malware creates backdoors into infected systems?",options:["Adware","Trojan Horse","Firewall","VPN"],correct:1},
-  {q:"Which mitigation protects against brute-force attacks?",options:["Open authentication","CAPTCHA implementation","Weak passwords","Shared credentials"],correct:1},
-  {q:"Which attack manipulates users through psychological deception?",options:["Buffer Overflow","Social Engineering","Port Mirroring","DNS Reflection"],correct:1},
-  {q:"Which protocol is responsible for translating IP addresses into MAC addresses?",options:["DHCP","ARP","SMTP","FTP"],correct:1},
-  {q:"Which attack abuses weak SMB authentication mechanisms?",options:["Smurf Attack","Pass-the-Hash Attack","SQL Injection","Session Replay"],correct:1},
-  {q:"Which attack exploits improperly sanitized operating system commands?",options:["Command Injection","VLAN Hopping","Packet Bridging","DNS Reflection"],correct:0},
-  {q:"Which mitigation reduces the success of phishing campaigns?",options:["Weak authentication","Security awareness training","Open relays","Shared passwords"],correct:1},
-  {q:"Which tool is commonly used for SQL Injection testing?",options:["Wireshark","SQLmap","Aircrack-ng","Tcpdump"],correct:1},
-  {q:"Which attack exploits weak trust relationships in Active Directory?",options:["Buffer Overflow","Kerberoasting","Port Scanning","Session Locking"],correct:1},
-  {q:"Which protocol is commonly targeted during SNMP enumeration?",options:["HTTP","SNMP","FTP","SMTP"],correct:1},
-  {q:"Which attack forces a user to remain logged into a compromised session?",options:["DNS Poisoning","Session Fixation","SYN Flood","Smurf Attack"],correct:1},
-  {q:"Which mitigation technique reduces privilege escalation risks?",options:["Open permissions","Role-Based Access Control (RBAC)","Disabled auditing","Shared admin accounts"],correct:1},
-  {q:"Which attack abuses insecure file upload functionality?",options:["Port Mirroring","Web Shell Upload Attack","Packet Injection","VLAN Tagging"],correct:1},
-  {q:"Which malware type modifies system boot processes?",options:["Worm","Bootkit","Adware","Spyware"],correct:1},
-  {q:"Which attack floods DNS servers with spoofed requests?",options:["SQL Injection","DNS Amplification Attack","Session Replay","Buffer Overflow"],correct:1},
-  {q:"Which tool is commonly used to analyze malware behavior safely?",options:["Sandbox Environment","DHCP Server","FTP Client","Switch Port Analyzer"],correct:0},
-  {q:"Which attack targets application memory allocation areas?",options:["Heap Spraying","Packet Routing","DNS Logging","Session Mapping"],correct:0},
-  {q:"Which mitigation prevents unauthorized USB device usage?",options:["Device Control Policies","Shared accounts","Open ports","Weak encryption"],correct:0},
-  {q:"Which attack abuses hidden malicious iframe elements?",options:["Clickjacking","VLAN Bridging","ARP Inspection","RAID Spoofing"],correct:0},
-  {q:"Which protocol securely encrypts web communications?",options:["TLS","FTP","Telnet","TFTP"],correct:0},
-  {q:"Which attack uses fake wireless access points to steal credentials?",options:["Evil Twin Attack","SQL Injection","Buffer Overflow","SYN Flood"],correct:0},
-  {q:"Which mitigation helps secure APIs from abuse?",options:["Rate limiting","Shared credentials","Weak authentication","Disabled logging"],correct:0},
-  {q:"Which attack abuses trust in downloadable software updates?",options:["Supply Chain Attack","Packet Sniffing","DNS Routing","Port Translation"],correct:0},
-  {q:"Which protocol is commonly used for centralized authentication?",options:["Kerberos","FTP","HTTP","POP3"],correct:0},
-  {q:"Which attack exploits vulnerable browser plugins?",options:["Drive-By Download Attack","SQL Injection","DNS Reflection","Session Replay"],correct:0},
-  {q:"Which security measure isolates sensitive internal systems?",options:["Network Segmentation","Open routing","Shared VLANs","Disabled firewalls"],correct:0},
-  {q:"Which attack attempts to exhaust DHCP address pools?",options:["DHCP Starvation Attack","Buffer Overflow","SQL Injection","Packet Filtering"],correct:0},
-  {q:"Which tool is commonly used for Linux privilege escalation auditing?",options:["LinPEAS","Burp Suite","Nikto","Aircrack-ng"],correct:0},
-  {q:"Which attack exploits insecure authentication tokens?",options:["Token Hijacking","VLAN Trunking","Packet Mirroring","DNSSEC"],correct:0},
-  {q:"Which mitigation secures sensitive stored passwords?",options:["Password hashing","Plaintext storage","Shared accounts","Open authentication"],correct:0},
-  {q:"Which attack abuses insecure cloud storage permissions?",options:["Cloud Bucket Exposure","DNS Reflection","Session Mapping","Port Bridging"],correct:0},
-  {q:"Which protocol provides secure VPN tunneling?",options:["OpenVPN","HTTP","FTP","ARP"],correct:0},
-  {q:"Which attack manipulates browser trust relationships?",options:["Cross-Site Request Forgery","Packet Routing","DNS Caching","Port Enumeration"],correct:0},
-  {q:"Which mitigation improves endpoint security?",options:["Endpoint Detection and Response (EDR)","Disabled updates","Weak passwords","Shared credentials"],correct:0},
-  {q:"Which attack targets unsecured Redis databases?",options:["Redis Exploitation Attack","VLAN Spoofing","RAID Mirroring","Session Replay"],correct:0},
-  {q:"Which attack abuses trust in browser extensions?",options:["SQL Injection","Malicious Extension Attack","SYN Flood","DNS Routing"],correct:1},
-  {q:"Which tool is widely used for memory forensics?",options:["Hydra","Volatility Framework","Nmap","Tcpdump"],correct:1},
-  {q:"Which mitigation protects against DNS spoofing attacks?",options:["Packet flooding","DNSSEC implementation","Shared DNS caches","Weak encryption"],correct:1},
-  {q:"Which attack abuses weak NTLM authentication?",options:["Smurf Attack","NTLM Relay Attack","Packet Bridging","Session Enumeration"],correct:1},
-  {q:"Which protocol secures email retrieval communications?",options:["FTP","IMAPS","SNMP","HTTP"],correct:1},
-  {q:"Which attack hides malware inside legitimate applications?",options:["SYN Flood","Trojanized Software Attack","DNS Reflection","Port Translation"],correct:1},
-  {q:"Which mitigation improves wireless network security?",options:["WEP encryption","WPA3 encryption","Open SSIDs","Shared passwords"],correct:1},
-  {q:"Which attack exploits vulnerable IoT devices at scale?",options:["VLAN Hopping","Botnet Attack","RAID Spoofing","Session Replay"],correct:1},
-  {q:"Which tool performs subdomain enumeration?",options:["Nikto","Sublist3r","Wireshark","Ettercap"],correct:1},
-  {q:"Which attack abuses weak browser security policies?",options:["Packet Injection","Cross-Origin Attack","DNS Logging","Port Routing"],correct:1},
-  {q:"Which mitigation helps defend against DDoS attacks?",options:["Traffic filtering and rate limiting","Shared accounts","Disabled firewalls","Weak passwords"],correct:0},
-  {q:"Which attack abuses XML parsers to access internal resources?",options:["XXE Attack","DNS Reflection","Buffer Overflow","SYN Flood"],correct:0},
-  {q:"Which tool is commonly used for Windows privilege escalation checks?",options:["WinPEAS","Burp Suite","Tcpdump","Nikto"],correct:0},
-  {q:"Which attack abuses weak password reset functionality?",options:["Password Reset Poisoning","VLAN Trunking","Session Replay","Packet Mirroring"],correct:0},
-  {q:"Which protocol is commonly used in directory services?",options:["LDAP","FTP","HTTP","SNMP"],correct:0},
-  {q:"Which attack manipulates software dependencies with malicious code?",options:["Dependency Confusion Attack","DNS Caching","RAID Mirroring","Port Scanning"],correct:0},
-  {q:"Which mitigation improves application authentication security?",options:["Strong password policies","Shared accounts","Open access","Disabled logging"],correct:0},
-  {q:"Which attack targets server-side template engines?",options:["SSTI Attack","Packet Bridging","VLAN Hopping","DNS Routing"],correct:0},
-  {q:"Which tool analyzes SSL/TLS configurations?",options:["SSLyze","Wireshark","Aircrack-ng","Hydra"],correct:0},
-  {q:"Which attack abuses browser caching weaknesses?",options:["Web Cache Poisoning","SQL Injection","Buffer Overflow","Session Enumeration"],correct:0},
-  {q:"Which mitigation secures sensitive communications channels?",options:["Encryption","Open authentication","Shared passwords","Plaintext storage"],correct:0},
-  {q:"Which attack manipulates OAuth authentication flows?",options:["OAuth Token Theft","Packet Sniffing","VLAN Bridging","Port Translation"],correct:0},
-  {q:"Which protocol supports secure shell tunneling?",options:["SSH","HTTP","FTP","TFTP"],correct:0},
-  {q:"Which attack abuses weak Docker container isolation?",options:["Container Escape Attack","DNS Reflection","SYN Flood","RAID Spoofing"],correct:0},
-  {q:"Which mitigation improves audit visibility in enterprise systems?",options:["Centralized logging","Shared credentials","Weak policies","Disabled monitoring"],correct:0},
-  {q:"Which attack exploits race conditions in file operations?",options:["TOCTOU Attack","Port Scanning","SQL Mapping","Session Replay"],correct:0},
-  {q:"Which tool automates password spraying attacks?",options:["CrackMapExec","Nikto","Wireshark","Burp Suite"],correct:0},
-  {q:"Which attack abuses unpatched VPN appliances?",options:["VPN Exploitation Attack","DNS Logging","Packet Routing","VLAN Bridging"],correct:0},
-  {q:"Which mitigation protects against insider threats?",options:["User activity monitoring","Shared admin accounts","Disabled auditing","Weak policies"],correct:0},
-  {q:"Which attack exploits insecure Kubernetes configurations?",options:["Kubernetes Cluster Attack","SQL Injection","SYN Flood","DNS Reflection"],correct:0},
-  {q:"Which tool performs Active Directory reconnaissance?",options:["BloodHound","Tcpdump","Nikto","Hydra"],correct:0},
-  {q:"Which attack abuses browser autofill functionality?",options:["Autofill Credential Theft","VLAN Tagging","Packet Bridging","Session Enumeration"],correct:0},
-  {q:"Which mitigation reduces attack surfaces in networks?",options:["Service hardening","Open ports","Shared credentials","Disabled firewalls"],correct:0},
-  {q:"Which attack abuses JWT token weaknesses?",options:["JWT Forgery Attack","DNS Reflection","RAID Spoofing","SYN Flood"],correct:0},
-  {q:"Which protocol provides encrypted remote desktop access?",options:["RDP with TLS","Telnet","FTP","HTTP"],correct:0},
-  {q:"Which attack abuses software update mechanisms?",options:["Malicious Update Attack","Port Translation","Packet Injection","VLAN Hopping"],correct:0},
-  {q:"Which mitigation secures privileged accounts?",options:["Privileged Access Management (PAM)","Shared admin accounts","Weak passwords","Disabled MFA"],correct:0},
-  {q:"Which attack abuses browser password managers?",options:["Credential Extraction Attack","SQL Injection","DNS Routing","Session Replay"],correct:0},
-  {q:"Which tool is used for network mapping and discovery?",options:["Nmap","Excel","Photoshop","VLC Player"],correct:0},
-  {q:"Which attack abuses insecure API authentication?",options:["API Token Abuse","RAID Mirroring","DNS Reflection","Packet Bridging"],correct:0},
-  {q:"What is the primary goal of ethical hacking?",options:["Destroy systems and erase logs","Create malware for testing","Identify vulnerabilities before malicious attackers exploit them","Disable network services permanently"],correct:2},
-  {q:"Which phase of ethical hacking involves collecting information about the target?",options:["Exploitation","Privilege escalation","Reconnaissance","Covering tracks"],correct:2},
-  {q:"What is the main purpose of vulnerability assessment tools?",options:["Encrypt network traffic","Improve hardware performance","Detect security weaknesses in systems","Generate phishing emails"],correct:2},
-  {q:"Which protocol is commonly targeted in password brute-force attacks?",options:["ICMP","ARP","SSH","DNSSEC"],correct:2},
-  {q:"What does the principle of least privilege help prevent?",options:["Data compression issues","Hardware failure","Unauthorized access escalation","Internet downtime"],correct:2},
-  {q:"Which type of attack injects malicious scripts into web pages viewed by users?",options:["SQL Injection","Session Hijacking","Cross-Site Scripting (XSS)","Port Scanning"],correct:2},
-  {q:"Which Metasploit component is used to deliver malicious payloads?",options:["Auxiliary","Encoder","Payload","Exploit Database"],correct:2},
-  {q:"What is the primary purpose of a firewall?",options:["Increase processor speed","Monitor CPU temperature","Encrypt passwords","Filter and control network traffic"],correct:3},
-  {q:"Which attack attempts to overwhelm a server with excessive requests?",options:["Sniffing","Spoofing","Enumeration","Distributed Denial-of-Service (DDoS)"],correct:3},
-  {q:"Which technique is commonly used to crack hashed passwords?",options:["Tokenization","Sandboxing","Digital signing","Rainbow table attack"],correct:3},
-  {q:"What does SQL Injection primarily target?",options:["Operating system kernel","Network cables","BIOS firmware","Database queries"],correct:3},
-  {q:"Which tool is widely used for wireless network penetration testing?",options:["Burp Suite","Wireshark","John the Ripper","Aircrack-ng"],correct:3},
-  {q:"Which mitigation technique helps prevent brute-force login attacks?",options:["Open ports","Plaintext passwords","Weak encryption","Account lockout policies"],correct:3},
-  {q:"In cybersecurity, what does privilege escalation allow an attacker to gain?",options:["Reduced bandwidth","Slower execution","Antivirus updates","Higher-level system permissions"],correct:3},
-  {q:"Which attack tricks users into revealing confidential information through fake websites or emails?",options:["Session management","Load balancing","Encryption","Phishing"],correct:3},
-  {q:"Which tool is commonly used to scan open ports and services on a target machine?",options:["Photoshop","Excel","VMware","Nmap"],correct:3},
-  {q:"What is the purpose of penetration testing?",options:["To permanently damage systems","To reduce storage capacity","To block legitimate users","To evaluate security by simulating attacks"],correct:3},
-  {q:"Which attack exploits vulnerabilities caused by improper input validation in web applications?",options:["VPN tunneling","RAID failure","MAC filtering","Command Injection"],correct:3},
-  {q:"What is the main function of Wireshark?",options:["Develop malware","Destroy packets","Encrypt databases","Capture and analyze network traffic"],correct:3},
-  {q:"Which type of malware secretly records user keystrokes?",options:["Trojan horse","Worm","Ransomware","Keylogger"],correct:3},
-  {q:"Which cybersecurity concept ensures that data is accessible only to authorized users?",options:["Confidentiality","Integrity","Availability","Redundancy"],correct:0},
-  {q:"What is the primary purpose of multi-factor authentication (MFA)?",options:["Add additional layers of identity verification","Disable antivirus software","Increase ping time","Reduce encryption strength"],correct:0},
-  {q:"Which attack involves intercepting communication between two parties without their knowledge?",options:["Man-in-the-Middle (MITM) attack","Brute-force attack","DNS caching","Port forwarding"],correct:0},
-  {q:"Which tool is commonly used for web application security testing?",options:["Burp Suite","VLC Media Player","FileZilla","WinRAR"],correct:0},
-  {q:"What does ransomware typically do?",options:["Encrypt files and demand payment","Improve network speed","Compress operating systems","Monitor CPU usage"],correct:0},
-  {q:"Which Linux command is commonly used to change file permissions?",options:["chmod","mkdir","ping","route"],correct:0},
-  {q:"Which type of hacker is authorized to test and secure systems?",options:["White Hat Hacker","Black Hat Hacker","Script Kiddie","Insider Threat"],correct:0},
-  {q:"What is social engineering in cybersecurity?",options:["Manipulating people to reveal sensitive information","Encrypting cloud databases","Repairing network switches","Updating system BIOS"],correct:0},
-  {q:"Which attack targets a web application's database through malicious SQL statements?",options:["SQL Injection","DNS Poisoning","Packet Sniffing","ARP Broadcasting"],correct:0},
-  {q:"Which security practice helps protect data during transmission?",options:["Encryption","Fragmentation","Defragmentation","Debugging"],correct:0},
-  {q:"Which tool is commonly used for password cracking and recovery?",options:["Metasploit","John the Ripper","Docker","Kubernetes"],correct:1},
-  {q:"What is the best mitigation against Cross-Site Scripting (XSS) attacks?",options:["Disable routers","Input validation and output encoding","Increase screen brightness","Use outdated browsers"],correct:1},
-  {q:"Which protocol provides secure remote communication over a network?",options:["FTP","SSH","Telnet","HTTP"],correct:1},
-  {q:"Which type of malware replicates itself without user interaction?",options:["Trojan","Worm","Spyware","Adware"],correct:1},
-  {q:"Which attack attempts every possible password combination until the correct one is found?",options:["Dictionary attack","Brute-force attack","Session fixation","DNS tunneling"],correct:1},
-  {q:"What is the purpose of patch management?",options:["Remove all firewalls","Apply updates to fix security vulnerabilities","Increase malware infections","Disable system logs"],correct:1},
-  {q:"Which security tool helps detect and prevent unauthorized network access in real time?",options:["Compiler","Intrusion Detection System (IDS)","Spreadsheet software","Video editor"],correct:1},
-  {q:"Which attack redirects users from legitimate websites to fraudulent ones?",options:["Port scanning","DNS Spoofing","VLAN tagging","Traffic shaping"],correct:1},
-  {q:"What does CVE stand for in cybersecurity?",options:["Critical Virus Encryption","Common Vulnerabilities and Exposures","Central Verification Engine","Cyber Validation Exchange"],correct:1},
-  {q:"Which penetration testing methodology focuses on exploiting human behavior?",options:["Network scanning","Social engineering","Firmware analysis","Binary compilation"],correct:1},
+const QUESTIONS_DATABASE = [
+  // --- LECTURE 1 ---
+  {n:1,s:"L1",type:"tf",q:"Communication is the lifeline of society and social organizations.",opts:["True","False"],ans:0,exp:"According to Slide 2 of Lecture 1, communication is the vital process that sustains both human society and business/social organizations."},
+  {n:2,s:"L1",type:"tf",q:"An organization can hardly be conceived without communication.",opts:["True","False"],ans:0,exp:"Communication is what links individuals, machinery, and management together; without it, cohesive organization is impossible."},
+  {n:3,s:"L1",type:"tf",q:"In the absence of one of the most essential gradients like communication, an organization would turn into a mere assembly of unrelated and organized individuals, materials and machines and tools, which neither makes any sense nor, in fact, any kind of organization.",opts:["True","False"],ans:0,exp:"The lack of communication breaks structural relationships, turning a structured group into a meaningless assembly of unrelated elements."},
+  {n:4,s:"L1",type:"tf",q:"Prevalence of unperturbed and meaningful communication system, which is called ineffective communication.",opts:["True","False"],ans:1,exp:"Correction: A meaningful, unperturbed, and stable communication system is referred to as EFFECTIVE communication, not ineffective."},
+  {n:5,s:"L1",type:"tf",q:"The study of communication in management education and operation of an organization has been quite unavoidable.",opts:["True","False"],ans:0,exp:"Modern management operations absolutely depend on communication, making its study essential and unavoidable."},
+  {n:6,s:"L1",type:"tf",q:"Regular training and refreshment is always provided to people in an organization to maintain Effective Communication.",opts:["True","False"],ans:0,exp:"Organizations conduct recurring training seminars and refreshers to prevent degradation of their communication standards."},
+  {n:7,s:"L1",type:"tf",q:"Man used to communicate with his fellow beings by means of sounds, signals, gestures when there was no language developed.",opts:["True","False"],ans:0,exp:"Historically, nonverbal channels like basic sounds, signal fires, and natural gestures predated structured verbal systems."},
+  {n:8,s:"L1",type:"tf",q:"The word communication has been derived from the Latin word 'communis', meaning to share. It basically involves a sender, a message and a receiver.",opts:["True","False"],ans:0,exp:"Communication is lexically rooted in 'communis' (common / to share). The process core contains the Sender, Message, and Receiver."},
+  {n:9,s:"L1",type:"tf",q:"Communication is usually a two-way process.",opts:["True","False"],ans:0,exp:"It is not merely a transmission; it includes transmission, receiving, understanding, and feedback from the recipient."},
+  {n:10,s:"L1",type:"tf",q:"Communication, therefore, involves more than one person.",opts:["True","False"],ans:0,exp:"Because it relies on sharing information between a sender and at least one receiver, it requires multiple participants."},
+  {n:11,s:"L1",type:"tf",q:"Minus communication, human society could have been as it is today.",opts:["True","False"],ans:1,exp:"Correction: Without the capacity to communicate, complex human cultures, rules, technologies, and societies could never have evolved."},
+  {n:12,s:"L1",type:"mc",q:"Communication is the lifeline of society and __________ organizations.",opts:["a. business","b. social"],ans:1,exp:"While communication is critical to business, the general text sentence defines it as 'the lifeline of society and social organizations'."},
+  {n:13,s:"L1",type:"mc",q:"An organization can hardly be conceived _________.",opts:["a. Without communication","b. with communication"],ans:0,exp:"No coordinated operations can exist without constant transmission of tasks, requirements, and responses."},
+  {n:14,s:"L1",type:"mc",q:"In the absence of one of the most essential gradients like communication, an organization would turn into a mere assembly of __________ and unorganized individuals, materials and machines and tools, which neither makes any sense nor, in fact, any kind of organization.",opts:["a. related","b. unrelated"],ans:1,exp:"Without structural connections formed through messaging, components are entirely unrelated."},
+  {n:15,s:"L1",type:"mc",q:"Prevalence of unperturbed and meaningful communication system, which is called __________ communication.",opts:["a. effective","b. ineffective"],ans:0,exp:"A healthy, uninterrupted, and accurately comprehended message delivery cycle is the definition of effective communication."},
+  {n:16,s:"L1",type:"mc",q:"The study of communication in management education and operation of an organization has been quite __________.",opts:["a. unavoidable","b. avoidable"],ans:0,exp:"Management relies directly on organizing and leading, both of which are rooted entirely in communication, making its study crucial."},
+  {n:17,s:"L1",type:"mc",q:"Regular training and refreshment is always provided to people in an organization to maintain __________ Communication.",opts:["a. effective","b. ineffective"],ans:0,exp:"Regular sessions ensure workers maintain high efficiency, accuracy, and professional standards in their interactions."},
+  {n:18,s:"L1",type:"mc",q:"Regular training and refreshment is always provided to people in an organization to __________ Effective Communication.",opts:["a. increase","b. maintain"],ans:1,exp:"The explicit primary objective stated in your curriculum slides is to 'maintain' established standards of Effective Communication."},
+  {n:19,s:"L1",type:"tf",q:"The word communication has been derived from the Latin word 'communis', meaning to share. It basically involves a sender, a message and a receiver. (Re-evaluation Question)",opts:["True","False"],ans:0,exp:"This is a duplicate test point re-confirming the fundamental Latin origin and the primary structure of information exchanges."},
+  {n:20,s:"L1",type:"mc",q:"The word communication has been derived from the Latin word 'communis', meaning to share. It basically involves __________.",opts:["a. a sender, a message and a receiver","b. a sender, a message only"],ans:0,exp:"Without a receiver, there is no sharing, making the entire cycle incomplete and failing the Latin concept of 'communis'."},
+  {n:21,s:"L1",type:"mc",q:"Communication, therefore, involves __________.",opts:["a. one person","b. more than one person"],ans:1,exp:"Sharing is inherently a social act that requires a minimum of a sending entity and a receiving partner."},
+  {n:22,s:"L1",type:"mc",q:"Communication is the activity of conveying __________.",opts:["a. information","b. data","c. Characters"],ans:0,exp:"Communication is defined as conveying contextual, meaningful 'information' rather than raw characters or unanalyzed symbols."},
+  {n:23,s:"L1",type:"mc",q:"Communication is usually a (one / two / multi) way process. It is not just giving information or signaling someone; it also involves the (composition / comprehension / completion) of the information or the signal by the receiver.",opts:["a. two / comprehension","b. multi / composition","c. one / completion"],ans:0,exp:"It is a two-way process that is finished when the receiver exhibits successful 'comprehension' of the transmitted concept."},
+  {n:24,s:"L1",type:"sa",q:"What is Communication?",ans:"Communication is a dynamic, usually two-way process derived from the Latin word 'communis' (meaning to share). It involves more than one person—specifically a sender, a message, and a receiver—and consists of conveying information, ideas, or signals in a way that ensures mutual understanding and comprehension by the receiving party.",exp:"This is a key open-ended definition. Memorize terms: Latin 'communis', 2-way process, sender-message-receiver, mutual understanding."},
+
+  // --- LECTURES 2 & 3 ---
+  {n:25,s:"L23",type:"tf",q:"Communication is the act of conveying intended meaning from one entity or group to another through the use of mutually understood signs or semiotic rules.",opts:["True","False"],ans:0,exp:"Conveying intended meaning using mutually understood signs is a comprehensive, scientific description of communication."},
+  {n:26,s:"L23",type:"tf",q:"Communication is a composite of information given and received.",opts:["True","False"],ans:0,exp:"It represents a dual-directional interaction involving both transmission and acceptance."},
+  {n:27,s:"L23",type:"tf",q:"Communication is a composite of a listening effort by some involved.",opts:["True","False"],ans:1,exp:"Correction: True communication requires an active listening commitment from ALL parties involved, not just some."},
+  {n:28,s:"L23",type:"tf",q:"Communication is a composite a sympathetic fresh examination of issues by communicator himself.",opts:["True","False"],ans:0,exp:"An effective communicator must continually re-examine and adapt their own viewpoints and approaches dynamically."},
+  {n:29,s:"L23",type:"tf",q:"Communication is a composite a sensitive interaction of points of view leading to a higher level of shared understanding and common intention.",opts:["True","False"],ans:0,exp:"Successful communication elevates collaborative environments by fostering consensus and cooperative alignment."},
+  {n:30,s:"L23",type:"tf",q:"Communication is a composite a sensitive interaction of points of view leading to a lower level of shared understanding and common intention.",opts:["True","False"],ans:1,exp:"Correction: True communication aims to elevate mutual consensus to a higher, more cohesive operational standard."},
+  {n:31,s:"L23",type:"tf",q:"Communication is a composite a sensitive interaction of points of view leading to a higher level of shared understanding and different intention.",opts:["True","False"],ans:1,exp:"Correction: Successful resolution aligns stakeholders toward a 'common' cooperative goal or intention."},
+  {n:32,s:"L23",type:"tf",q:"Communication is the intercourse by words, letters or messages.",opts:["True","False"],ans:0,exp:"This is a direct classical definition of interpersonal transactional exchanges."},
+  {n:33,s:"L23",type:"tf",q:"Communication is the process of passing information and understanding from one person to another.",opts:["True","False"],ans:0,exp:"Passing both factual material and cognitive understanding is essential to perfect communication."},
+  {n:34,s:"L23",type:"tf",q:"It is communication that binds people and society together. It is considered as a natural process.",opts:["True","False"],ans:0,exp:"Human communities rely on natural communication habits to preserve order, form bonds, and construct civilizations."},
+  {n:35,s:"L23",type:"tf",q:"Society moves on human interactions and exchange of ideas, thoughts only.",opts:["True","False"],ans:1,exp:"Correction: Human communities also depend profoundly on the sharing of personal 'feelings' and subjective moods."},
+  {n:36,s:"L23",type:"tf",q:"Relationship builds up through communication.",opts:["True","False"],ans:0,exp:"Shared experiences, trust, and structural ties rely directly on clear and transparent dialogue."},
+  {n:37,s:"L23",type:"tf",q:"Lack of communication among the people in society will severely unaffected social cohesion and cohabitation.",opts:["True","False"],ans:1,exp:"Correction: A severe breakdown in dialogue profoundly details and HARMS social cohesion and communal cohabitation."},
+  {n:38,s:"L23",type:"tf",q:"Progress and prosperity will come to a standstill if there is effective communication.",opts:["True","False"],ans:1,exp:"Correction: Progress stops when systems fail due to INEFFECTIVE exchanges; healthy channels drive growth and coordination."},
+  {n:39,s:"L23",type:"tf",q:"Communication is a factor of building and maintaining bad relations. It enables people to understand each other.",opts:["True","False"],ans:1,exp:"Correction: Communication is designed to create, sustain, and develop positive, constructive ('good') human relationships."},
+  {n:40,s:"L23",type:"tf",q:"Communication is as important and meaningful in individual life as in the society. Individuals make friends, builds up relationship and lead a true social life through communicating effectively with the fellow beings.",opts:["True","False"],ans:0,exp:"Healthy self-expression and clear sharing are fundamental cornerstones of satisfying, functional individual and social lives."},
+  {n:41,s:"L23",type:"tf",q:"Communication is needed to establish and disseminate the goals of a political organization.",opts:["True","False"],ans:0,exp:"Propagating foundational principles, manifestos, and platform directives is heavily communication-dependent."},
+  {n:42,s:"L23",type:"tf",q:"Communication helps the organization in arriving at vital decisions.",opts:["True","False"],ans:0,exp:"Informed options and optimal pathways cannot be safely assessed without reliable information channels."},
+  {n:43,s:"L23",type:"tf",q:"Communication helps a lot in planning and coordination.",opts:["True","False"],ans:0,exp:"Aligning separate schedules, resource lists, and workgroups requires flawless organizational feedback."},
+  {n:44,s:"L23",type:"tf",q:"Communication it is a basic tool for motivation and an increase in the morale of the employees largely depend upon the effectiveness of communication.",opts:["True","False"],ans:0,exp:"Clear encouragement, transparency, and explicit rewards are the basic building blocks of labor motivation."},
+  {n:45,s:"L23",type:"tf",q:"Communication helps a business as means of bringing about minimum production at the lowest level by maintaining good human relationship in the organization.",opts:["True","False"],ans:1,exp:"Correction: Effective collaboration drives toward maximum production and optimized output while cutting resource waste."},
+  {n:46,s:"L23",type:"tf",q:"Communication works as an effective link between branches of the organization situated at great distances.",opts:["True","False"],ans:0,exp:"In our global era, modern remote operations survive entirely on telecommunications and network loops."},
+  {n:47,s:"L23",type:"tf",q:"Communication helps in publicizing goods and services.",opts:["True","False"],ans:0,exp:"Marketing and branding are essentially communications designed to match product benefits with target audience needs."},
+  {n:48,s:"L23",type:"tf",q:"Communication not reduces rumors and ensures smooth running of the organization as a whole.",opts:["True","False"],ans:1,exp:"Correction: Trustworthy and official communication channels successfully REDUCE hazardous workplace rumors."},
+  {n:49,s:"L23",type:"tf",q:"Interpersonal skills refer to the disability to communicate or interact well with other people.",opts:["True","False"],ans:1,exp:"Correction: Interpersonal skills are defined as the precise ABILITY to converse and collaborate with colleagues fluidly."},
+  {n:50,s:"L23",type:"tf",q:"In business lexicon, skills means the set of abilities enabling a person to interact positively and work effectively with others.",opts:["True","False"],ans:0,exp:"This is a direct, precise business definition of soft skills and personal resourcefulness."},
+  {n:51,s:"L23",type:"tf",q:"Interpersonal communication skills are unnecessary prerequisites for enhancing productivity and continuity of the workforce within an organization.",opts:["True","False"],ans:1,exp:"Correction: Highly developed collaborative competence is an absolute NECESSITY for maintaining commercial productivity."},
+  {n:52,s:"L23",type:"tf",q:"Employees with good interpersonal skills are likely to be more productive and permanent than those with poor interpersonal skills.",opts:["True","False"],ans:0,exp:"Socially competent workers solve friction constructively, reducing corporate turnover and boosting workflow metrics."},
+  {n:53,s:"L23",type:"mc",q:"Communications refers to a set of techniques used for expressing ideas __________ and the technology of transmission of information by print or telecommunication media.",opts:["a. effectively","b. ineffectively"],ans:0,exp:"The science of communication focuses specifically on maximizing clarity to express thoughts effectively."},
+  {n:54,s:"L23",type:"mc",q:"Communication is the act of conveying intended meaning from one entity or group to another through the use of __________.",opts:["a. mutually understood signs or semiotic rules","b. mutually understood signs"],ans:0,exp:"This contains the complete linguistic criteria, incorporating both base symbols (signs) and syntax guidelines (semiotics)."},
+  {n:55,s:"L23",type:"mc",q:"Communication is a composite of information __________.",opts:["a. given and received","b. given only"],ans:0,exp:"A simple transmit without verification is only broadcasting; communication requires a reception component."},
+  {n:56,s:"L23",type:"mc",q:"Communication is a composite of a listening effort by __________.",opts:["a. some","b. all involved"],ans:1,exp:"Total consensus cannot be built if key parties neglect listening responsibilities during negotiation cycles."},
+  {n:57,s:"L23",type:"mc",q:"Communication is a composite a sympathetic fresh examination of issues by communicator __________.",opts:["a. himself","b. other"],ans:0,exp:"It demands internal self-evaluation from the communicator to align messaging with situational needs."},
+  {n:58,s:"L23",type:"mc",q:"Communication is a composite a sensitive interaction of points of view leading to _________ level of shared understanding and _________ intention.",opts:["a. a higher / common","b. a lower / different"],ans:0,exp:"Dialogue aims to refine separate stances into a higher plane of understanding with a unified objective."},
+  {n:59,s:"L23",type:"mc",q:"Communication is the intercourse by __________.",opts:["a. words, letters or messages","b. words, letters only"],ans:0,exp:"This definition includes direct spoken channels, physical/digital writing, and systemic signals/messages."},
+  {n:60,s:"L23",type:"mc",q:"It is communication that binds people and society together. It is considered as a __________ process.",opts:["a. natural","b. unnatural"],ans:0,exp:"Linguistic structures and cooperative work are natural, instinctive outcomes of human development."},
+  {n:61,s:"L23",type:"mc",q:"Society moves on:",opts:["a. Human interactions.","b. Exchange of ideas.","c. Thoughts, and feelings.","d. All the above."],ans:3,exp:"All these factors collectively sustain social dynamics and drive communities forward."},
+  {n:62,s:"L23",type:"mc",q:"Progress and prosperity will come to a standstill if there is __________ communication.",opts:["a. effective","b. ineffective"],ans:1,exp:"Without clear communication channels, businesses, infrastructure, and societies fall into chaos."},
+  {n:63,s:"L23",type:"mc",q:"Communication is a factor of building and maintaining __________ relations. It enables people to understand each other.",opts:["a. bad","b. good"],ans:1,exp:"The fundamental purpose of communication is to build and maintain constructive, cooperative relations."},
+  {n:64,s:"L23",type:"mc",q:"Communication is as important and meaningful in individual life as in the society. Individuals make friends, builds up relationship and lead a __________ social life through communicating effectively with the fellow beings.",opts:["a. True","b. Bad"],ans:0,exp:"Effective communication allows individuals to build genuine relationships and live a true, healthy social life."},
+  {n:65,s:"L23",type:"mc",q:"Communication is needed to establish and disseminate the goals of a __________ organization.",opts:["a. business","b. political"],ans:1,exp:"While applicable to both, this is a verbatim sentence matching the political systems analysis in Lecture 3."},
+  {n:66,s:"L23",type:"mc",q:"Communication helps the organization in arriving at __________ decisions.",opts:["a. vital","b. inessential"],ans:0,exp:"Crucial, strategic decisions depend heavily on accurate information flowing from all levels of the firm."},
+  {n:67,s:"L23",type:"mc",q:"Communication it is a basic tool for motivation and an __________ in the morale of the employees largely depend upon the effectiveness of communication.",opts:["a. increase","b. decrease"],ans:0,exp:"Clear, supportive communication increases employee morale, whereas silence or poor messaging reduces it."},
+  {n:68,s:"L23",type:"mc",q:"Communication helps a business as means of bringing about __________ production at the lowest level by maintaining good human relationship in the organization.",opts:["a. minimum","b. maximum"],ans:1,exp:"High-functioning human relationships directly lead to maximum output at minimal administrative costs."},
+  {n:69,s:"L23",type:"mc",q:"Communication works as an __________ link between branches of the organization situated at great distances.",opts:["a. effective","b. ineffective"],ans:0,exp:"It bridges physical distances, allowing multiple offices to operate as a single unified team."},
+  {n:70,s:"L23",type:"mc",q:"Interpersonal skills refer to the (ability/disability) to communicate or interact well with other people. In business lexicon, it means the set of abilities enabling a person to interact (negatively/positively) and work effectively with others.",opts:["a. ability / positively","b. disability / negatively"],ans:0,exp:"These skills are the positive behavioral assets that enable collaborative team efforts."},
+  {n:71,s:"L23",type:"mc",q:"Interpersonal communication skills are __________ prerequisites for enhancing productivity and continuity of the workforce within an organization.",opts:["a. necessary","b. unnecessary"],ans:0,exp:"Modern business requires high soft-skill capability to maintain stable, collaborative operations."},
+  {n:72,s:"L23",type:"mc",q:"Employees with good interpersonal skills are likely to be __________ productive and permanent than those with poor interpersonal skills.",opts:["a. more","b. less"],ans:0,exp:"Better interpersonal relations reduce conflict-related delays and voluntary employee turnover."},
+
+  // --- LECTURE 4 ---
+  {n:73,s:"L4",type:"tf",q:"Verbal communication refers to the form of communication in which message is transmitted verbally; where communication is carried out either by word of mouth or by writing.",opts:["True","False"],ans:0,exp:"Verbal communication includes both oral (mouth) and written (letters/symbols) methods, as they both rely on words."},
+  {n:74,s:"L4",type:"tf",q:"Nonverbal Communication refers to communications made through various wordless or unspoken mediums.",opts:["True","False"],ans:0,exp:"This includes body language, tone, eye contact, and physical expressions without spoken or written words."},
+  {n:75,s:"L4",type:"tf",q:"Informal communications are those that are formal or 'official'. These are a part of the recognized communication system which is engaged in the operation of the organization.",opts:["True","False"],ans:1,exp:"Correction: The definition of 'official and systemic' communication refers strictly to FORMAL communication, not informal."},
+  {n:76,s:"L4",type:"tf",q:"Formal grow out of social interactions among the people who work together within an organization. These are based upon conventions, customs and culture prevalent there in.",opts:["True","False"],ans:1,exp:"Correction: These are INFORMAL communications, also known as the organizational grapevine."},
+  {n:77,s:"L4",type:"tf",q:"In a single-stranded chain, information is passed by one person to another, who in turn passes it to some other and the process continues.",opts:["True","False"],ans:0,exp:"This describes a sequential, linear chain of communication (A -> B -> C -> D)."},
+  {n:78,s:"L4",type:"tf",q:"In a single-stranded chain, information is passed by one person to another, who in turn passes it to some other and the process continues. (Re-evaluation Question)",opts:["True","False"],ans:0,exp:"This is a duplicate test point re-confirming the basic linear sequence."},
+  {n:79,s:"L4",type:"tf",q:"In a probability chain, information is passed by one person to his/her reliable ones, and the latter passes it to their reliable friends and the communication continues.",opts:["True","False"],ans:1,exp:"Correction: Passing information selectively to reliable or trusted individuals is the definition of a CLUSTER chain."},
+  {n:80,s:"L4",type:"tf",q:"In a cluster chain, a person passes the information to a randomly chosen person and the communication goes on.",opts:["True","False"],ans:1,exp:"Correction: Passing information randomly is the definition of a PROBABILITY chain."},
+  {n:81,s:"L4",type:"tf",q:"In a gossip chain, a person passes the information to a group of people and the members of the group passes it to some more people and the information spreads.",opts:["True","False"],ans:0,exp:"In this curriculum, this describes a gossip chain structure, where information spreads outward to multiple groups."},
+  {n:82,s:"L4",type:"tf",q:"Downward communication can be both oral and written.",opts:["True","False"],ans:0,exp:"Superiors can instruct subordinates through oral instructions (meetings) or written formats (memos, emails)."},
+  {n:83,s:"L4",type:"tf",q:"Higher authority of organization takes the initiative to start such communication. (Referring to Downward Communication)",opts:["True","False"],ans:0,exp:"Downward communication is initiated by managers and leaders to guide their subordinates."},
+  {n:84,s:"L4",type:"tf",q:"Lower authority of organization takes the initiative to start such communication. (Referring to Downward Communication)",opts:["True","False"],ans:1,exp:"Correction: Downward communication is initiated by the higher authorities, not lower authorities."},
+  {n:85,s:"L4",type:"tf",q:"Upward communication flows from subordinates to superiors and continues up the organizational hierarchy.",opts:["True","False"],ans:0,exp:"This allows feedback, reports, and suggestions to flow up the corporate ladder to decision-makers."},
+  {n:86,s:"L4",type:"tf",q:"Downward communication flows from subordinates to superiors and continues up the organizational hierarchy.",opts:["True","False"],ans:1,exp:"Correction: Upward communication flows up the hierarchy; downward communication flows down to subordinates."},
+  {n:87,s:"L4",type:"tf",q:"Upward communication is also called consultative management.",opts:["True","False"],ans:0,exp:"Consultative management values feedback and insights from subordinates, which requires active upward communication."},
+  {n:88,s:"L4",type:"mc",q:"__________ communication refers to the form of communication in which message is transmitted verbally; where communication is carried out either by word of mouth or by writing.",opts:["a. Verbal","b. Nonverbal"],ans:0,exp:"Since both spoken words and written text use words, they are both forms of verbal communication."},
+  {n:89,s:"L4",type:"mc",q:"__________ Communication refers to communications made through various wordless or unspoken mediums.",opts:["a. Verbal","b. Nonverbal"],ans:1,exp:"Nonverbal communication is characterized by the absence of spoken or written words."},
+  {n:90,s:"L4",type:"mc",q:"Nonverbal Communication refers to communications made through various __________ or __________ mediums.",opts:["a. wordless / unspoken","b. word / spoken"],ans:0,exp:"These two descriptors outline nonverbal messages, such as gestures, expressions, and posture."},
+  {n:91,s:"L4",type:"mc",q:"__________ communications are those that are formal or 'official'. These are a part of the recognized communication system which is engaged in the operation of the organization.",opts:["a. Informal","b. Formal"],ans:1,exp:"Official policies and reporting channels follow the formal structural guidelines of the firm."},
+  {n:92,s:"L4",type:"mc",q:"__________ grow out of social interactions among the people who work together within an organization. These are based upon conventions, customs and culture prevalent there in.",opts:["a. Informal","b. Formal"],ans:0,exp:"Informal pathways develop naturally as coworkers socialize outside of formal structures."},
+  {n:93,s:"L4",type:"mc",q:"Informal communications grow __________ of social interactions among the people who work together within an organization.",opts:["a. in","b. out"],ans:1,exp:"They grow 'out' of social relationships that form within the work environment."},
+  {n:94,s:"L4",type:"mc",q:"__________ communication is also called consultative management.",opts:["a. Downward","b. upward"],ans:1,exp:"Because it relies on feedback and suggestions from subordinates, upward communication is the basis of consultative management."},
+  {n:95,s:"L4",type:"mc",q:"In __________ chain, information is passed by one person to another, who in turn passes it to some other and the process continues.",opts:["a. A single-stranded","b. probability"],ans:0,exp:"This describes a single-threaded linear sequence from one person to the next."},
+  {n:96,s:"L4",type:"mc",q:"In a __________ chain, information is passed by one person to his/her reliable ones, and the latter passes it to their reliable friends and the communication continues.",opts:["a. probability","b. cluster"],ans:1,exp:"A cluster chain is built on selective sharing with trusted individuals who then do the same."},
+  {n:97,s:"L4",type:"mc",q:"In a __________ chain, a person passes the information to a randomly chosen person and the communication goes on.",opts:["a. gossip","b. probability"],ans:1,exp:"Probability chains are based on sharing information with randomly chosen individuals."},
+  {n:98,s:"L4",type:"mc",q:"In a __________ chain, a person passes the information to a group of people and the members of the group passes it to some more people and the information spreads.",opts:["a. gossip","b. cluster"],ans:0,exp:"Gossip chains spread information broadly across social groups."},
+  {n:99,s:"L4",type:"mc",q:"Downward communication can be __________.",opts:["a. Both oral and written","b. oral only"],ans:0,exp:"Managers use both written instructions (manuals, policies) and verbal guidance (meetings)."},
+  {n:100,s:"L4",type:"mc",q:"__________ of organization takes the initiative to start such communication. (Referring to Downward Communication)",opts:["a. lower authority","b. Higher authority"],ans:1,exp:"Superiors hold the operational responsibility to initiate downward communication directions."},
+  {n:101,s:"L4",type:"mc",q:"__________ communication flows from subordinates to superiors and continues up the organizational hierarchy.",opts:["a. Downward","b. upward"],ans:1,exp:"This describes upward flow, conveying reports, results, and concerns to management."},
+  {n:102,s:"L4",type:"mc",q:"__________ communication is non-directive in nature.",opts:["a. Downward","b. Upward"],ans:1,exp:"Downward communication is directive (orders), while upward communication is non-directive (feedback/reports)."},
+  {n:103,s:"L4",type:"mc",q:"__________ communication is also called consultative management. (Re-evaluation Question)",opts:["a. Downward","b. upward"],ans:1,exp:"This re-confirms that consultative systems depend heavily on upward communication channels."},
+  {n:104,s:"L4",type:"sa",q:"What are the different types of Communication?",ans:"According to organizational structure and styles, communication is classified into: 1. Verbal and Non-Verbal Communication (by medium). 2. Formal and Informal Communication (by organizational channels). 3. Downward and Upward Communication (by direction of flow along the organizational hierarchy).",exp:"Be prepared to outline all three classifications: by medium, channel, and direction of flow."},
+  {n:105,s:"L4",type:"sa",q:"The different components of verbal communication:",ans:"The key components include: 1. Oral/Spoken elements: Word of mouth, vocabulary choice, understandable language, inflection (stress in oral speech), tone, and auditory elements. 2. Written elements: Text, letters, printed manuals, signs, visuals (pictures, maps, charts, graphs, colors, signs), and eye behaviors (oculesics) that run parallel to verbal statements.",exp:"Note that visuals and oculesics are included under verbal components in this curriculum when they directly support or accompany verbal statements."},
+
+  // --- LECTURE 5: PROCESS ELEMENTS ---
+  {n:106,s:"L5",type:"tf",q:"The process of communication as such must be a continuous and dynamic interaction, both affecting and being affected by many variables.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 3: Communication process is dynamic and continuous, consistently interacting with and being modified by external and internal variables."},
+  {n:107,s:"L5",type:"tf",q:"Process of Communication Elements include seven elements.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 4 lists exactly 7 structural elements: Sender, Message, Encoding, Channel, Receiver, Decoding, and Feedback."},
+  {n:108,s:"L5",type:"tf",q:"Process of Communication Elements include ten elements.",opts:["True","False"],ans:1,exp:"Lecture 5, Slide 4 lists exactly seven core elements, not ten."},
+  {n:109,s:"L5",type:"tf",q:"The very foundation of communication process is laid by the person who transmits or sends the message.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 5: The sender initiates the thought, meaning, or feedback cycle, laying down the foundational element."},
+  {n:110,s:"L5",type:"tf",q:"Message is the heart of communication. It is the content the sender wants to covey to the receiver.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 6: The message is the core, vital contents/ideas/feelings the sender aims to share with the recipient."},
+  {n:111,s:"L5",type:"tf",q:"Message it can be verbal both written and spoken; or non-verbal i.e. pictorial or symbolic, etc.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 6: Messages take many forms, utilizing words, text, gestures, or visual symbols depending on situational contexts."},
+  {n:112,s:"L5",type:"tf",q:"Message it can be verbal only.",opts:["True","False"],ans:1,exp:"Correction: Messages can also be non-verbal (pictorial, gestures, expressions, symbols)."},
+  {n:113,s:"L5",type:"tf",q:"Message It can be non-verbal only i.e. pictorial or symbolic, etc.",opts:["True","False"],ans:1,exp:"Correction: Messages are commonly verbal (spoken or written) alongside non-verbal cues."},
+  {n:114,s:"L5",type:"tf",q:"Encoding is putting the targeted message into appropriate medium which may be verbal or non-verbal depending upon the situation, time, space and nature of the message to be sent.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 7: Encoding translates abstract ideas into structured words, symbols, or signals suitable for transmission."},
+  {n:115,s:"L5",type:"tf",q:"Message is putting the targeted message into appropriate medium which may be verbal or non-verbal depending upon the situation, time, space and nature of the message to be sent.",opts:["True","False"],ans:1,exp:"Correction: This is the definition of 'Encoding', not 'Message'."},
+  {n:116,s:"L5",type:"tf",q:"Encoding is putting the targeted message into appropriate medium which may be verbal only depending upon the situation, time, space and nature of the message to be sent.",opts:["True","False"],ans:1,exp:"Correction: Encoding is not limited to verbal mediums only; it can utilize non-verbal symbols, pictures, and codes."},
+  {n:117,s:"L5",type:"tf",q:"Encoding is an important step in the communication process.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 7: Incorrect encoding or poor translation of the idea can completely defeat the true objective of the transmission."},
+  {n:118,s:"L5",type:"tf",q:"Channel(s) refers to the way or mode the message flows or is transmitted through.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 8: The channel acts as the medium or pathway carrying the signal between sender and receiver."},
+  {n:119,s:"L5",type:"tf",q:"Encoding (s) refers to the way or mode the message flows or is transmitted through.",opts:["True","False"],ans:1,exp:"Correction: This is the definition of 'Channel', not 'Encoding'."},
+  {n:120,s:"L5",type:"tf",q:"The message may be oral or written and it may be transmitted through a memorandum, a computer, telephone, cell phone, apps or televisions.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 8: Multiple technical and written platforms act as the structural delivery channels for a message."},
+  {n:121,s:"L5",type:"tf",q:"The message may be written only and it may be transmitted through a memorandum, a computer, telephone, cell phone, apps or televisions.",opts:["True","False"],ans:1,exp:"Correction: Messages can also be oral/spoken, transmitted via telephone, computer, or in-person talk."},
+  {n:122,s:"L5",type:"tf",q:"Each channel has its advantages and disadvantages.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 9: Choosing the proper channel depends on matching its distinct advantages/drawbacks with the immediate message requirements."},
+  {n:123,s:"L5",type:"tf",q:"Each channel has its disadvantages only.",opts:["True","False"],ans:1,exp:"Correction: Every channel has unique strategic advantages (e.g., speed of call, permanence of a memo)."},
+  {n:124,s:"L5",type:"tf",q:"Each channel has its advantages only.",opts:["True","False"],ans:1,exp:"Correction: Every channel carries limitations or cost drawbacks (e.g., lack of body language in text, potential noise on lines)."},
+  {n:125,s:"L5",type:"tf",q:"Receiver is the person or group who the message is meant for.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 10: The receiver represents the targeted audience at the other end of the communication pathway."},
+  {n:126,s:"L5",type:"tf",q:"The extent to which the receiver decodes the message depends on his/her knowledge of the subject matter of the message, experience, trust and relationship with the sender.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 10: A recipient's interpretive capability is shaped deeply by contextual familiarity, trust, and shared history."},
+  {n:127,s:"L5",type:"tf",q:"The receiver is as significant a factor in communication process as the sender is. It is the other end of the process.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 11: Without active reception and proper interpretation at the other end, communication falls flat."},
+  {n:128,s:"L5",type:"tf",q:"Decoding refers to interpreting or converting the sent message into intelligible language.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 12: Decoding translates the received symbols/medium back into conceptual understanding."},
+  {n:129,s:"L5",type:"tf",q:"Encoding refers to interpreting or converting the sent message into intelligible language.",opts:["True","False"],ans:1,exp:"Correction: This is the definition of 'Decoding', not 'Encoding'."},
+  {n:130,s:"L5",type:"tf",q:"Feedback is the ultimate aspect of communication process. It refers to the response of the receiver as to the message sent to him/her by the sender.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 13: Feedback closes the loop, showing the sender how effectively the information was parsed."},
+  {n:131,s:"L5",type:"tf",q:"Feedback is necessary to ensure that the message has been effectively encoded, sent, decoded and comprehended.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 13: Only feedback confirms if actual communication occurred instead of mere broadcasting."},
+  {n:132,s:"L5",type:"tf",q:"Feedback is unnecessary to ensure that the message has been effectively encoded, sent, decoded and comprehended.",opts:["True","False"],ans:1,exp:"Correction: Feedback is absolutely essential to verify mutual understanding and task alignment."},
+  {n:133,s:"L5",type:"tf",q:"It is the final step of the communication process and establishes that the receiver has received the message in its letter and spirit.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 14: Accurate feedback verifies that the recipient's parsed interpretation matches the sender's original intent."},
+  {n:134,s:"L5",type:"tf",q:"It is the first step of the communication process and establishes that the receiver has received the message in its letter and spirit.",opts:["True","False"],ans:1,exp:"Correction: Feedback is the final cyclical step. The first step is the sender choosing/forming the message."},
+  {n:135,s:"L5",type:"tf",q:"Negative Feedback or corrective comments about past behavior.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 15: This describes negative feedback, focusing on past actions to adjust course."},
+  {n:136,s:"L5",type:"tf",q:"Positive Feedback or affirming comments about future behavior.",opts:["True","False"],ans:1,exp:"Correction: Feedback is about past behavior. Affirming comments about future behavior describes 'Positive Feedforward'."},
+  {n:137,s:"L5",type:"tf",q:"Negative feedforward or corrective comments about future behavior.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 15: Corrective guidelines focused on future behavior describe negative feedforward."},
+  {n:138,s:"L5",type:"tf",q:"Positive feedforward or affirming comments about future behavior.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 15: Encouraging/affirming statements directed toward upcoming tasks/behavior describe positive feedforward."},
+  {n:139,s:"L5",type:"tf",q:"Positive Feedback or corrective comments about past behavior.",opts:["True","False"],ans:1,exp:"Correction: Corrective comments about past behavior are 'Negative Feedback', not positive."},
+  {n:140,s:"L5",type:"tf",q:"Negative Feedback or affirming comments about future behavior.",opts:["True","False"],ans:1,exp:"Correction: Affirming comments about future behavior are 'Positive Feedforward', not negative feedback."},
+  {n:141,s:"L5",type:"tf",q:"Positive feedforward or corrective comments about future behavior.",opts:["True","False"],ans:1,exp:"Correction: Corrective comments about future behavior are 'Negative Feedforward', not positive."},
+  {n:142,s:"L5",type:"tf",q:"Negative feedforward or affirming comments about future behavior.",opts:["True","False"],ans:1,exp:"Correction: Affirming comments about future behavior are 'Positive Feedforward', not negative."},
+
+  // --- LECTURE 5: MULTIPLE CHOICE ---
+  {n:143,s:"L5",type:"mc",q:"Process of Communication Elements include __________ elements.",opts:["a. 7","b. 9"],ans:0,exp:"Lecture 5, Slide 4: The standard model contains exactly 7 components: Sender, Message, Encoding, Channel, Receiver, Decoding, Feedback."},
+  {n:144,s:"L5",type:"mc",q:"Message It can be __________.",opts:["a. verbal & non-verbal","b. non-verbal only"],ans:0,exp:"Lecture 5, Slide 6: It comprises spoken/written words (verbal) and signs/pictures/symbols (non-verbal)."},
+  {n:145,s:"L5",type:"mc",q:"__________ is the heart of communication. It is the content the sender wants to covey to the receiver.",opts:["a. Encoding","b. Message"],ans:1,exp:"Lecture 5, Slide 6: The message represents the actual core thoughts/ideas that have been formatted for exchange."},
+  {n:146,s:"L5",type:"mc",q:"__________ is putting the targeted message into appropriate medium which may be verbal or non-verbal depending upon the situation, time, space and nature of the message to be sent.",opts:["a. Message","b. Encoding"],ans:1,exp:"Lecture 5, Slide 7: Encoding is the mechanical process of packaging the thoughts into transmissible codes/symbols."},
+  {n:147,s:"L5",type:"mc",q:"Encoding is putting the targeted message into appropriate medium which may be __________ depending upon the situation, time, space and nature of the message to be sent.",opts:["a. verbal or non-verbal","b. verbal only"],ans:0,exp:"Lecture 5, Slide 7: Medium choices can span verbal and non-verbal arrays, adapted dynamically to the recipient and environment."},
+  {n:148,s:"L5",type:"mc",q:"Encoding is an __________ step in the communication process.",opts:["a. unimportant","b. important"],ans:1,exp:"Lecture 5, Slide 7: Poorly targeted symbols or syntax will result in complete receiver incomprehension."},
+  {n:149,s:"L5",type:"mc",q:"__________ (s) refers to the way or mode the message flows or is transmitted through.",opts:["a. Channel","b. Encoding"],ans:0,exp:"Lecture 5, Slide 8: The physical carrier or path through which formatted signals travel is the channel."},
+  {n:150,s:"L5",type:"mc",q:"The message may be __________ and it may be transmitted through a memorandum, a computer, telephone, cell phone, apps or televisions.",opts:["a. oral or written","b. written only"],ans:0,exp:"Lecture 5, Slide 8: Transmission can be achieved via spoken (oral) or documented (written) formats."},
+  {n:151,s:"L5",type:"mc",q:"Each channel has its __________.",opts:["a. advantages only","b. advantages and disadvantages"],ans:1,exp:"Lecture 5, Slide 9: Selectors must weigh the trade-offs (such as speed vs. official records) of each channel."},
+  {n:152,s:"L5",type:"mc",q:"The extent to which the receiver decodes the message depends on his/her __________.",opts:["A. Knowledge of the subject matter","B. Experience and trust with sender","C. Both A and B","D. None of the above"],ans:2,exp:"Lecture 5, Slide 10: Prior knowledge, experience, trust levels, and sender relationship dictate interpretative accuracy."},
+  {n:153,s:"L5",type:"mc",q:"The __________ is as significant a factor in communication process as the sender is. It is the other end of the process.",opts:["a. message","b. receiver"],ans:1,exp:"Lecture 5, Slide 11: The recipient must be receptive and attentive to close the loop successfully."},
+  {n:154,s:"L5",type:"mc",q:"__________ refers to interpreting or converting the sent message into intelligible language.",opts:["a. Decoding","b. Encoding"],ans:0,exp:"Lecture 5, Slide 12: Translating incoming signals back into clean thoughts is decoding."},
+  {n:155,s:"L5",type:"mc",q:"Feedback is __________ to ensure that the message has been effectively encoded, sent, decoded and comprehended.",opts:["a. unnecessary","b. necessary"],ans:1,exp:"Lecture 5, Slide 13: Verification steps are necessary to validate if actual communication occurred."},
+  {n:156,s:"L5",type:"mc",q:"It is the __________ step of the communication process and establishes that the receiver has received the message in its letter and spirit.",opts:["a. final","b. initial"],ans:0,exp:"Lecture 5, Slide 14: Feedback is the final systemic checkpoint wrapping the cyclic loop."},
+  {n:157,s:"L5",type:"mc",q:"__________ Feedback or corrective comments about past behavior.",opts:["a. Negative","b. Positive"],ans:0,exp:"Lecture 5, Slide 15: Corrective commentary analyzing past performance represents Negative Feedback."},
+  {n:158,s:"L5",type:"mc",q:"__________ Feedback or affirming comments about past behavior.",opts:["a. Negative","b. Positive"],ans:1,exp:"Lecture 5, Slide 15: Affirmative or supportive commentary analyzing past actions is Positive Feedback."},
+  {n:159,s:"L5",type:"mc",q:"__________ or corrective comments about future behavior.",opts:["a. Negative feedforward","b. Positive feedforward"],ans:0,exp:"Lecture 5, Slide 15: Forward-looking guidance highlighting adjustments to future tasks is Negative Feedforward."},
+  {n:160,s:"L5",type:"mc",q:"__________ or affirming comments about future behavior.",opts:["a. Negative feedforward","b. Positive feedforward"],ans:1,exp:"Lecture 5, Slide 15: Encouragement and optimistic guidance focused on upcoming actions represent Positive Feedforward."},
+  {n:161,s:"L5",type:"mc",q:"The process of communication is cyclic because it begins and ends with the __________.",opts:["a. sender","b. receiver"],ans:0,exp:"Lecture 5, Slide 2: It is a cyclic loop starting from the sender and returning to the sender via recipient feedback."},
+
+  // --- LECTURE 6: MODELS ---
+  {n:162,s:"L6",type:"tf",q:"A model of Effective communication is a thing used to follow or imitate Communication.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 2: Communication models represent structural guides to help emulate or optimize communications within organizations."},
+  {n:163,s:"L6",type:"tf",q:"Models of communication provide outputs for setting a standard communication system and ensuring effective communication in a business organization.",opts:["True","False"],ans:1,exp:"Correction: Models of communication provide INPUTS (not outputs) for establishing a standard framework, as seen on Slide 2."},
+  {n:164,s:"L6",type:"tf",q:"Models of communication provide inputs for setting a standard communication system and ensuring effective communication in a business organization.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 2: Standardizing corporate message flows depends on popular conceptual inputs derived from research models."},
+  {n:165,s:"L6",type:"tf",q:"Models of communication provide inputs for setting a standard communication system and ensuring effective communication in a political organization.",opts:["True","False"],ans:1,exp:"Correction: Verbatim slides specify 'business organization' as the primary design recipient of these standard inputs."},
+  {n:166,s:"L6",type:"tf",q:"Each organization sets up its own communication system mostly deriving inspiration from popular communication models.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 2: Businesses rarely start from scratch; they model their internal structures on proven classic theories."},
+  {n:167,s:"L6",type:"tf",q:"Models of communication are conceptual models that are used to explain the human communication process.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 3: These frameworks provide simplified conceptual schemas explaining the complex reality of human interactions."},
+  {n:168,s:"L6",type:"tf",q:"Models of communication are behavior models that are used to explain the human communication process.",opts:["True","False"],ans:1,exp:"Correction: They are 'conceptual' models, not behavior models."},
+  {n:169,s:"L6",type:"tf",q:"Models are un visual representation of communicating process.",opts:["True","False"],ans:1,exp:"Correction: They are highly visual representations, helping map out complex message tracks cleanly."},
+  {n:170,s:"L6",type:"tf",q:"Models are visual representation of communicating process.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 3: Diagrams and visual layouts are central to communication modeling."},
+  {n:171,s:"L6",type:"tf",q:"One-Way Communication Model It is known as the linear model of Communication as it occurs in a straight line from sender to receiver and serves to inform, persuade or command.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 4: The linear model is uncompensated by feedback loops, moving sequentially in one straight direction."},
+  {n:172,s:"L6",type:"tf",q:"In one-way communication model the information is only transmitted from one point to another or to many points at a single point of time.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 5: Broadcasting maps perfectly to this, spreading a signal outward to various nodes with no return track."},
+  {n:173,s:"L6",type:"tf",q:"In one-way communication model the information is transmitted from two points to another or to many points at a single point of time.",opts:["True","False"],ans:1,exp:"Correction: Information originates from a single point (the sender) only, moving outward."},
+  {n:174,s:"L6",type:"tf",q:"In one-way communication model, there is no transmission of information from the receiving point.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 5: Receiving nodes are completely restricted from sending return signals inside the linear paradigm."},
+  {n:175,s:"L6",type:"tf",q:"In one-way communication model, the recipient is passive.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 5: Because the receiver has no mechanism to transmit response signals, they remain passive."},
+  {n:176,s:"L6",type:"tf",q:"One-way communication is mostly used to transmit current information like weather information.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 5: Emergency warnings, weather updates, and formal unilateral briefings rely on single-track speed."},
+  {n:177,s:"L6",type:"tf",q:"The accurate time and intensity of weather phenomena are transmitted or communicated through the medium of one way communication.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 6: Real-time broadcast alerts utilize one-way media channels to maximize reach quickly."},
+  {n:178,s:"L6",type:"tf",q:"Like in two-way communication, in one-way communication the sender and recipient of the information may be not only people but also computers or automatic devices.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 6: Digital servers, satellites, and telemetry networks often establish machine-to-machine one-way tracks."},
+  {n:179,s:"L6",type:"tf",q:"Like in two-way communication, in one-way communication the sender and recipient of the information may be only people.",opts:["True","False"],ans:1,exp:"Correction: Automations and computer servers can also function as senders/receivers in modern systems."},
+  {n:180,s:"L6",type:"tf",q:"In one-way communication model, It assumes that there is a clear-cut beginning and end to communication.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 7: It treats communication as a finite, linear process starting at encoding and stopping at reception."},
+  {n:181,s:"L6",type:"tf",q:"The lack of feedback from the receiver is one major drawback of the one-way communication model.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 7: Without feedback, the sender cannot determine if misunderstandings or errors occurred."},
+  {n:182,s:"L6",type:"tf",q:"In the one-way communication model, the sender is the active member and the receiver is the passive one.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 7: Only the sender performs active processing and output; the recipient is just a target node."},
+  {n:183,s:"L6",type:"tf",q:"In the one-way communication model, the sender is passive the member and the receiver is the active one.",opts:["True","False"],ans:1,exp:"Correction: The sender is the active element; the receiver is the passive element in a linear framework."},
+  {n:184,s:"L6",type:"tf",q:"'Transactional' simply means the exchange or interaction between people. It is based on the basic premises of 'exchange' or 'give and take'.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 8: Transactional models view communication as an ongoing, continuous exchange process."},
+  {n:185,s:"L6",type:"tf",q:"The transactional model of communication refers to the exchange of messages or information between the sender and the receiver where each take turns to send or receive messages.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 8: In transactional structures, participants cycle fluidly between sender and receiver roles."},
+  {n:186,s:"L6",type:"tf",q:"The Interactive model of communication refers to the exchange of messages or information between the sender and the receiver where each take turns to send or receive messages.",opts:["True","False"],ans:1,exp:"Correction: This represents the Transactional model, which is highly continuous, as detailed in Slide 8."},
+  {n:187,s:"L6",type:"tf",q:"The Interactive model is the most general model of communication as even our daily interactions are instances of transactional model communication.",opts:["True","False"],ans:1,exp:"Correction: The TRANSACTIONAL model is the most general model, as highlighted on Slide 9."},
+  {n:188,s:"L6",type:"tf",q:"The transactional model is the most general model of communication as even our daily interactions are instances of transactional model communication.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 9: Standard daily human discourse represents ongoing transactional exchanges of meaning."},
+  {n:189,s:"L6",type:"tf",q:"Transactional model becomes more efficient and effective when the participants are of similar environment, know each other and share same social system.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 10: Shared background and identical cultural/social frameworks minimize noise barriers."},
+  {n:190,s:"L6",type:"tf",q:"Interactive communication model is also known as the convergence model.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 11: The Interactive Model emphasizes how meanings converge slowly via back-and-forth loops."},
+  {n:191,s:"L6",type:"tf",q:"The communication process occurs between humans or machines in both verbal and non-verbal ways.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 11: Modern interactive technologies leverage digital signs, text, and voice loops simultaneously."},
+  {n:192,s:"L6",type:"tf",q:"The communication process occurs between humans or machines in non-verbal way only.",opts:["True","False"],ans:1,exp:"Correction: It combines verbal (text/voice commands) and non-verbal pathways."},
+  {n:193,s:"L6",type:"tf",q:"It emphasizes feedback indicating that communication is not a one-way but a two-way process.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 12: Interactive frameworks are built entirely upon looping feedback cycles."},
+  {n:194,s:"L6",type:"tf",q:"Feedback, that is, when the decoder forms a second message after receiving the first message.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 14: Feedback is formed sequentially as a response AFTER processing the initial signal."},
+  {n:195,s:"L6",type:"tf",q:"Feedback, that is, when the decoder forms a second message before receiving the first message.",opts:["True","False"],ans:1,exp:"Correction: Feedback can only be constructed AFTER the incoming message is received and processed."},
+  {n:196,s:"L6",type:"tf",q:"A model of communication gives a wholesome understanding of a system or structure by which people can understand similar systems or structure.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 16: Models provide conceptual templates; understanding one model helps map similar real-world structures."},
+  {n:197,s:"L6",type:"tf",q:"A model of communication gives a wholesome understanding of a system or structure by which people can understand different systems or structure.",opts:["True","False"],ans:1,exp:"Correction: They help clarify 'similar' systems and structures by establishing baseline principles."},
+
+  // --- LECTURE 6: MULTIPLE CHOICE ---
+  {n:198,s:"L6",type:"mc",q:"Models of communication provide __________ for setting a standard communication system and ensuring effective communication in a business organization.",opts:["a. inputs","b. outputs"],ans:0,exp:"Lecture 6, Slide 2: Conceptual models act as design inputs when mapping out functional organizational structures."},
+  {n:199,s:"L6",type:"mc",q:"Models of communication provide inputs for setting a standard communication system and ensuring effective communication in a __________ organization.",opts:["a. business","b. political"],ans:0,exp:"Lecture 6, Slide 2: Verbatim text targets commercial efficiency and business operations."},
+  {n:200,s:"L6",type:"mc",q:"Each organization sets up its own communication system mostly deriving inspiration from __________ communication models.",opts:["a. unpopular","b. popular"],ans:1,exp:"Lecture 6, Slide 2: Classic research models (like Shannon-Weaver) inspire standard industry implementations."},
+  {n:201,s:"L6",type:"mc",q:"Models of communication are __________ models that are used to explain the human communication process.",opts:["a. behavior","b. conceptual"],ans:1,exp:"Lecture 6, Slide 3: They abstract complex processes into clean conceptual blocks."},
+  {n:202,s:"L6",type:"mc",q:"Models are __________ representation of communicating process.",opts:["a. visual","b. un visual"],ans:0,exp:"Lecture 6, Slide 3: Visual mapping is fundamental to structural modeling of signals."},
+  {n:203,s:"L6",type:"mc",q:"In one-way communication model the information is transmitted from __________ to another or to many points at a single point of time.",opts:["a. one point","b. two points"],ans:0,exp:"Lecture 6, Slide 5: Linear tracks rely on single-point transmission (broadcast)."},
+  {n:204,s:"L6",type:"mc",q:"One-way communication is mostly used to transmit __________ information.",opts:["a. current","b. old"],ans:0,exp:"Lecture 6, Slide 5: Unilateral tracks excel at immediate, rapid alerts (weather, news)."},
+  {n:205,s:"L6",type:"mc",q:"The accurate time and intensity of weather phenomena are transmitted or communicated through the medium of __________.",opts:["a. Transactional","b. way communication"],ans:1,exp:"Lecture 6, Slide 6: This refers to 'one-way communication' (represented as 'way communication' on the worksheet)."},
+  {n:206,s:"L6",type:"mc",q:"Like in two-way communication, in one-way communication the sender and recipient of the information may be __________ people.",opts:["a. not only","b. only"],ans:0,exp:"Lecture 6, Slide 6: Digital servers, alerts, and automatic nodes expand the pool beyond human-only actors."},
+  {n:207,s:"L6",type:"mc",q:"In the one-way communication model, the sender is the __________ member and the receiver is the __________ one.",opts:["a. active / passive","b. passive / active"],ans:0,exp:"Lecture 6, Slide 7: The sender must formulate and push the message; the recipient merely accepts it without response."},
+  {n:208,s:"L6",type:"mc",q:"__________ simply means the exchange or interaction between people. It is based on the basic premises of 'exchange' or 'give and take'.",opts:["a. Transactional'","b. Interactive"],ans:0,exp:"Lecture 6, Slide 8: Continuous transactional exchange is modeled on reciprocal give-and-take dynamics."},
+  {n:209,s:"L6",type:"mc",q:"The __________ model of communication refers to the exchange of messages or information between the sender and the receiver where each take turns to send or receive messages.",opts:["a. Interactive","b. transactional"],ans:1,exp:"Lecture 6, Slide 8: Fluid, continuous turn-taking is the core of the transactional model."},
+  {n:210,s:"L6",type:"mc",q:"The __________ model is the most general model of communication as even our daily interactions are instances of transactional model communication.",opts:["a. transactional","b. Interactive"],ans:0,exp:"Lecture 6, Slide 9: Normal dialogue cycles operate continuously as transactions of meaning."},
+  {n:211,s:"L6",type:"mc",q:"Transactional model becomes more efficient and effective when the participants are of __________ environment, know each other and share same social system.",opts:["a. similar","b. different"],ans:0,exp:"Lecture 6, Slide 10: High environmental and social alignment minimizes translation blockages."},
+  {n:212,s:"L6",type:"mc",q:"__________ communication model is also known as the convergence model.",opts:["a. transactional","b. Interactive"],ans:1,exp:"Lecture 6, Slide 11: Meaning converges dynamically through iterative interactive loops."},
+  {n:213,s:"L6",type:"mc",q:"The communication process occurs between humans or machines __________.",opts:["a. in non-verbal way only","b. in both verbal and non-verbal ways"],ans:1,exp:"Lecture 6, Slide 11: Complex networks combine text, speech, and graphical status feeds."},
+  {n:214,s:"L6",type:"mc",q:"Feedback, that is, when the decoder forms a second message __________ receiving the first message.",opts:["a. after","b. before"],ans:0,exp:"Lecture 6, Slide 14: Meaningful response requires successful prior parsing of the input signal."},
+  {n:215,s:"L6",type:"mc",q:"A model of communication gives a wholesome understanding of a system or structure by which people can understand __________ systems or structure.",opts:["a. similar","b. different"],ans:0,exp:"Lecture 6, Slide 16: Understanding one modeled system allows easy translation to comparable similar arrangements."},
+  {n:216,s:"L6",type:"mc",q:"The first formal communication model (1948) was developed by __________ and introduced by Warren Weaver.",opts:["a. Claude Shannon","b. Wilbur Schramm"],ans:0,exp:"Lecture 6, Slide 3: Shannon mapped the first mathematical communication block model in 1948."},
+
+  // --- LECTURE 7: STYLES ---
+  {n:217,s:"L7",type:"tf",q:"Communication style refers to the way in which the act of communicating is carried on.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 4: Style defines the specific manner and personal expression behind the message."},
+  {n:218,s:"L7",type:"tf",q:"Styles of communication may different from occasion to occasion. Each style serves a different purpose.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 4: Flexing communication styles to match diverse contexts is a key professional asset."},
+  {n:219,s:"L7",type:"tf",q:"Styles of communication not different from occasion to occasion. Each style serves a different purpose.",opts:["True","False"],ans:1,exp:"Correction: Communication styles must be dynamic, shifting between different scenarios and goals."},
+  {n:220,s:"L7",type:"tf",q:"There are four major styles of communication.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 5: The curriculum outlines 4 main styles: Aggressive, Passive, Manipulative, and Assertive."},
+  {n:221,s:"L7",type:"tf",q:"In Aggressive style of communication, one always stands up for one's rights simultaneously overlooking others.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 6: Aggression is characterized by pursuing personal objectives while ignoring or trampling others' boundaries."},
+  {n:222,s:"L7",type:"tf",q:"Passive communication style stands in contrast to aggressive style in meaning and uses.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 7: Passivity is quiet, non-confrontational, and yields space, directly contrasting aggressive pushiness."},
+  {n:223,s:"L7",type:"tf",q:"The passive style of communication allows the communicator to put others' rights before his and thus reduce his own self-worth.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 7: Yielding constantly to others' terms diminishes personal agency and self-esteem over time."},
+  {n:224,s:"L7",type:"tf",q:"The passive style of communication allows the communicator to put others' rights after his and thus reduce his own self-worth.",opts:["True","False"],ans:1,exp:"Correction: Passive communicators put others' rights BEFORE their own, neglecting self-worth."},
+  {n:225,s:"L7",type:"tf",q:"Assertive communication style is regarded as the best communicating style. It is more rational and proper than other styles of communication.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 9: Assertiveness is highly professional, balancing personal objectives with respect for others."},
+  {n:226,s:"L7",type:"tf",q:"Assertive communication style is regarded as the best communicating style. It is less rational and proper than other styles of communication.",opts:["True","False"],ans:1,exp:"Correction: Assertiveness is MORE rational, healthy, and highly optimal compared to passive or aggressive paths."},
+  {n:227,s:"L7",type:"tf",q:"This style teaches one to stand up for one's rights while having respect for others rights.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 9: True assertiveness is a balanced state, declaring rights without violating others."},
+  {n:228,s:"L7",type:"tf",q:"This style teaches one to stand up for one's rights while not having respect for others rights.",opts:["True","False"],ans:1,exp:"Correction: Assertive style demands high mutual respect, unlike aggressive style."},
+  {n:229,s:"L7",type:"tf",q:"In Assertive style of communication they deal with people on equal terms.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 9: Equality and mutual respect define assertive interactions."},
+  {n:230,s:"L7",type:"tf",q:"In Assertive style of communication they deal with people on unequal terms.",opts:["True","False"],ans:1,exp:"Correction: Assertive individuals deal on strictly equal terms, without feeling superior or inferior."},
+
+  // --- LECTURE 7: MULTIPLE CHOICE ---
+  {n:231,s:"L7",type:"mc",q:"Styles of communication __________ from occasion to occasion. Each style serves a different purpose.",opts:["a. not different","b. may different"],ans:1,exp:"Lecture 7, Slide 4: Senders adjust their communication styles to fit different scenarios and audiences."},
+  {n:232,s:"L7",type:"mc",q:"There are __________ major styles of communication.",opts:["a. two","b. four"],ans:1,exp:"Lecture 7, Slide 5: The class lists exactly 4 main profiles: Aggressive, Passive, Manipulative, Assertive."},
+  {n:233,s:"L7",type:"mc",q:"In __________ style of communication, one always stands up for one’s rights simultaneously overlooking others.",opts:["a. Aggressive","b. passive"],ans:0,exp:"Lecture 7, Slide 6: Aggressiveness focuses on self-interest at the expense of colleagues' boundaries."},
+  {n:234,s:"L7",type:"mc",q:"In __________ communication style stands in contrast to aggressive style in meaning and uses.",opts:["a. Aggressive","b. passive"],ans:1,exp:"Lecture 7, Slide 7: Passivity is the exact structural opposite of aggressive self-assertion."},
+  {n:235,s:"L7",type:"mc",q:"The passive style of communication allows the communicator to put others’ rights __________ his and thus reduce his own self-worth.",opts:["a. before","b. after"],ans:0,exp:"Lecture 7, Slide 7: Putting other people's needs first constantly erodes self-worth."},
+  {n:236,s:"L7",type:"mc",q:"Assertive communication style is regarded as the best communicating style. It is __________ rational and proper than other styles of communication.",opts:["a. more","b. less"],ans:0,exp:"Lecture 7, Slide 9: Mutual respect makes assertiveness the most logical and effective choice."},
+  {n:237,s:"L7",type:"mc",q:"This style teaches one to stand up for one’s rights while __________ respect for others rights.",opts:["a. having","b. not having"],ans:0,exp:"Lecture 7, Slide 9: Balanced respect is the core of assertive communication."},
+  {n:238,s:"L7",type:"mc",q:"In Assertive style of communication they deal with people on __________ terms.",opts:["a. equal","b. unequal"],ans:0,exp:"Lecture 7, Slide 9: Assertiveness values all participants as peers, maintaining professional equality."},
+  {n:239,s:"L7",type:"mc",q:"People adopting the __________ style are often scheming, shrewd, and calculating, utilizing hidden agendas.",opts:["a. manipulative","b. assertive"],ans:0,exp:"Lecture 7, Slide 8: Manipulative styles rely on behind-the-scenes control to achieve their goals."},
+
+  // --- LECTURE 8 & 9: VERBATIM CHARACTERISTICS ---
+  {n:240,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Completeness of the Message.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Complete messaging prevents questions and ensures quick execution."},
+  {n:241,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Clearness and Integrity of the Message.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Clear, honest structure prevents ambiguity and builds trust."},
+  {n:242,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Conciseness of the Message.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Saying more with fewer words saves time and highlights key points."},
+  {n:243,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Consideration of Physical Setting and the Recipient.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Adapting to the environment and the audience's background ensures reception."},
+  {n:244,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Clarity of the Message.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Unambiguous language and clear delivery are core requirements."},
+  {n:245,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Courtesy to be maintained.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Polite, respectful language keeps channels open and productive."},
+  {n:246,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Correctness of the Message.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Accuracy in grammar and figures prevents errors and builds authority."},
+
+  // --- LECTURE 8 & 9: MULTIPLE CHOICE ---
+  {n:247,s:"L89",type:"mc",q:"Which of the following are Characteristics of Effective Communication?",opts:["A. Completeness and Conciseness","B. Clearness and Integrity","C. Both A and B","D. None of the above"],ans:2,exp:"Lecture 8/9, Slide 3 lists all these qualities as essential pillars of effective communication."},
+  {n:248,s:"L89",type:"mc",q:"Which of the following are pillars of Effective Communication?",opts:["A. Consideration of Physical Setting & Recipient","B. Clarity and Correctness","C. Courtesy to be maintained","D. All above"],ans:3,exp:"Lecture 8/9, Slide 3: A balanced approach covers all these characteristics to ensure effective delivery."}
 ];
 
-const essayQuestions = [
-  {q:"List the primary phases of the Ethical Hacking lifecycle.",answer:["Reconnaissance","Scanning","Enumeration","Gaining Access","Maintaining Access","Covering Tracks","Reporting and Remediation"]},
-  {q:"List the differences between ethical hacking, penetration testing, vulnerability assessment, and red teaming.",answer:["Ethical Hacking: Broad security evaluation using hacker techniques legally.","Penetration Testing: Simulated attack to exploit vulnerabilities.","Vulnerability Assessment: Identification and classification of vulnerabilities.","Red Teaming: Advanced adversarial simulation testing people, processes, and technology."]},
-  {q:"List the key principles of ethical hacking.",answer:["Legal authorization","Confidentiality","Integrity","Professional responsibility","Non-destructive testing","Responsible disclosure","Documentation and reporting"]},
-  {q:"List the major categories of cyber threats.",answer:["Malware attacks","Phishing attacks","Insider threats","Web application attacks","Wireless attacks","Denial-of-Service attacks","Advanced Persistent Threats (APTs)","Social engineering attacks"]},
-  {q:"List the common reconnaissance techniques.",answer:["WHOIS lookup","DNS enumeration","Google dorking","Social media intelligence gathering","Network mapping","Email harvesting","Packet sniffing"]},
-  {q:"List the advantages and disadvantages of passive reconnaissance.",answer:["Advantage: Difficult to detect","Advantage: Low risk","Advantage: Collects large amounts of information","Disadvantage: Information may be outdated","Disadvantage: Limited technical details","Disadvantage: Time-consuming"]},
-  {q:"List the advantages and disadvantages of active reconnaissance.",answer:["Advantage: Accurate real-time information","Advantage: Identifies active hosts and services","Advantage: Faster vulnerability discovery","Disadvantage: Easily detectable","Disadvantage: May trigger security alerts","Disadvantage: Higher legal risk if unauthorized"]},
-  {q:"List common footprinting tools.",answer:["Nmap","Maltego","Recon-ng","Shodan","theHarvester","Wireshark","Netcraft"]},
-  {q:"List the common OSINT sources.",answer:["Search engines","Social media platforms","Public records","GitHub repositories","DNS records","Online forums","Job postings"]},
-  {q:"List the major types of network scanning techniques.",answer:["TCP Connect Scan","SYN Scan","UDP Scan","FIN Scan","Xmas Scan","ACK Scan","Idle Scan"]},
-  {q:"List the advantages and disadvantages of SYN scanning.",answer:["Advantage: Faster than full TCP scans","Advantage: Stealthier","Advantage: Efficient for large networks","Disadvantage: Requires elevated privileges","Disadvantage: May still be detected by IDS/IPS","Disadvantage: Some firewalls block SYN scans"]},
-  {q:"List common port scanning and enumeration tools.",answer:["Nmap","Netcat","Angry IP Scanner","Masscan","Zenmap","Enum4linux"]},
-  {q:"List common enumeration attacks.",answer:["SMB enumeration","SNMP enumeration","LDAP enumeration","DNS zone transfer attacks","NetBIOS enumeration","User account enumeration"]},
-  {q:"List common vulnerabilities found during enumeration.",answer:["Weak passwords","Open ports","Unpatched services","Anonymous login enabled","Misconfigured servers","Default credentials"]},
-  {q:"List the primary types of malware.",answer:["Virus","Worm","Trojan horse","Ransomware","Spyware","Rootkit","Adware","Botnet malware"]},
-  {q:"List the differences between viruses, worms, and Trojans.",answer:["Virus: Requires user action and infects files.","Worm: Self-replicates across networks automatically.","Trojan: Disguises itself as legitimate software."]},
-  {q:"List the advantages and disadvantages of signature-based detection.",answer:["Advantage: Fast detection","Advantage: Low false positives","Advantage: Effective for known malware","Disadvantage: Cannot detect zero-day attacks","Disadvantage: Requires constant updates","Disadvantage: Ineffective against polymorphic malware"]},
-  {q:"List the advantages and disadvantages of behavior-based detection.",answer:["Advantage: Detects unknown threats","Advantage: Identifies suspicious behavior","Advantage: Effective against zero-day malware","Disadvantage: Higher false positives","Disadvantage: Resource intensive","Disadvantage: Complex implementation"]},
-  {q:"List the major phishing attack types.",answer:["Email phishing","Spear phishing","Whaling","Smishing","Vishing","Clone phishing"]},
-  {q:"List common social engineering techniques.",answer:["Pretexting","Baiting","Tailgating","Shoulder surfing","Dumpster diving","Impersonation"]},
-  {q:"List phishing mitigation techniques.",answer:["Security awareness training","Multi-factor authentication","Email filtering","Anti-phishing gateways","URL inspection","Regular software updates"]},
-  {q:"List common password attacks.",answer:["Brute-force attack","Dictionary attack","Credential stuffing","Rainbow table attack","Password spraying","Keylogging"]},
-  {q:"List the advantages and disadvantages of brute-force attacks.",answer:["Advantage: Guaranteed success eventually","Advantage: Simple implementation","Disadvantage: Time-consuming","Disadvantage: Easily detected","Disadvantage: High computational cost"]},
-  {q:"List password security best practices.",answer:["Use strong passwords","Enable MFA","Password rotation","Avoid password reuse","Use password managers","Account lockout policies"]},
-  {q:"List common web application attacks.",answer:["SQL Injection","Cross-Site Scripting (XSS)","CSRF","File inclusion attacks","Command injection","Session hijacking"]},
-  {q:"List SQL Injection attack types.",answer:["In-band SQLi","Blind SQLi","Error-based SQLi","Union-based SQLi","Time-based SQLi","Out-of-band SQLi"]},
-  {q:"List XSS attack categories.",answer:["Stored XSS","Reflected XSS","DOM-based XSS"]},
-  {q:"List mitigation techniques for SQLi and XSS.",answer:["Input validation","Prepared statements","Parameterized queries","Output encoding","Web Application Firewalls","Secure coding practices"]},
-  {q:"List the advantages and disadvantages of WAFs.",answer:["Advantage: Real-time filtering","Advantage: Protects against web attacks","Advantage: Easy deployment","Disadvantage: False positives","Disadvantage: Expensive","Disadvantage: Cannot stop all attacks"]},
-  {q:"List common web penetration testing tools.",answer:["Burp Suite","OWASP ZAP","Nikto","SQLmap","DirBuster","Acunetix"]},
-  {q:"List common wireless attacks.",answer:["Evil Twin attack","Deauthentication attack","Rogue access point attack","WPA cracking","Packet sniffing"]},
-  {q:"List differences between WEP, WPA, WPA2, and WPA3.",answer:["WEP: Weak and outdated encryption.","WPA: Improved security using TKIP.","WPA2: Uses AES encryption and stronger authentication.","WPA3: Enhanced modern wireless security with stronger encryption."]},
-  {q:"List the advantages and disadvantages of wireless IDS.",answer:["Advantage: Detects rogue devices","Advantage: Monitors wireless threats","Advantage: Improves visibility","Disadvantage: Complex deployment","Disadvantage: High maintenance","Disadvantage: Possible false alerts"]},
-  {q:"List attacks targeting IoT systems.",answer:["Botnet attacks","Firmware exploitation","Device spoofing","Weak authentication exploitation","Denial-of-Service attacks"]},
-  {q:"List IoT security mitigation techniques.",answer:["Strong authentication","Firmware updates","Network segmentation","Encryption","Device monitoring"]},
-  {q:"List common DoS and DDoS attack techniques.",answer:["SYN flood","UDP flood","ICMP flood","HTTP flood","Amplification attacks"]},
-  {q:"List advantages and disadvantages of cloud-based DDoS mitigation.",answer:["Advantage: Scalable protection","Advantage: Real-time traffic filtering","Advantage: High availability","Disadvantage: Costly","Disadvantage: Dependency on providers","Disadvantage: Latency overhead"]},
-  {q:"List attacks targeting cloud environments.",answer:["Data breaches","Account hijacking","Misconfigured storage","API exploitation","Insider attacks"]},
-  {q:"List cloud security challenges.",answer:["Multi-tenancy risks","Data privacy concerns","Compliance challenges","Shared responsibility confusion","Virtualization vulnerabilities"]},
-  {q:"List common vulnerability assessment tools.",answer:["Nessus","OpenVAS","Qualys","Nexpose","Nikto"]},
-  {q:"List advantages and disadvantages of automated scanners.",answer:["Advantage: Fast scanning","Advantage: Large coverage","Advantage: Continuous monitoring","Disadvantage: False positives","Disadvantage: Limited context awareness","Disadvantage: Cannot replace manual testing"]},
-  {q:"List common exploitation frameworks.",answer:["Metasploit Framework","BeEF","Core Impact","Canvas","SQLmap"]},
-  {q:"List common post-exploitation techniques.",answer:["Privilege escalation","Credential dumping","Lateral movement","Persistence installation","Data exfiltration"]},
-  {q:"List privilege escalation methods.",answer:["Kernel exploits","Weak permissions","DLL hijacking","Sudo misconfigurations","Token impersonation"]},
-  {q:"List digital forensics techniques.",answer:["Log analysis","Memory forensics","Disk imaging","Network traffic analysis","Timeline reconstruction"]},
-  {q:"List the phases of incident response.",answer:["Preparation","Identification","Containment","Eradication","Recovery","Lessons learned"]},
-  {q:"List advantages and disadvantages of IDS and IPS.",answer:["Advantage: Detects malicious traffic","Advantage: Real-time monitoring","Advantage: Improves visibility","Disadvantage: False positives","Disadvantage: Performance overhead","Disadvantage: Complex configuration"]},
-  {q:"List system hardening techniques.",answer:["Patch management","Firewall configuration","Disable unused services","Strong authentication","Access control implementation"]},
-  {q:"List major cybersecurity laws and frameworks.",answer:["GDPR","HIPAA","ISO 27001","NIST Cybersecurity Framework","PCI-DSS","Cybercrime laws"]},
-  {q:"List future trends in ethical hacking and cybersecurity.",answer:["AI-driven cybersecurity","Quantum computing security","Zero Trust Architecture","Cloud-native security","IoT security advancements","Automated threat hunting","Blockchain security solutions"]},
-];
+const LABELS = ["A", "B", "C", "D"];
+const SECTION_LABELS = { 
+  L1: "Lecture 1", 
+  L23: "Lecture 2 & 3", 
+  L4: "Lecture 4", 
+  L5: "Lecture 5", 
+  L6: "Lecture 6", 
+  L7: "Lecture 7", 
+  L89: "Lectures 8 & 9" 
+};
+const PER_PAGE = 10;
 
-// ═══════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════
-let questions = [];
-let userAnswers = {};
-let studyMode = false;
-let currentFilter = 'all';
-let searchQuery = '';
-let currentPage = 1;
-const PER_PAGE = 20;
+let currentQuestions = [];
+let userAnswers = {}; // qNum -> chosenIndex
+let saAnswers = {};    // qNum -> inputString
+let saChecked = {};    // qNum -> boolean
+let currentPage = 0;
+let activeFilter = "all";
 
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+function filterQuestions() {
+  if (activeFilter === "all") {
+    currentQuestions = [...QUESTIONS_DATABASE];
+  } else {
+    currentQuestions = QUESTIONS_DATABASE.filter(q => q.s === activeFilter);
   }
-  return a;
 }
 
-function initQuestions() {
-  questions = rawQuestions.map((q, idx) => {
-    const indices = q.options.map((_, i) => i);
-    const shuffled = shuffle(indices);
-    const newCorrect = shuffled.indexOf(q.correct);
-    return {
-      id: idx,
-      q: q.q,
-      options: shuffled.map(i => q.options[i]),
-      correct: newCorrect,
-    };
+function getTotalPages() {
+  return Math.ceil(currentQuestions.length / PER_PAGE);
+}
+
+function getPageQuestions() {
+  const start = currentPage * PER_PAGE;
+  return currentQuestions.slice(start, start + PER_PAGE);
+}
+
+function countScore() {
+  let answered = 0;
+  let correct = 0;
+  let wrong = 0;
+
+  currentQuestions.forEach(q => {
+    if (q.type === 'sa') {
+      if (saChecked[q.n]) {
+        answered++;
+        const input = (saAnswers[q.n] || '').toLowerCase().trim();
+        let isCorrect = false;
+        if (q.n === 24) {
+          isCorrect = input.includes('communis') && input.includes('sender') && input.includes('receiver');
+        } else if (q.n === 104) {
+          isCorrect = input.includes('verbal') && input.includes('formal') && input.includes('downward');
+        } else if (q.n === 105) {
+          isCorrect = input.includes('oral') || input.includes('written') || input.includes('language');
+        } else {
+          isCorrect = input.length > 15;
+        }
+        if (isCorrect) correct++; else wrong++;
+      }
+    } else {
+      const selected = userAnswers[q.n];
+      if (selected !== undefined) {
+        answered++;
+        if (selected === q.ans) {
+          correct++;
+        } else {
+          wrong++;
+        }
+      }
+    }
   });
+
+  return { total: currentQuestions.length, answered, correct, wrong };
 }
 
-function getFilteredQuestions() {
-  let filtered = questions;
-  if (searchQuery) {
-    const sq = searchQuery.toLowerCase();
-    filtered = filtered.filter(q => q.q.toLowerCase().includes(sq) || q.options.some(o => o.toLowerCase().includes(sq)));
-  }
-  if (currentFilter === 'unanswered') filtered = filtered.filter(q => userAnswers[q.id] === undefined);
-  else if (currentFilter === 'correct') filtered = filtered.filter(q => userAnswers[q.id] === q.correct);
-  else if (currentFilter === 'wrong') filtered = filtered.filter(q => userAnswers[q.id] !== undefined && userAnswers[q.id] !== q.correct);
-  return filtered;
+function updateCounters() {
+  const stats = countScore();
+  document.getElementById("st-total").textContent = stats.total;
+  document.getElementById("st-answered").textContent = stats.answered;
+  document.getElementById("st-correct").textContent = stats.correct;
+  document.getElementById("st-wrong").textContent = stats.wrong;
+
+  const progressPct = stats.total > 0 ? Math.round((stats.answered / stats.total) * 100) : 0;
+  document.getElementById("prog-fill").style.width = progressPct + "%";
+  document.getElementById("prog-label").textContent = stats.answered + " / " + stats.total + " answered (" + progressPct + "% completed)";
 }
 
-function getStats() {
-  const answered = Object.keys(userAnswers).length;
-  const correct = Object.values(userAnswers).reduce((acc, val, idx) => {
-    const qid = Object.keys(userAnswers)[idx];
-    return acc + (val === questions[qid]?.correct ? 1 : 0);
-  }, 0);
-  let c = 0, w = 0;
-  for (const [id, ans] of Object.entries(userAnswers)) {
-    if (ans === questions[id]?.correct) c++;
-    else w++;
-  }
-  return { answered, correct: c, wrong: w };
+function selectOption(qNum, selectedIndex) {
+  if (userAnswers[qNum] !== undefined) return;
+  userAnswers[qNum] = selectedIndex;
+  renderPage();
 }
 
-function updateStats() {
-  const { answered, correct, wrong } = getStats();
-  document.getElementById('statAnswered').textContent = answered;
-  document.getElementById('statCorrect').textContent = correct;
-  document.getElementById('statWrong').textContent = wrong;
-  const pct = answered > 0 ? Math.round((correct / answered) * 100) : 0;
-  document.getElementById('statScore').textContent = answered > 0 ? `${pct}%` : '—';
-  document.getElementById('progressFill').style.width = `${(answered / questions.length) * 100}%`;
-  const ring = document.getElementById('scoreRing');
-  ring.style.setProperty('--pct', pct + '%');
-  document.getElementById('scoreRingText').textContent = pct + '%';
+function verifyShortAnswer(qNum) {
+  saChecked[qNum] = true;
+  renderPage();
 }
 
 function renderPage() {
-  const filtered = getFilteredQuestions();
-  const totalPages = Math.ceil(filtered.length / PER_PAGE);
-  if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
-  const start = (currentPage - 1) * PER_PAGE;
-  const pageQs = filtered.slice(start, start + PER_PAGE);
+  const container = document.getElementById("q-container");
+  container.innerHTML = "";
 
-  const container = document.getElementById('questionsContainer');
-  container.innerHTML = '';
+  const pageQuestions = getPageQuestions();
+  pageQuestions.forEach(q => {
+    const card = document.createElement("div");
+    card.className = "q-card";
 
-  pageQs.forEach((q, localIdx) => {
-    const globalIdx = questions.indexOf(q);
-    const answered = userAnswers[q.id];
-    const isCorrect = answered === q.correct;
-    const isWrong = answered !== undefined && !isCorrect;
-
-    const card = document.createElement('div');
-    card.className = `question-card ${answered !== undefined ? (isCorrect ? 'answered-correct' : 'answered-wrong') : ''}`;
-
-    const status = answered !== undefined ? (isCorrect ? '✓' : '✗') : '';
-    const statusColor = isCorrect ? 'var(--correct)' : isWrong ? 'var(--wrong)' : '';
-
-    card.innerHTML = `
-      <div class="question-header">
-        <div class="q-number">Q${globalIdx + 1}</div>
-        <div class="q-text">${q.q}</div>
-        <div class="q-status" style="color:${statusColor}">${status}</div>
-      </div>
-      <div class="answers">
-        ${q.options.map((opt, i) => {
-          let cls = 'answer-option';
-          if (answered !== undefined) {
-            cls += ' disabled';
-            if (i === q.correct) cls += studyMode ? ' reveal-correct' : ' correct';
-            else if (i === answered && answered !== q.correct) cls += ' wrong';
-          }
-          const letters = ['A','B','C','D'];
-          return `<div class="${cls}" onclick="selectAnswer(${q.id}, ${i})">
-            <span class="option-letter">${letters[i]}</span>
-            ${opt}
-          </div>`;
-        }).join('')}
-      </div>`;
-    container.appendChild(card);
-  });
-
-  // Pagination
-  renderPagination(filtered.length, totalPages);
-  updateStats();
-}
-
-function renderPagination(total, totalPages) {
-  const pag = document.getElementById('pagination');
-  pag.innerHTML = '';
-  if (totalPages <= 1) return;
-
-  const addBtn = (label, page, active, disabled) => {
-    const btn = document.createElement('button');
-    btn.className = 'page-btn' + (active ? ' active' : '');
-    btn.textContent = label;
-    btn.disabled = disabled;
-    btn.onclick = () => { currentPage = page; renderPage(); window.scrollTo({top:0,behavior:'smooth'}); };
-    pag.appendChild(btn);
-  };
-
-  addBtn('← Prev', currentPage - 1, false, currentPage === 1);
-
-  const range = [];
-  for (let i = 1; i <= totalPages; i++) {
-    if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) range.push(i);
-    else if (range[range.length-1] !== '…') range.push('…');
-  }
-
-  range.forEach(p => {
-    if (p === '…') {
-      const span = document.createElement('span');
-      span.textContent = '…';
-      span.style.cssText = 'color:var(--muted);font-family:var(--mono);font-size:12px;padding:0 4px;';
-      pag.appendChild(span);
-    } else addBtn(p, p, p === currentPage, false);
-  });
-
-  addBtn('Next →', currentPage + 1, false, currentPage === totalPages);
-}
-
-function selectAnswer(qid, optIdx) {
-  if (userAnswers[qid] !== undefined) return;
-  userAnswers[qid] = optIdx;
-  renderPage();
-}
-
-function renderEssays() {
-  const container = document.getElementById('essayContainer');
-  container.innerHTML = '';
-  essayQuestions.forEach((eq, i) => {
-    const card = document.createElement('div');
-    card.className = 'essay-card';
-    card.innerHTML = `
-      <div class="essay-header" onclick="toggleEssay(this)">
-        <div class="q-number">E${i+1}</div>
-        <div class="essay-q">${eq.q}</div>
-        <div class="essay-chevron">▼</div>
-      </div>
-      <div class="essay-answer">
-        <div class="answer-label">// Model Answer</div>
-        <ul>${eq.answer.map(a => `<li>${a}</li>`).join('')}</ul>
-      </div>`;
-    container.appendChild(card);
-  });
-}
-
-function toggleEssay(header) {
-  const card = header.closest('.essay-card');
-  card.classList.toggle('open');
-}
-
-function reshuffleAll() {
-  userAnswers = {};
-  initQuestions();
-  currentPage = 1;
-  renderPage();
-}
-
-function resetAll() {
-  userAnswers = {};
-  renderPage();
-}
-
-function revealAll() {
-  const filtered = getFilteredQuestions();
-  const start = (currentPage - 1) * PER_PAGE;
-  const pageQs = filtered.slice(start, start + PER_PAGE);
-  pageQs.forEach(q => {
-    if (userAnswers[q.id] === undefined) {
-      userAnswers[q.id] = studyMode ? -1 : q.correct;
+    const isAnswered = q.type !== 'sa' ? (userAnswers[q.n] !== undefined) : (saChecked[q.n] === true);
+    let correctClass = "";
+    if (isAnswered) {
+      if (q.type !== 'sa') {
+        correctClass = userAnswers[q.n] === q.ans ? " correct-card" : " wrong-card";
+      } else {
+        correctClass = " correct-card"; // Short answers highlight in green on submission
+      }
+      card.className += correctClass;
     }
+
+    // Header Meta
+    const headerHTML = `
+      <div class="q-header">
+        <span class="q-num">Q${q.n}</span>
+        <span class="q-badge">${SECTION_LABELS[q.s]}</span>
+      </div>
+    `;
+
+    // Question Text
+    const textHTML = `<div class="q-text">${q.q}</div>`;
+
+    // Input Mechanics
+    let inputHTML = "";
+    if (q.type !== 'sa') {
+      const optionsHTML = q.opts.map((opt, optIndex) => {
+        let optCls = "opt";
+        if (isAnswered) {
+          if (optIndex === q.ans) {
+            optCls += " opt-correct";
+          } else if (optIndex === userAnswers[q.n]) {
+            optCls += " opt-wrong";
+          }
+        }
+        const disabled = isAnswered ? "disabled" : "";
+        return `
+          <button class="${optCls}" ${disabled} onclick="selectOption(${q.n}, ${optIndex})">
+            <span class="opt-label">${LABELS[optIndex]}</span>
+            <span>${opt}</span>
+          </button>
+        `;
+      }).join("");
+      inputHTML = `<div class="options">${optionsHTML}</div>`;
+    } else {
+      const currentInputVal = saAnswers[q.n] || "";
+      const disabledAttr = isAnswered ? "disabled" : "";
+      
+      let saControlHTML = "";
+      if (!isAnswered) {
+        saControlHTML = `
+          <div style="display:flex; justify-content:flex-end;">
+            <button class="btn-primary" style="font-size:11px; padding:6px 12px;" onclick="verifyShortAnswer(${q.n})">Verify Answer</button>
+          </div>
+        `;
+      } else {
+        saControlHTML = `
+          <div class="feedback fb-correct">
+            <span class="feedback-title">✓ Checked — Compare your answer with standard definitions below:</span>
+            <div style="color:var(--text); font-style:italic; font-weight:600; margin-top:4px;">"${q.ans}"</div>
+          </div>
+        `;
+      }
+
+      inputHTML = `
+        <div style="width:100%;">
+          <textarea class="sa-input" id="sa-textarea-${q.n}" rows="2" ${disabledAttr} placeholder="Type your lecture response here..." oninput="saAnswers[${q.n}] = this.value">${currentInputVal}</textarea>
+          ${saControlHTML}
+        </div>
+      `;
+    }
+
+    // Explanation / Feedback Context
+    let feedbackHTML = "";
+    if (isAnswered) {
+      if (q.type !== 'sa') {
+        const isUserCorrect = userAnswers[q.n] === q.ans;
+        feedbackHTML = `
+          <div class="feedback ${isUserCorrect ? 'fb-correct' : 'fb-wrong'}">
+            <span class="feedback-title">${isUserCorrect ? '✓ Correct Answer' : '✗ Incorrect Answer'}</span>
+            <div>Verified Choice: <strong>${q.opts[q.ans]}</strong></div>
+            ${q.exp ? `<div style="font-size:11px; color:var(--muted); margin-top:6px; border-top:1px solid rgba(255,255,255,0.05); padding-top:6px;"><strong>Context:</strong> ${q.exp}</div>` : ""}
+          </div>
+        `;
+      } else {
+        // Standard context info for short answers
+        feedbackHTML = `
+          <div class="feedback fb-correct" style="font-size:11px; color:var(--muted);">
+            <strong>Lecture Context:</strong> ${q.exp}
+          </div>
+        `;
+      }
+    }
+
+    card.innerHTML = headerHTML + textHTML + inputHTML + feedbackHTML;
+    container.appendChild(card);
   });
+
+  const totalPages = getTotalPages();
+  document.getElementById("page-info").textContent = "Page " + (currentPage + 1) + " / " + (totalPages || 1);
+  updateCounters();
+}
+
+function prevPage() {
+  if (currentPage > 0) {
+    currentPage--;
+    renderPage();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function nextPage() {
+  if (currentPage < getTotalPages() - 1) {
+    currentPage++;
+    renderPage();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function filterSection() {
+  activeFilter = document.getElementById("section-sel").value;
+  currentPage = 0;
+  filterQuestions();
   renderPage();
 }
 
-function setFilter(f, btn) {
-  currentFilter = f;
-  currentPage = 1;
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
+function resetQuiz() {
+  userAnswers = {};
+  saAnswers = {};
+  saChecked = {};
+  currentPage = 0;
   renderPage();
 }
 
-function onSearch() {
-  searchQuery = document.getElementById('searchInput').value;
-  currentPage = 1;
-  renderPage();
-}
-
-function toggleStudyMode() {
-  studyMode = !studyMode;
-  const t = document.getElementById('studyToggle');
-  t.classList.toggle('on', studyMode);
-  renderPage();
-}
-
-// ═══════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════
-initQuestions();
+// Initial Run
+filterQuestions();
 renderPage();
-renderEssays();
 </script>
 </body>
 </html>
