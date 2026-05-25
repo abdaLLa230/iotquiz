@@ -1,777 +1,1069 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>O6U Communication Skills Study Hub</title>
+<title>Communication Skills - Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0f172a;
-    --surface: #1e293b;
-    --surface2: #334155;
-    --border: #475569;
-    --accent: #14b8a6;
-    --accent-hover: #0d9488;
-    --green: #10b981;
-    --red: #f43f5e;
-    --text: #f8fafc;
-    --muted: #94a3b8;
-    --radius: 16px;
+    --bg: #0f0f1a;
+    --card: #1a1a2e;
+    --card2: #16213e;
+    --accent: #e94560;
+    --accent2: #0f3460;
+    --gold: #f5a623;
+    --green: #00d4aa;
+    --red: #ff4757;
+    --text: #eaeaea;
+    --text2: #a0a8c0;
+    --border: #2a2a4a;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; min-height: 100vh; line-height: 1.5; }
 
-  header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .logo-wrap { display: flex; align-items: center; gap: 10px; }
-  .logo-icon {
-    background: rgba(20, 184, 166, 0.15);
-    color: var(--accent);
-    padding: 8px;
-    border-radius: 12px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .logo-text h1 { font-size: 16px; font-weight: 800; tracking-wide: 0.5px; }
-  .logo-text p { font-size: 11px; color: var(--muted); }
+- { margin:0; padding:0; box-sizing:border-box; }
 
-  .header-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+body {
+background: var(–bg);
+color: var(–text);
+font-family: ‘Cairo’, sans-serif;
+min-height: 100vh;
+background-image: radial-gradient(ellipse at 20% 50%, rgba(233,69,96,0.08) 0%, transparent 50%),
+radial-gradient(ellipse at 80% 20%, rgba(15,52,96,0.15) 0%, transparent 50%);
+}
 
-  select, button {
-    background: var(--surface2);
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-  select:hover, button:hover { border-color: var(--accent); }
-  select:focus { outline: none; border-color: var(--accent); }
-  .btn-primary { background: var(--accent); color: #0f172a; border-color: var(--accent); }
-  .btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+/* SCREENS */
+.screen { display:none; }
+.screen.active { display:flex; flex-direction:column; min-height:100vh; }
 
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    padding: 24px 24px 0;
-    max-width: 860px;
-    margin: 0 auto;
-  }
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px;
-    text-align: center;
-    transition: transform 0.2s;
-  }
-  .stat-val { font-size: 26px; font-weight: 900; }
-  .stat-lbl { font-size: 10px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 1px; }
-  .val-green { color: var(--green); }
-  .val-red { color: var(--red); }
-  .val-accent { color: var(--accent); }
+/* ===== HOME SCREEN ===== */
+#home {
+align-items: center;
+justify-content: center;
+padding: 40px 20px;
+gap: 30px;
+}
 
-  .progress-wrap { padding: 18px 24px 0; max-width: 860px; margin: 0 auto; }
-  .progress-track { height: 8px; background: #020617; border-radius: 4px; overflow: hidden; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--green)); border-radius: 4px; transition: width 0.3s ease; }
-  .progress-label { font-size: 11px; color: var(--muted); margin-top: 6px; display: flex; justify-content: space-between; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.logo-area {
+text-align: center;
+animation: fadeDown 0.8s ease;
+}
 
-  main { max-width: 860px; margin: 0 auto; padding: 24px 24px 60px; }
+.logo-icon {
+font-size: 64px;
+display: block;
+margin-bottom: 16px;
+filter: drop-shadow(0 0 20px rgba(233,69,96,0.5));
+}
 
-  .q-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    margin-bottom: 20px;
-    transition: all 0.2s ease;
-  }
-  .q-card.correct-card { border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.05); }
-  .q-card.wrong-card { border-color: rgba(244, 63, 94, 0.4); box-shadow: 0 4px 20px rgba(244, 63, 94, 0.05); }
+.logo-area h1 {
+font-size: 28px;
+font-weight: 900;
+background: linear-gradient(135deg, var(–accent), var(–gold));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+line-height: 1.3;
+}
 
-  .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-  .q-num { font-size: 12px; font-weight: 800; color: var(--accent); background: rgba(20, 184, 166, 0.1); padding: 4px 10px; border-radius: 8px; }
-  .q-badge {
-    font-size: 10px;
-    padding: 4px 10px;
-    border-radius: 8px;
-    background: var(--surface2);
-    color: var(--muted);
-    border: 1px solid var(--border);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .q-text { font-size: 16px; font-weight: 700; line-height: 1.6; margin-bottom: 18px; color: #f8fafc; }
+.logo-area p {
+color: var(–text2);
+font-size: 14px;
+margin-top: 8px;
+font-family: ‘Tajawal’, sans-serif;
+}
 
-  .options { display: grid; gap: 10px; }
-  .opt {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 16px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: rgba(15, 23, 42, 0.3);
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.4;
-    text-align: left;
-    color: var(--text);
-    transition: all 0.15s ease;
-    width: 100%;
-  }
-  .opt:not(:disabled):hover { border-color: var(--accent); background: rgba(20, 184, 166, 0.05); }
-  .opt:disabled { cursor: default; }
-  .opt.opt-correct { border-color: var(--green); background: rgba(16, 185, 129, 0.1); color: #a7f3d0; }
-  .opt.opt-wrong { border-color: var(--red); background: rgba(244, 63, 94, 0.1); color: #fecdd3; }
-  
-  .opt-label {
-    min-width: 26px;
-    height: 26px;
-    border-radius: 6px;
-    background: var(--surface2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 850;
-    color: var(--muted);
-    flex-shrink: 0;
-  }
-  .opt-correct .opt-label { background: var(--green); color: #022c22; }
-  .opt-wrong .opt-label { background: var(--red); color: #4c0519; }
+.exam-cards {
+display: flex;
+flex-direction: column;
+gap: 16px;
+width: 100%;
+max-width: 480px;
+animation: fadeUp 0.9s ease;
+}
 
-  .sa-input {
-    width: 100%;
-    background: #0f172a;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px;
-    color: var(--text);
-    font-family: inherit;
-    font-size: 14px;
-    resize: none;
-    margin-bottom: 10px;
-    transition: border-color 0.15s;
-  }
-  .sa-input:focus { outline: none; border-color: var(--accent); }
-  .sa-input:disabled { opacity: 0.7; }
+.exam-card {
+background: var(–card);
+border: 1px solid var(–border);
+border-radius: 20px;
+padding: 24px;
+cursor: pointer;
+transition: all 0.3s ease;
+position: relative;
+overflow: hidden;
+}
 
-  .feedback { font-size: 13px; margin-top: 14px; padding: 12px; border-radius: 10px; background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border); line-height: 1.6; }
-  .feedback.fb-correct { color: #6ee7b7; border-color: rgba(16, 185, 129, 0.2); }
-  .feedback.fb-wrong { color: #fca5a5; border-color: rgba(244, 63, 94, 0.2); }
-  .feedback-title { font-weight: 800; text-transform: uppercase; font-size: 10px; tracking-wide: 0.5px; margin-bottom: 4px; display: block; }
+.exam-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0; bottom: 0;
+opacity: 0;
+transition: opacity 0.3s;
+border-radius: 20px;
+}
 
-  .nav-bar { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; flex-wrap: wrap; gap: 12px; }
-  .page-info { font-size: 13px; color: var(--muted); font-weight: 700; }
+.exam-card:hover { transform: translateY(-4px); border-color: var(–accent); }
+.exam-card:hover::before { opacity: 1; }
 
-  footer {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    padding: 24px;
-    text-align: center;
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: auto;
-  }
-  footer p { margin-bottom: 4px; }
+.exam-card.card-1::before { background: linear-gradient(135deg, rgba(233,69,96,0.08), transparent); }
+.exam-card.card-2::before { background: linear-gradient(135deg, rgba(0,212,170,0.08), transparent); }
+.exam-card.card-all::before { background: linear-gradient(135deg, rgba(245,166,35,0.08), transparent); }
 
-  @media(max-width:600px){
-    .stats-bar { grid-template-columns: repeat(2,1fr); }
-    .stat-val { font-size: 22px; }
-    header { padding: 12px 16px; }
-    main { padding: 16px; }
-  }
+.card-header {
+display: flex;
+align-items: center;
+gap: 14px;
+margin-bottom: 12px;
+}
+
+.card-icon {
+width: 50px; height: 50px;
+border-radius: 14px;
+display: flex; align-items: center; justify-content: center;
+font-size: 24px;
+flex-shrink: 0;
+}
+
+.card-1 .card-icon { background: rgba(233,69,96,0.15); }
+.card-2 .card-icon { background: rgba(0,212,170,0.15); }
+.card-all .card-icon { background: rgba(245,166,35,0.15); }
+
+.card-title { font-size: 17px; font-weight: 700; }
+.card-subtitle { color: var(–text2); font-size: 13px; font-family:‘Tajawal’,sans-serif; margin-top:2px; }
+
+.card-meta {
+display: flex;
+gap: 12px;
+flex-wrap: wrap;
+}
+
+.meta-badge {
+background: rgba(255,255,255,0.05);
+border: 1px solid var(–border);
+border-radius: 8px;
+padding: 4px 12px;
+font-size: 12px;
+color: var(–text2);
+font-family:‘Tajawal’,sans-serif;
+}
+
+.start-btn {
+background: linear-gradient(135deg, var(–accent), #c0392b);
+color: white;
+border: none;
+border-radius: 14px;
+padding: 14px 32px;
+font-size: 16px;
+font-weight: 700;
+font-family: ‘Cairo’, sans-serif;
+cursor: pointer;
+transition: all 0.3s;
+align-self: center;
+box-shadow: 0 8px 24px rgba(233,69,96,0.3);
+margin-top: 4px;
+}
+
+.start-btn:hover { transform: scale(1.04); box-shadow: 0 12px 30px rgba(233,69,96,0.45); }
+
+/* ===== QUIZ SCREEN ===== */
+#quiz {
+padding: 0;
+}
+
+.quiz-header {
+background: var(–card2);
+border-bottom: 1px solid var(–border);
+padding: 16px 20px;
+display: flex;
+align-items: center;
+gap: 12px;
+position: sticky;
+top: 0;
+z-index: 10;
+}
+
+.back-btn {
+background: rgba(255,255,255,0.08);
+border: 1px solid var(–border);
+border-radius: 10px;
+padding: 8px 14px;
+color: var(–text);
+cursor: pointer;
+font-size: 18px;
+transition: all 0.2s;
+font-family:‘Cairo’,sans-serif;
+}
+
+.back-btn:hover { background: rgba(233,69,96,0.2); border-color: var(–accent); }
+
+.quiz-title-small {
+flex: 1;
+font-size: 14px;
+font-weight: 600;
+color: var(–text2);
+}
+
+.q-counter {
+background: var(–accent);
+border-radius: 10px;
+padding: 6px 14px;
+font-size: 13px;
+font-weight: 700;
+white-space: nowrap;
+}
+
+.progress-bar-wrap {
+background: var(–card2);
+padding: 0 20px 12px;
+border-bottom: 1px solid var(–border);
+}
+
+.progress-bar {
+height: 4px;
+background: rgba(255,255,255,0.08);
+border-radius: 4px;
+overflow: hidden;
+}
+
+.progress-fill {
+height: 100%;
+background: linear-gradient(90deg, var(–accent), var(–gold));
+border-radius: 4px;
+transition: width 0.5s ease;
+}
+
+.quiz-body {
+padding: 24px 20px;
+flex: 1;
+display: flex;
+flex-direction: column;
+gap: 20px;
+max-width: 640px;
+margin: 0 auto;
+width: 100%;
+}
+
+.lecture-tag {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+background: rgba(233,69,96,0.1);
+border: 1px solid rgba(233,69,96,0.3);
+border-radius: 8px;
+padding: 5px 12px;
+font-size: 12px;
+color: var(–accent);
+font-family:‘Tajawal’,sans-serif;
+align-self: flex-start;
+}
+
+.q-type-badge {
+display: inline-flex;
+background: rgba(245,166,35,0.1);
+border: 1px solid rgba(245,166,35,0.3);
+border-radius: 8px;
+padding: 5px 12px;
+font-size: 12px;
+color: var(–gold);
+font-family:‘Tajawal’,sans-serif;
+margin-right: 8px;
+}
+
+.q-text {
+font-size: 17px;
+font-weight: 600;
+line-height: 1.7;
+color: var(–text);
+direction: ltr;
+text-align: left;
+}
+
+.options-list {
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.option-btn {
+background: var(–card);
+border: 1.5px solid var(–border);
+border-radius: 14px;
+padding: 14px 18px;
+text-align: left;
+cursor: pointer;
+transition: all 0.25s;
+font-size: 15px;
+font-family: ‘Cairo’, sans-serif;
+color: var(–text);
+display: flex;
+align-items: center;
+gap: 12px;
+direction: ltr;
+}
+
+.option-btn:hover:not(:disabled) {
+border-color: var(–gold);
+background: rgba(245,166,35,0.06);
+transform: translateX(-3px);
+}
+
+.option-btn:disabled { cursor: default; }
+
+.option-btn.correct {
+background: rgba(0,212,170,0.12);
+border-color: var(–green);
+color: var(–green);
+}
+
+.option-btn.wrong {
+background: rgba(255,71,87,0.12);
+border-color: var(–red);
+color: var(–red);
+}
+
+.option-btn.reveal-correct {
+background: rgba(0,212,170,0.06);
+border-color: rgba(0,212,170,0.4);
+color: var(–green);
+}
+
+.opt-label {
+width: 30px; height: 30px;
+border-radius: 8px;
+background: rgba(255,255,255,0.07);
+display: flex; align-items: center; justify-content: center;
+font-size: 13px;
+font-weight: 700;
+flex-shrink: 0;
+transition: all 0.25s;
+}
+
+.option-btn.correct .opt-label { background: var(–green); color: #0f1a0f; }
+.option-btn.wrong .opt-label { background: var(–red); color: white; }
+.option-btn.reveal-correct .opt-label { background: rgba(0,212,170,0.3); }
+
+.feedback-box {
+border-radius: 14px;
+padding: 14px 18px;
+font-size: 14px;
+font-family: ‘Tajawal’, sans-serif;
+line-height: 1.6;
+display: none;
+animation: popIn 0.3s ease;
+}
+
+.feedback-box.show { display: block; }
+.feedback-box.correct-fb { background: rgba(0,212,170,0.1); border: 1px solid rgba(0,212,170,0.3); color: var(–green); }
+.feedback-box.wrong-fb { background: rgba(255,71,87,0.1); border: 1px solid rgba(255,71,87,0.3); color: var(–red); }
+
+.next-btn {
+background: linear-gradient(135deg, var(–accent), #c0392b);
+color: white;
+border: none;
+border-radius: 14px;
+padding: 16px;
+font-size: 16px;
+font-weight: 700;
+font-family: ‘Cairo’, sans-serif;
+cursor: pointer;
+transition: all 0.3s;
+display: none;
+box-shadow: 0 6px 20px rgba(233,69,96,0.3);
+}
+
+.next-btn.show { display: block; }
+.next-btn:hover { transform: scale(1.02); }
+
+/* ===== RESULT SCREEN ===== */
+#result {
+align-items: center;
+justify-content: center;
+padding: 40px 20px;
+gap: 24px;
+}
+
+.result-card {
+background: var(–card);
+border: 1px solid var(–border);
+border-radius: 24px;
+padding: 36px 28px;
+max-width: 480px;
+width: 100%;
+text-align: center;
+animation: fadeUp 0.6s ease;
+}
+
+.result-emoji { font-size: 72px; display: block; margin-bottom: 16px; }
+
+.result-title {
+font-size: 26px;
+font-weight: 900;
+margin-bottom: 8px;
+}
+
+.result-subtitle {
+color: var(–text2);
+font-size: 14px;
+font-family: ‘Tajawal’, sans-serif;
+margin-bottom: 24px;
+}
+
+.score-big {
+font-size: 64px;
+font-weight: 900;
+background: linear-gradient(135deg, var(–gold), var(–accent));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+line-height: 1;
+margin-bottom: 4px;
+}
+
+.score-label { color: var(–text2); font-size: 13px; font-family:‘Tajawal’,sans-serif; margin-bottom: 28px; }
+
+.stats-row {
+display: flex;
+gap: 12px;
+margin-bottom: 28px;
+}
+
+.stat-box {
+flex: 1;
+background: rgba(255,255,255,0.04);
+border: 1px solid var(–border);
+border-radius: 14px;
+padding: 14px 8px;
+}
+
+.stat-num { font-size: 24px; font-weight: 800; }
+.stat-num.g { color: var(–green); }
+.stat-num.r { color: var(–red); }
+.stat-lbl { font-size: 11px; color: var(–text2); font-family:‘Tajawal’,sans-serif; margin-top: 2px; }
+
+.result-actions {
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.btn-primary {
+background: linear-gradient(135deg, var(–accent), #c0392b);
+color: white;
+border: none;
+border-radius: 14px;
+padding: 14px;
+font-size: 15px;
+font-weight: 700;
+font-family: ‘Cairo’, sans-serif;
+cursor: pointer;
+transition: all 0.3s;
+}
+
+.btn-primary:hover { transform: scale(1.03); }
+
+.btn-secondary {
+background: transparent;
+color: var(–text2);
+border: 1px solid var(–border);
+border-radius: 14px;
+padding: 14px;
+font-size: 15px;
+font-weight: 600;
+font-family: ‘Cairo’, sans-serif;
+cursor: pointer;
+transition: all 0.3s;
+}
+
+.btn-secondary:hover { border-color: var(–text2); color: var(–text); }
+
+/* ANIMATIONS */
+@keyframes fadeDown {
+from { opacity: 0; transform: translateY(-20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+from { opacity: 0; transform: scale(0.95); }
+to { opacity: 1; transform: scale(1); }
+}
+
+.q-anim {
+animation: fadeUp 0.4s ease;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(–bg); }
+::-webkit-scrollbar-thumb { background: var(–border); border-radius: 3px; }
 </style>
+
 </head>
 <body>
 
-<header>
-  <div class="logo-wrap">
-    <div class="logo-icon">O6U</div>
-    <div class="logo-text">
-      <h1>Communication Skills</h1>
-      
+<!-- HOME SCREEN -->
+
+<div id="home" class="screen active">
+  <div class="logo-area">
+    <span class="logo-icon">🎓</span>
+    <h1>Communication Skills<br>Quiz System</h1>
+    <p>October 6 University — Faculty of Information Systems</p>
+  </div>
+
+  <div class="exam-cards">
+    <div class="exam-card card-1" onclick="startExam('exam1')">
+      <div class="card-header">
+        <div class="card-icon">📚</div>
+        <div>
+          <div class="card-title">الامتحان الأول</div>
+          <div class="card-subtitle">Lectures 1, 2&3, 4</div>
+        </div>
+      </div>
+      <div class="card-meta">
+        <span class="meta-badge">📖 Lectures 1–4</span>
+        <span class="meta-badge">✅ True/False</span>
+        <span class="meta-badge">🔘 MCQ</span>
+      </div>
+    </div>
+
+```
+<div class="exam-card card-2" onclick="startExam('exam2')">
+  <div class="card-header">
+    <div class="card-icon">⚡</div>
+    <div>
+      <div class="card-title">الامتحان الثاني</div>
+      <div class="card-subtitle">Lectures 5, 6, 7, 8&9</div>
     </div>
   </div>
-  <div class="header-controls">
-    <select id="section-sel" onchange="filterSection()">
-      <option value="all">All Lectures Combined</option>
-      <option value="L1">Lecture 1: Introduction (1–24)</option>
-      <option value="L23">Lecture 2 & 3: Process (25–72)</option>
-      <option value="L4">Lecture 4: Types (73–105)</option>
-      <option value="L5">Lecture 5: Effective Comm. & Process (106–161)</option>
-      <option value="L6">Lecture 6: Models of Comm. (162–216)</option>
-      <option value="L7">Lecture 7: Comm. Different Styles (217–239)</option>
-      <option value="L89">Lecture 8 & 9: Meaning & Definition (240–248)</option>
-    </select>
-    <button class="btn-primary" onclick="resetQuiz()">Reset Quiz</button>
-  </div>
-</header>
-
-<div class="stats-bar">
-  <div class="stat-card"><div class="stat-val val-accent" id="st-total">248</div><div class="stat-lbl">Total</div></div>
-  <div class="stat-card"><div class="stat-val" id="st-answered">0</div><div class="stat-lbl">Answered</div></div>
-  <div class="stat-card"><div class="stat-val val-green" id="st-correct">0</div><div class="stat-lbl">Correct</div></div>
-  <div class="stat-card"><div class="stat-val val-red" id="st-wrong">0</div><div class="stat-lbl">Wrong</div></div>
-</div>
-
-<div class="progress-wrap">
-  <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
-  <div class="progress-label">
-    <span>Quiz Progress</span>
-    <span id="prog-label">0 / 248 answered</span>
+  <div class="card-meta">
+    <span class="meta-badge">📖 Lectures 5–9</span>
+    <span class="meta-badge">✅ True/False</span>
+    <span class="meta-badge">🔘 MCQ</span>
   </div>
 </div>
 
-<main>
-  <div id="q-container"></div>
-  <div class="nav-bar">
-    <button onclick="prevPage()">← Previous</button>
-    <span class="page-info" id="page-info">Page 1 / 25</span>
-    <button onclick="nextPage()">Next →</button>
+<div class="exam-card card-all" onclick="startExam('examAll')">
+  <div class="card-header">
+    <div class="card-icon">🏆</div>
+    <div>
+      <div class="card-title">الامتحان الشامل</div>
+      <div class="card-subtitle">All Lectures — Full Revision</div>
+    </div>
   </div>
-</main>
+  <div class="card-meta">
+    <span class="meta-badge">📖 All Lectures</span>
+    <span class="meta-badge">🎲 Random Order</span>
+    <span class="meta-badge">💯 Full Exam</span>
+  </div>
+</div>
+```
 
-<footer>
-  <p className="font-semibold">October 6 University, Egypt — Faculty of Information Systems & Computer Science</p>
-  <p>Practice mode • Instant verification & grading</p>
-</footer>
+  </div>
+</div>
+
+<!-- QUIZ SCREEN -->
+
+<div id="quiz" class="screen">
+  <div class="quiz-header">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div class="quiz-title-small" id="quizTitleSmall">Quiz</div>
+    <div class="q-counter" id="qCounter">1 / ?</div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+  <div class="quiz-body q-anim" id="quizBody"></div>
+</div>
+
+<!-- RESULT SCREEN -->
+
+<div id="result" class="screen">
+  <div class="result-card">
+    <span class="result-emoji" id="resultEmoji">🎉</span>
+    <div class="result-title" id="resultTitle">النتيجة</div>
+    <div class="result-subtitle" id="resultSubtitle"></div>
+    <div class="score-big" id="scoreBig">0%</div>
+    <div class="score-label" id="scoreLabel"></div>
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num g" id="correctCount">0</div>
+        <div class="stat-lbl">إجابات صحيحة</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num r" id="wrongCount">0</div>
+        <div class="stat-lbl">إجابات خاطئة</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="totalCount">0</div>
+        <div class="stat-lbl">إجمالي الأسئلة</div>
+      </div>
+    </div>
+    <div class="result-actions">
+      <button class="btn-primary" id="retryBtn" onclick="retryExam()">🔄 إعادة الاختبار</button>
+      <button class="btn-secondary" onclick="goHome()">🏠 الصفحة الرئيسية</button>
+    </div>
+  </div>
+</div>
 
 <script>
-const QUESTIONS_DATABASE = [
-  // --- LECTURE 1 ---
-  {n:1,s:"L1",type:"tf",q:"Communication is the lifeline of society and social organizations.",opts:["True","False"],ans:0,exp:"According to Slide 2 of Lecture 1, communication is the vital process that sustains both human society and business/social organizations."},
-  {n:2,s:"L1",type:"tf",q:"An organization can hardly be conceived without communication.",opts:["True","False"],ans:0,exp:"Communication is what links individuals, machinery, and management together; without it, cohesive organization is impossible."},
-  {n:3,s:"L1",type:"tf",q:"In the absence of one of the most essential gradients like communication, an organization would turn into a mere assembly of unrelated and organized individuals, materials and machines and tools, which neither makes any sense nor, in fact, any kind of organization.",opts:["True","False"],ans:0,exp:"The lack of communication breaks structural relationships, turning a structured group into a meaningless assembly of unrelated elements."},
-  {n:4,s:"L1",type:"tf",q:"Prevalence of unperturbed and meaningful communication system, which is called ineffective communication.",opts:["True","False"],ans:1,exp:"Correction: A meaningful, unperturbed, and stable communication system is referred to as EFFECTIVE communication, not ineffective."},
-  {n:5,s:"L1",type:"tf",q:"The study of communication in management education and operation of an organization has been quite unavoidable.",opts:["True","False"],ans:0,exp:"Modern management operations absolutely depend on communication, making its study essential and unavoidable."},
-  {n:6,s:"L1",type:"tf",q:"Regular training and refreshment is always provided to people in an organization to maintain Effective Communication.",opts:["True","False"],ans:0,exp:"Organizations conduct recurring training seminars and refreshers to prevent degradation of their communication standards."},
-  {n:7,s:"L1",type:"tf",q:"Man used to communicate with his fellow beings by means of sounds, signals, gestures when there was no language developed.",opts:["True","False"],ans:0,exp:"Historically, nonverbal channels like basic sounds, signal fires, and natural gestures predated structured verbal systems."},
-  {n:8,s:"L1",type:"tf",q:"The word communication has been derived from the Latin word 'communis', meaning to share. It basically involves a sender, a message and a receiver.",opts:["True","False"],ans:0,exp:"Communication is lexically rooted in 'communis' (common / to share). The process core contains the Sender, Message, and Receiver."},
-  {n:9,s:"L1",type:"tf",q:"Communication is usually a two-way process.",opts:["True","False"],ans:0,exp:"It is not merely a transmission; it includes transmission, receiving, understanding, and feedback from the recipient."},
-  {n:10,s:"L1",type:"tf",q:"Communication, therefore, involves more than one person.",opts:["True","False"],ans:0,exp:"Because it relies on sharing information between a sender and at least one receiver, it requires multiple participants."},
-  {n:11,s:"L1",type:"tf",q:"Minus communication, human society could have been as it is today.",opts:["True","False"],ans:1,exp:"Correction: Without the capacity to communicate, complex human cultures, rules, technologies, and societies could never have evolved."},
-  {n:12,s:"L1",type:"mc",q:"Communication is the lifeline of society and __________ organizations.",opts:["a. business","b. social"],ans:1,exp:"While communication is critical to business, the general text sentence defines it as 'the lifeline of society and social organizations'."},
-  {n:13,s:"L1",type:"mc",q:"An organization can hardly be conceived _________.",opts:["a. Without communication","b. with communication"],ans:0,exp:"No coordinated operations can exist without constant transmission of tasks, requirements, and responses."},
-  {n:14,s:"L1",type:"mc",q:"In the absence of one of the most essential gradients like communication, an organization would turn into a mere assembly of __________ and unorganized individuals, materials and machines and tools, which neither makes any sense nor, in fact, any kind of organization.",opts:["a. related","b. unrelated"],ans:1,exp:"Without structural connections formed through messaging, components are entirely unrelated."},
-  {n:15,s:"L1",type:"mc",q:"Prevalence of unperturbed and meaningful communication system, which is called __________ communication.",opts:["a. effective","b. ineffective"],ans:0,exp:"A healthy, uninterrupted, and accurately comprehended message delivery cycle is the definition of effective communication."},
-  {n:16,s:"L1",type:"mc",q:"The study of communication in management education and operation of an organization has been quite __________.",opts:["a. unavoidable","b. avoidable"],ans:0,exp:"Management relies directly on organizing and leading, both of which are rooted entirely in communication, making its study crucial."},
-  {n:17,s:"L1",type:"mc",q:"Regular training and refreshment is always provided to people in an organization to maintain __________ Communication.",opts:["a. effective","b. ineffective"],ans:0,exp:"Regular sessions ensure workers maintain high efficiency, accuracy, and professional standards in their interactions."},
-  {n:18,s:"L1",type:"mc",q:"Regular training and refreshment is always provided to people in an organization to __________ Effective Communication.",opts:["a. increase","b. maintain"],ans:1,exp:"The explicit primary objective stated in your curriculum slides is to 'maintain' established standards of Effective Communication."},
-  {n:19,s:"L1",type:"tf",q:"The word communication has been derived from the Latin word 'communis', meaning to share. It basically involves a sender, a message and a receiver. (Re-evaluation Question)",opts:["True","False"],ans:0,exp:"This is a duplicate test point re-confirming the fundamental Latin origin and the primary structure of information exchanges."},
-  {n:20,s:"L1",type:"mc",q:"The word communication has been derived from the Latin word 'communis', meaning to share. It basically involves __________.",opts:["a. a sender, a message and a receiver","b. a sender, a message only"],ans:0,exp:"Without a receiver, there is no sharing, making the entire cycle incomplete and failing the Latin concept of 'communis'."},
-  {n:21,s:"L1",type:"mc",q:"Communication, therefore, involves __________.",opts:["a. one person","b. more than one person"],ans:1,exp:"Sharing is inherently a social act that requires a minimum of a sending entity and a receiving partner."},
-  {n:22,s:"L1",type:"mc",q:"Communication is the activity of conveying __________.",opts:["a. information","b. data","c. Characters"],ans:0,exp:"Communication is defined as conveying contextual, meaningful 'information' rather than raw characters or unanalyzed symbols."},
-  {n:23,s:"L1",type:"mc",q:"Communication is usually a (one / two / multi) way process. It is not just giving information or signaling someone; it also involves the (composition / comprehension / completion) of the information or the signal by the receiver.",opts:["a. two / comprehension","b. multi / composition","c. one / completion"],ans:0,exp:"It is a two-way process that is finished when the receiver exhibits successful 'comprehension' of the transmitted concept."},
-  {n:24,s:"L1",type:"sa",q:"What is Communication?",ans:"Communication is a dynamic, usually two-way process derived from the Latin word 'communis' (meaning to share). It involves more than one person—specifically a sender, a message, and a receiver—and consists of conveying information, ideas, or signals in a way that ensures mutual understanding and comprehension by the receiving party.",exp:"This is a key open-ended definition. Memorize terms: Latin 'communis', 2-way process, sender-message-receiver, mutual understanding."},
+// ===============================================================
+// ALL QUESTIONS — Exact answers from the PDFs, no changes
+// ===============================================================
 
-  // --- LECTURES 2 & 3 ---
-  {n:25,s:"L23",type:"tf",q:"Communication is the act of conveying intended meaning from one entity or group to another through the use of mutually understood signs or semiotic rules.",opts:["True","False"],ans:0,exp:"Conveying intended meaning using mutually understood signs is a comprehensive, scientific description of communication."},
-  {n:26,s:"L23",type:"tf",q:"Communication is a composite of information given and received.",opts:["True","False"],ans:0,exp:"It represents a dual-directional interaction involving both transmission and acceptance."},
-  {n:27,s:"L23",type:"tf",q:"Communication is a composite of a listening effort by some involved.",opts:["True","False"],ans:1,exp:"Correction: True communication requires an active listening commitment from ALL parties involved, not just some."},
-  {n:28,s:"L23",type:"tf",q:"Communication is a composite a sympathetic fresh examination of issues by communicator himself.",opts:["True","False"],ans:0,exp:"An effective communicator must continually re-examine and adapt their own viewpoints and approaches dynamically."},
-  {n:29,s:"L23",type:"tf",q:"Communication is a composite a sensitive interaction of points of view leading to a higher level of shared understanding and common intention.",opts:["True","False"],ans:0,exp:"Successful communication elevates collaborative environments by fostering consensus and cooperative alignment."},
-  {n:30,s:"L23",type:"tf",q:"Communication is a composite a sensitive interaction of points of view leading to a lower level of shared understanding and common intention.",opts:["True","False"],ans:1,exp:"Correction: True communication aims to elevate mutual consensus to a higher, more cohesive operational standard."},
-  {n:31,s:"L23",type:"tf",q:"Communication is a composite a sensitive interaction of points of view leading to a higher level of shared understanding and different intention.",opts:["True","False"],ans:1,exp:"Correction: Successful resolution aligns stakeholders toward a 'common' cooperative goal or intention."},
-  {n:32,s:"L23",type:"tf",q:"Communication is the intercourse by words, letters or messages.",opts:["True","False"],ans:0,exp:"This is a direct classical definition of interpersonal transactional exchanges."},
-  {n:33,s:"L23",type:"tf",q:"Communication is the process of passing information and understanding from one person to another.",opts:["True","False"],ans:0,exp:"Passing both factual material and cognitive understanding is essential to perfect communication."},
-  {n:34,s:"L23",type:"tf",q:"It is communication that binds people and society together. It is considered as a natural process.",opts:["True","False"],ans:0,exp:"Human communities rely on natural communication habits to preserve order, form bonds, and construct civilizations."},
-  {n:35,s:"L23",type:"tf",q:"Society moves on human interactions and exchange of ideas, thoughts only.",opts:["True","False"],ans:1,exp:"Correction: Human communities also depend profoundly on the sharing of personal 'feelings' and subjective moods."},
-  {n:36,s:"L23",type:"tf",q:"Relationship builds up through communication.",opts:["True","False"],ans:0,exp:"Shared experiences, trust, and structural ties rely directly on clear and transparent dialogue."},
-  {n:37,s:"L23",type:"tf",q:"Lack of communication among the people in society will severely unaffected social cohesion and cohabitation.",opts:["True","False"],ans:1,exp:"Correction: A severe breakdown in dialogue profoundly details and HARMS social cohesion and communal cohabitation."},
-  {n:38,s:"L23",type:"tf",q:"Progress and prosperity will come to a standstill if there is effective communication.",opts:["True","False"],ans:1,exp:"Correction: Progress stops when systems fail due to INEFFECTIVE exchanges; healthy channels drive growth and coordination."},
-  {n:39,s:"L23",type:"tf",q:"Communication is a factor of building and maintaining bad relations. It enables people to understand each other.",opts:["True","False"],ans:1,exp:"Correction: Communication is designed to create, sustain, and develop positive, constructive ('good') human relationships."},
-  {n:40,s:"L23",type:"tf",q:"Communication is as important and meaningful in individual life as in the society. Individuals make friends, builds up relationship and lead a true social life through communicating effectively with the fellow beings.",opts:["True","False"],ans:0,exp:"Healthy self-expression and clear sharing are fundamental cornerstones of satisfying, functional individual and social lives."},
-  {n:41,s:"L23",type:"tf",q:"Communication is needed to establish and disseminate the goals of a political organization.",opts:["True","False"],ans:0,exp:"Propagating foundational principles, manifestos, and platform directives is heavily communication-dependent."},
-  {n:42,s:"L23",type:"tf",q:"Communication helps the organization in arriving at vital decisions.",opts:["True","False"],ans:0,exp:"Informed options and optimal pathways cannot be safely assessed without reliable information channels."},
-  {n:43,s:"L23",type:"tf",q:"Communication helps a lot in planning and coordination.",opts:["True","False"],ans:0,exp:"Aligning separate schedules, resource lists, and workgroups requires flawless organizational feedback."},
-  {n:44,s:"L23",type:"tf",q:"Communication it is a basic tool for motivation and an increase in the morale of the employees largely depend upon the effectiveness of communication.",opts:["True","False"],ans:0,exp:"Clear encouragement, transparency, and explicit rewards are the basic building blocks of labor motivation."},
-  {n:45,s:"L23",type:"tf",q:"Communication helps a business as means of bringing about minimum production at the lowest level by maintaining good human relationship in the organization.",opts:["True","False"],ans:1,exp:"Correction: Effective collaboration drives toward maximum production and optimized output while cutting resource waste."},
-  {n:46,s:"L23",type:"tf",q:"Communication works as an effective link between branches of the organization situated at great distances.",opts:["True","False"],ans:0,exp:"In our global era, modern remote operations survive entirely on telecommunications and network loops."},
-  {n:47,s:"L23",type:"tf",q:"Communication helps in publicizing goods and services.",opts:["True","False"],ans:0,exp:"Marketing and branding are essentially communications designed to match product benefits with target audience needs."},
-  {n:48,s:"L23",type:"tf",q:"Communication not reduces rumors and ensures smooth running of the organization as a whole.",opts:["True","False"],ans:1,exp:"Correction: Trustworthy and official communication channels successfully REDUCE hazardous workplace rumors."},
-  {n:49,s:"L23",type:"tf",q:"Interpersonal skills refer to the disability to communicate or interact well with other people.",opts:["True","False"],ans:1,exp:"Correction: Interpersonal skills are defined as the precise ABILITY to converse and collaborate with colleagues fluidly."},
-  {n:50,s:"L23",type:"tf",q:"In business lexicon, skills means the set of abilities enabling a person to interact positively and work effectively with others.",opts:["True","False"],ans:0,exp:"This is a direct, precise business definition of soft skills and personal resourcefulness."},
-  {n:51,s:"L23",type:"tf",q:"Interpersonal communication skills are unnecessary prerequisites for enhancing productivity and continuity of the workforce within an organization.",opts:["True","False"],ans:1,exp:"Correction: Highly developed collaborative competence is an absolute NECESSITY for maintaining commercial productivity."},
-  {n:52,s:"L23",type:"tf",q:"Employees with good interpersonal skills are likely to be more productive and permanent than those with poor interpersonal skills.",opts:["True","False"],ans:0,exp:"Socially competent workers solve friction constructively, reducing corporate turnover and boosting workflow metrics."},
-  {n:53,s:"L23",type:"mc",q:"Communications refers to a set of techniques used for expressing ideas __________ and the technology of transmission of information by print or telecommunication media.",opts:["a. effectively","b. ineffectively"],ans:0,exp:"The science of communication focuses specifically on maximizing clarity to express thoughts effectively."},
-  {n:54,s:"L23",type:"mc",q:"Communication is the act of conveying intended meaning from one entity or group to another through the use of __________.",opts:["a. mutually understood signs or semiotic rules","b. mutually understood signs"],ans:0,exp:"This contains the complete linguistic criteria, incorporating both base symbols (signs) and syntax guidelines (semiotics)."},
-  {n:55,s:"L23",type:"mc",q:"Communication is a composite of information __________.",opts:["a. given and received","b. given only"],ans:0,exp:"A simple transmit without verification is only broadcasting; communication requires a reception component."},
-  {n:56,s:"L23",type:"mc",q:"Communication is a composite of a listening effort by __________.",opts:["a. some","b. all involved"],ans:1,exp:"Total consensus cannot be built if key parties neglect listening responsibilities during negotiation cycles."},
-  {n:57,s:"L23",type:"mc",q:"Communication is a composite a sympathetic fresh examination of issues by communicator __________.",opts:["a. himself","b. other"],ans:0,exp:"It demands internal self-evaluation from the communicator to align messaging with situational needs."},
-  {n:58,s:"L23",type:"mc",q:"Communication is a composite a sensitive interaction of points of view leading to _________ level of shared understanding and _________ intention.",opts:["a. a higher / common","b. a lower / different"],ans:0,exp:"Dialogue aims to refine separate stances into a higher plane of understanding with a unified objective."},
-  {n:59,s:"L23",type:"mc",q:"Communication is the intercourse by __________.",opts:["a. words, letters or messages","b. words, letters only"],ans:0,exp:"This definition includes direct spoken channels, physical/digital writing, and systemic signals/messages."},
-  {n:60,s:"L23",type:"mc",q:"It is communication that binds people and society together. It is considered as a __________ process.",opts:["a. natural","b. unnatural"],ans:0,exp:"Linguistic structures and cooperative work are natural, instinctive outcomes of human development."},
-  {n:61,s:"L23",type:"mc",q:"Society moves on:",opts:["a. Human interactions.","b. Exchange of ideas.","c. Thoughts, and feelings.","d. All the above."],ans:3,exp:"All these factors collectively sustain social dynamics and drive communities forward."},
-  {n:62,s:"L23",type:"mc",q:"Progress and prosperity will come to a standstill if there is __________ communication.",opts:["a. effective","b. ineffective"],ans:1,exp:"Without clear communication channels, businesses, infrastructure, and societies fall into chaos."},
-  {n:63,s:"L23",type:"mc",q:"Communication is a factor of building and maintaining __________ relations. It enables people to understand each other.",opts:["a. bad","b. good"],ans:1,exp:"The fundamental purpose of communication is to build and maintain constructive, cooperative relations."},
-  {n:64,s:"L23",type:"mc",q:"Communication is as important and meaningful in individual life as in the society. Individuals make friends, builds up relationship and lead a __________ social life through communicating effectively with the fellow beings.",opts:["a. True","b. Bad"],ans:0,exp:"Effective communication allows individuals to build genuine relationships and live a true, healthy social life."},
-  {n:65,s:"L23",type:"mc",q:"Communication is needed to establish and disseminate the goals of a __________ organization.",opts:["a. business","b. political"],ans:1,exp:"While applicable to both, this is a verbatim sentence matching the political systems analysis in Lecture 3."},
-  {n:66,s:"L23",type:"mc",q:"Communication helps the organization in arriving at __________ decisions.",opts:["a. vital","b. inessential"],ans:0,exp:"Crucial, strategic decisions depend heavily on accurate information flowing from all levels of the firm."},
-  {n:67,s:"L23",type:"mc",q:"Communication it is a basic tool for motivation and an __________ in the morale of the employees largely depend upon the effectiveness of communication.",opts:["a. increase","b. decrease"],ans:0,exp:"Clear, supportive communication increases employee morale, whereas silence or poor messaging reduces it."},
-  {n:68,s:"L23",type:"mc",q:"Communication helps a business as means of bringing about __________ production at the lowest level by maintaining good human relationship in the organization.",opts:["a. minimum","b. maximum"],ans:1,exp:"High-functioning human relationships directly lead to maximum output at minimal administrative costs."},
-  {n:69,s:"L23",type:"mc",q:"Communication works as an __________ link between branches of the organization situated at great distances.",opts:["a. effective","b. ineffective"],ans:0,exp:"It bridges physical distances, allowing multiple offices to operate as a single unified team."},
-  {n:70,s:"L23",type:"mc",q:"Interpersonal skills refer to the (ability/disability) to communicate or interact well with other people. In business lexicon, it means the set of abilities enabling a person to interact (negatively/positively) and work effectively with others.",opts:["a. ability / positively","b. disability / negatively"],ans:0,exp:"These skills are the positive behavioral assets that enable collaborative team efforts."},
-  {n:71,s:"L23",type:"mc",q:"Interpersonal communication skills are __________ prerequisites for enhancing productivity and continuity of the workforce within an organization.",opts:["a. necessary","b. unnecessary"],ans:0,exp:"Modern business requires high soft-skill capability to maintain stable, collaborative operations."},
-  {n:72,s:"L23",type:"mc",q:"Employees with good interpersonal skills are likely to be __________ productive and permanent than those with poor interpersonal skills.",opts:["a. more","b. less"],ans:0,exp:"Better interpersonal relations reduce conflict-related delays and voluntary employee turnover."},
+const allQuestions = [
 
-  // --- LECTURE 4 ---
-  {n:73,s:"L4",type:"tf",q:"Verbal communication refers to the form of communication in which message is transmitted verbally; where communication is carried out either by word of mouth or by writing.",opts:["True","False"],ans:0,exp:"Verbal communication includes both oral (mouth) and written (letters/symbols) methods, as they both rely on words."},
-  {n:74,s:"L4",type:"tf",q:"Nonverbal Communication refers to communications made through various wordless or unspoken mediums.",opts:["True","False"],ans:0,exp:"This includes body language, tone, eye contact, and physical expressions without spoken or written words."},
-  {n:75,s:"L4",type:"tf",q:"Informal communications are those that are formal or 'official'. These are a part of the recognized communication system which is engaged in the operation of the organization.",opts:["True","False"],ans:1,exp:"Correction: The definition of 'official and systemic' communication refers strictly to FORMAL communication, not informal."},
-  {n:76,s:"L4",type:"tf",q:"Formal grow out of social interactions among the people who work together within an organization. These are based upon conventions, customs and culture prevalent there in.",opts:["True","False"],ans:1,exp:"Correction: These are INFORMAL communications, also known as the organizational grapevine."},
-  {n:77,s:"L4",type:"tf",q:"In a single-stranded chain, information is passed by one person to another, who in turn passes it to some other and the process continues.",opts:["True","False"],ans:0,exp:"This describes a sequential, linear chain of communication (A -> B -> C -> D)."},
-  {n:78,s:"L4",type:"tf",q:"In a single-stranded chain, information is passed by one person to another, who in turn passes it to some other and the process continues. (Re-evaluation Question)",opts:["True","False"],ans:0,exp:"This is a duplicate test point re-confirming the basic linear sequence."},
-  {n:79,s:"L4",type:"tf",q:"In a probability chain, information is passed by one person to his/her reliable ones, and the latter passes it to their reliable friends and the communication continues.",opts:["True","False"],ans:1,exp:"Correction: Passing information selectively to reliable or trusted individuals is the definition of a CLUSTER chain."},
-  {n:80,s:"L4",type:"tf",q:"In a cluster chain, a person passes the information to a randomly chosen person and the communication goes on.",opts:["True","False"],ans:1,exp:"Correction: Passing information randomly is the definition of a PROBABILITY chain."},
-  {n:81,s:"L4",type:"tf",q:"In a gossip chain, a person passes the information to a group of people and the members of the group passes it to some more people and the information spreads.",opts:["True","False"],ans:0,exp:"In this curriculum, this describes a gossip chain structure, where information spreads outward to multiple groups."},
-  {n:82,s:"L4",type:"tf",q:"Downward communication can be both oral and written.",opts:["True","False"],ans:0,exp:"Superiors can instruct subordinates through oral instructions (meetings) or written formats (memos, emails)."},
-  {n:83,s:"L4",type:"tf",q:"Higher authority of organization takes the initiative to start such communication. (Referring to Downward Communication)",opts:["True","False"],ans:0,exp:"Downward communication is initiated by managers and leaders to guide their subordinates."},
-  {n:84,s:"L4",type:"tf",q:"Lower authority of organization takes the initiative to start such communication. (Referring to Downward Communication)",opts:["True","False"],ans:1,exp:"Correction: Downward communication is initiated by the higher authorities, not lower authorities."},
-  {n:85,s:"L4",type:"tf",q:"Upward communication flows from subordinates to superiors and continues up the organizational hierarchy.",opts:["True","False"],ans:0,exp:"This allows feedback, reports, and suggestions to flow up the corporate ladder to decision-makers."},
-  {n:86,s:"L4",type:"tf",q:"Downward communication flows from subordinates to superiors and continues up the organizational hierarchy.",opts:["True","False"],ans:1,exp:"Correction: Upward communication flows up the hierarchy; downward communication flows down to subordinates."},
-  {n:87,s:"L4",type:"tf",q:"Upward communication is also called consultative management.",opts:["True","False"],ans:0,exp:"Consultative management values feedback and insights from subordinates, which requires active upward communication."},
-  {n:88,s:"L4",type:"mc",q:"__________ communication refers to the form of communication in which message is transmitted verbally; where communication is carried out either by word of mouth or by writing.",opts:["a. Verbal","b. Nonverbal"],ans:0,exp:"Since both spoken words and written text use words, they are both forms of verbal communication."},
-  {n:89,s:"L4",type:"mc",q:"__________ Communication refers to communications made through various wordless or unspoken mediums.",opts:["a. Verbal","b. Nonverbal"],ans:1,exp:"Nonverbal communication is characterized by the absence of spoken or written words."},
-  {n:90,s:"L4",type:"mc",q:"Nonverbal Communication refers to communications made through various __________ or __________ mediums.",opts:["a. wordless / unspoken","b. word / spoken"],ans:0,exp:"These two descriptors outline nonverbal messages, such as gestures, expressions, and posture."},
-  {n:91,s:"L4",type:"mc",q:"__________ communications are those that are formal or 'official'. These are a part of the recognized communication system which is engaged in the operation of the organization.",opts:["a. Informal","b. Formal"],ans:1,exp:"Official policies and reporting channels follow the formal structural guidelines of the firm."},
-  {n:92,s:"L4",type:"mc",q:"__________ grow out of social interactions among the people who work together within an organization. These are based upon conventions, customs and culture prevalent there in.",opts:["a. Informal","b. Formal"],ans:0,exp:"Informal pathways develop naturally as coworkers socialize outside of formal structures."},
-  {n:93,s:"L4",type:"mc",q:"Informal communications grow __________ of social interactions among the people who work together within an organization.",opts:["a. in","b. out"],ans:1,exp:"They grow 'out' of social relationships that form within the work environment."},
-  {n:94,s:"L4",type:"mc",q:"__________ communication is also called consultative management.",opts:["a. Downward","b. upward"],ans:1,exp:"Because it relies on feedback and suggestions from subordinates, upward communication is the basis of consultative management."},
-  {n:95,s:"L4",type:"mc",q:"In __________ chain, information is passed by one person to another, who in turn passes it to some other and the process continues.",opts:["a. A single-stranded","b. probability"],ans:0,exp:"This describes a single-threaded linear sequence from one person to the next."},
-  {n:96,s:"L4",type:"mc",q:"In a __________ chain, information is passed by one person to his/her reliable ones, and the latter passes it to their reliable friends and the communication continues.",opts:["a. probability","b. cluster"],ans:1,exp:"A cluster chain is built on selective sharing with trusted individuals who then do the same."},
-  {n:97,s:"L4",type:"mc",q:"In a __________ chain, a person passes the information to a randomly chosen person and the communication goes on.",opts:["a. gossip","b. probability"],ans:1,exp:"Probability chains are based on sharing information with randomly chosen individuals."},
-  {n:98,s:"L4",type:"mc",q:"In a __________ chain, a person passes the information to a group of people and the members of the group passes it to some more people and the information spreads.",opts:["a. gossip","b. cluster"],ans:0,exp:"Gossip chains spread information broadly across social groups."},
-  {n:99,s:"L4",type:"mc",q:"Downward communication can be __________.",opts:["a. Both oral and written","b. oral only"],ans:0,exp:"Managers use both written instructions (manuals, policies) and verbal guidance (meetings)."},
-  {n:100,s:"L4",type:"mc",q:"__________ of organization takes the initiative to start such communication. (Referring to Downward Communication)",opts:["a. lower authority","b. Higher authority"],ans:1,exp:"Superiors hold the operational responsibility to initiate downward communication directions."},
-  {n:101,s:"L4",type:"mc",q:"__________ communication flows from subordinates to superiors and continues up the organizational hierarchy.",opts:["a. Downward","b. upward"],ans:1,exp:"This describes upward flow, conveying reports, results, and concerns to management."},
-  {n:102,s:"L4",type:"mc",q:"__________ communication is non-directive in nature.",opts:["a. Downward","b. Upward"],ans:1,exp:"Downward communication is directive (orders), while upward communication is non-directive (feedback/reports)."},
-  {n:103,s:"L4",type:"mc",q:"__________ communication is also called consultative management. (Re-evaluation Question)",opts:["a. Downward","b. upward"],ans:1,exp:"This re-confirms that consultative systems depend heavily on upward communication channels."},
-  {n:104,s:"L4",type:"sa",q:"What are the different types of Communication?",ans:"According to organizational structure and styles, communication is classified into: 1. Verbal and Non-Verbal Communication (by medium). 2. Formal and Informal Communication (by organizational channels). 3. Downward and Upward Communication (by direction of flow along the organizational hierarchy).",exp:"Be prepared to outline all three classifications: by medium, channel, and direction of flow."},
-  {n:105,s:"L4",type:"sa",q:"The different components of verbal communication:",ans:"The key components include: 1. Oral/Spoken elements: Word of mouth, vocabulary choice, understandable language, inflection (stress in oral speech), tone, and auditory elements. 2. Written elements: Text, letters, printed manuals, signs, visuals (pictures, maps, charts, graphs, colors, signs), and eye behaviors (oculesics) that run parallel to verbal statements.",exp:"Note that visuals and oculesics are included under verbal components in this curriculum when they directly support or accompany verbal statements."},
+  // ===== LECTURE 1 =====
+  { lecture: "Lecture 1", type: "tf", q: "Communication is the lifeline of society and social organizations.", correct: "True" },
+  { lecture: "Lecture 1", type: "tf", q: "An organization can hardly be conceived without communication.", correct: "True" },
+  { lecture: "Lecture 1", type: "tf", q: "In the absence of one of the most essential gradients like communication, an organization would turn into a mere assembly of unrelated and organized individuals, materials and machines and tools, which neither makes any sense nor, in fact, any kind of organization.", correct: "True" },
+  { lecture: "Lecture 1", type: "tf", q: "Prevalence of unperturbed and meaningful communication system, which is called ineffective communication.", correct: "False" },
+  { lecture: "Lecture 1", type: "tf", q: "The study of communication in management education and operation of an organization has been quite unavoidable.", correct: "True" },
+  { lecture: "Lecture 1", type: "tf", q: "Regular training and refreshment is always provided to people in an organization to maintain Effective Communication.", correct: "True" },
+  { lecture: "Lecture 1", type: "tf", q: "Man used to communicate with his fellow beings by means of sounds, signals, gestures when there was no language developed.", correct: "True" },
+  { lecture: "Lecture 1", type: "tf", q: "The word communication has been derived from the Latin word 'communis', meaning to share. It basically involves a sender, a message and a receiver.", correct: "True" },
+  { lecture: "Lecture 1", type: "tf", q: "Communication is usually a two-way process.", correct: "True" },
+  { lecture: "Lecture 1", type: "tf", q: "Communication, therefore, involves more than one person.", correct: "True" },
+  { lecture: "Lecture 1", type: "mcq", q: "Communication is the lifeline of society and _______ organizations.", opts: ["business","social"], correct: "social" },
+  { lecture: "Lecture 1", type: "mcq", q: "An organization can hardly be conceived _______.", opts: ["without communication","with communication"], correct: "without communication" },
+  { lecture: "Lecture 1", type: "mcq", q: "In the absence of communication, an organization would turn into a mere assembly of _______ and unorganized individuals.", opts: ["related","unrelated"], correct: "unrelated" },
+  { lecture: "Lecture 1", type: "mcq", q: "Prevalence of unperturbed and meaningful communication system, which is called _______ communication.", opts: ["effective","ineffective"], correct: "effective" },
+  { lecture: "Lecture 1", type: "mcq", q: "The study of communication in management, education and operation of an organization has been quite _______.", opts: ["unavoidable","avoidable"], correct: "unavoidable" },
+  { lecture: "Lecture 1", type: "mcq", q: "Regular training and refreshment is always provided to people in an organization to maintain _______ Communication.", opts: ["effective","ineffective"], correct: "effective" },
+  { lecture: "Lecture 1", type: "mcq", q: "Regular training and refreshment is always provided to people in an organization to _______ Effective Communication.", opts: ["increase","maintain"], correct: "maintain" },
+  { lecture: "Lecture 1", type: "mcq", q: "The word communication has been derived from the Latin word 'communis', meaning to share. It basically involves _______.", opts: ["a sender, a message and a receiver","a sender, a message only"], correct: "a sender, a message and a receiver" },
+  { lecture: "Lecture 1", type: "mcq", q: "Communication, therefore, involves _______.", opts: ["one person","more than one person"], correct: "more than one person" },
+  { lecture: "Lecture 1", type: "mcq", q: "Communication is the activity of conveying _______.", opts: ["information","data","Characters"], correct: "information" },
+  { lecture: "Lecture 1", type: "mcq", q: "Communication is usually a _______ way process.", opts: ["one","two","multi"], correct: "two" },
 
-  // --- LECTURE 5: PROCESS ELEMENTS ---
-  {n:106,s:"L5",type:"tf",q:"The process of communication as such must be a continuous and dynamic interaction, both affecting and being affected by many variables.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 3: Communication process is dynamic and continuous, consistently interacting with and being modified by external and internal variables."},
-  {n:107,s:"L5",type:"tf",q:"Process of Communication Elements include seven elements.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 4 lists exactly 7 structural elements: Sender, Message, Encoding, Channel, Receiver, Decoding, and Feedback."},
-  {n:108,s:"L5",type:"tf",q:"Process of Communication Elements include ten elements.",opts:["True","False"],ans:1,exp:"Lecture 5, Slide 4 lists exactly seven core elements, not ten."},
-  {n:109,s:"L5",type:"tf",q:"The very foundation of communication process is laid by the person who transmits or sends the message.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 5: The sender initiates the thought, meaning, or feedback cycle, laying down the foundational element."},
-  {n:110,s:"L5",type:"tf",q:"Message is the heart of communication. It is the content the sender wants to covey to the receiver.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 6: The message is the core, vital contents/ideas/feelings the sender aims to share with the recipient."},
-  {n:111,s:"L5",type:"tf",q:"Message it can be verbal both written and spoken; or non-verbal i.e. pictorial or symbolic, etc.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 6: Messages take many forms, utilizing words, text, gestures, or visual symbols depending on situational contexts."},
-  {n:112,s:"L5",type:"tf",q:"Message it can be verbal only.",opts:["True","False"],ans:1,exp:"Correction: Messages can also be non-verbal (pictorial, gestures, expressions, symbols)."},
-  {n:113,s:"L5",type:"tf",q:"Message It can be non-verbal only i.e. pictorial or symbolic, etc.",opts:["True","False"],ans:1,exp:"Correction: Messages are commonly verbal (spoken or written) alongside non-verbal cues."},
-  {n:114,s:"L5",type:"tf",q:"Encoding is putting the targeted message into appropriate medium which may be verbal or non-verbal depending upon the situation, time, space and nature of the message to be sent.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 7: Encoding translates abstract ideas into structured words, symbols, or signals suitable for transmission."},
-  {n:115,s:"L5",type:"tf",q:"Message is putting the targeted message into appropriate medium which may be verbal or non-verbal depending upon the situation, time, space and nature of the message to be sent.",opts:["True","False"],ans:1,exp:"Correction: This is the definition of 'Encoding', not 'Message'."},
-  {n:116,s:"L5",type:"tf",q:"Encoding is putting the targeted message into appropriate medium which may be verbal only depending upon the situation, time, space and nature of the message to be sent.",opts:["True","False"],ans:1,exp:"Correction: Encoding is not limited to verbal mediums only; it can utilize non-verbal symbols, pictures, and codes."},
-  {n:117,s:"L5",type:"tf",q:"Encoding is an important step in the communication process.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 7: Incorrect encoding or poor translation of the idea can completely defeat the true objective of the transmission."},
-  {n:118,s:"L5",type:"tf",q:"Channel(s) refers to the way or mode the message flows or is transmitted through.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 8: The channel acts as the medium or pathway carrying the signal between sender and receiver."},
-  {n:119,s:"L5",type:"tf",q:"Encoding (s) refers to the way or mode the message flows or is transmitted through.",opts:["True","False"],ans:1,exp:"Correction: This is the definition of 'Channel', not 'Encoding'."},
-  {n:120,s:"L5",type:"tf",q:"The message may be oral or written and it may be transmitted through a memorandum, a computer, telephone, cell phone, apps or televisions.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 8: Multiple technical and written platforms act as the structural delivery channels for a message."},
-  {n:121,s:"L5",type:"tf",q:"The message may be written only and it may be transmitted through a memorandum, a computer, telephone, cell phone, apps or televisions.",opts:["True","False"],ans:1,exp:"Correction: Messages can also be oral/spoken, transmitted via telephone, computer, or in-person talk."},
-  {n:122,s:"L5",type:"tf",q:"Each channel has its advantages and disadvantages.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 9: Choosing the proper channel depends on matching its distinct advantages/drawbacks with the immediate message requirements."},
-  {n:123,s:"L5",type:"tf",q:"Each channel has its disadvantages only.",opts:["True","False"],ans:1,exp:"Correction: Every channel has unique strategic advantages (e.g., speed of call, permanence of a memo)."},
-  {n:124,s:"L5",type:"tf",q:"Each channel has its advantages only.",opts:["True","False"],ans:1,exp:"Correction: Every channel carries limitations or cost drawbacks (e.g., lack of body language in text, potential noise on lines)."},
-  {n:125,s:"L5",type:"tf",q:"Receiver is the person or group who the message is meant for.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 10: The receiver represents the targeted audience at the other end of the communication pathway."},
-  {n:126,s:"L5",type:"tf",q:"The extent to which the receiver decodes the message depends on his/her knowledge of the subject matter of the message, experience, trust and relationship with the sender.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 10: A recipient's interpretive capability is shaped deeply by contextual familiarity, trust, and shared history."},
-  {n:127,s:"L5",type:"tf",q:"The receiver is as significant a factor in communication process as the sender is. It is the other end of the process.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 11: Without active reception and proper interpretation at the other end, communication falls flat."},
-  {n:128,s:"L5",type:"tf",q:"Decoding refers to interpreting or converting the sent message into intelligible language.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 12: Decoding translates the received symbols/medium back into conceptual understanding."},
-  {n:129,s:"L5",type:"tf",q:"Encoding refers to interpreting or converting the sent message into intelligible language.",opts:["True","False"],ans:1,exp:"Correction: This is the definition of 'Decoding', not 'Encoding'."},
-  {n:130,s:"L5",type:"tf",q:"Feedback is the ultimate aspect of communication process. It refers to the response of the receiver as to the message sent to him/her by the sender.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 13: Feedback closes the loop, showing the sender how effectively the information was parsed."},
-  {n:131,s:"L5",type:"tf",q:"Feedback is necessary to ensure that the message has been effectively encoded, sent, decoded and comprehended.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 13: Only feedback confirms if actual communication occurred instead of mere broadcasting."},
-  {n:132,s:"L5",type:"tf",q:"Feedback is unnecessary to ensure that the message has been effectively encoded, sent, decoded and comprehended.",opts:["True","False"],ans:1,exp:"Correction: Feedback is absolutely essential to verify mutual understanding and task alignment."},
-  {n:133,s:"L5",type:"tf",q:"It is the final step of the communication process and establishes that the receiver has received the message in its letter and spirit.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 14: Accurate feedback verifies that the recipient's parsed interpretation matches the sender's original intent."},
-  {n:134,s:"L5",type:"tf",q:"It is the first step of the communication process and establishes that the receiver has received the message in its letter and spirit.",opts:["True","False"],ans:1,exp:"Correction: Feedback is the final cyclical step. The first step is the sender choosing/forming the message."},
-  {n:135,s:"L5",type:"tf",q:"Negative Feedback or corrective comments about past behavior.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 15: This describes negative feedback, focusing on past actions to adjust course."},
-  {n:136,s:"L5",type:"tf",q:"Positive Feedback or affirming comments about future behavior.",opts:["True","False"],ans:1,exp:"Correction: Feedback is about past behavior. Affirming comments about future behavior describes 'Positive Feedforward'."},
-  {n:137,s:"L5",type:"tf",q:"Negative feedforward or corrective comments about future behavior.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 15: Corrective guidelines focused on future behavior describe negative feedforward."},
-  {n:138,s:"L5",type:"tf",q:"Positive feedforward or affirming comments about future behavior.",opts:["True","False"],ans:0,exp:"Lecture 5, Slide 15: Encouraging/affirming statements directed toward upcoming tasks/behavior describe positive feedforward."},
-  {n:139,s:"L5",type:"tf",q:"Positive Feedback or corrective comments about past behavior.",opts:["True","False"],ans:1,exp:"Correction: Corrective comments about past behavior are 'Negative Feedback', not positive."},
-  {n:140,s:"L5",type:"tf",q:"Negative Feedback or affirming comments about future behavior.",opts:["True","False"],ans:1,exp:"Correction: Affirming comments about future behavior are 'Positive Feedforward', not negative feedback."},
-  {n:141,s:"L5",type:"tf",q:"Positive feedforward or corrective comments about future behavior.",opts:["True","False"],ans:1,exp:"Correction: Corrective comments about future behavior are 'Negative Feedforward', not positive."},
-  {n:142,s:"L5",type:"tf",q:"Negative feedforward or affirming comments about future behavior.",opts:["True","False"],ans:1,exp:"Correction: Affirming comments about future behavior are 'Positive Feedforward', not negative."},
+  // ===== LECTURE 2&3 =====
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication is the act of conveying intended meaning from one entity or group to another through the use of mutually understood signs or semiotic rules.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a composite of information given and received.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a composite of a listening effort by some involved.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a composite a sympathetic fresh examination of issues by communicator himself.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a composite a sensitive interaction of points of view leading to a higher level of shared understanding and common intention.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a composite a sensitive interaction of points of view leading to a lower level of shared understanding and common intention.", correct: "False" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a composite a sensitive interaction of points of view leading to a higher level of shared understanding and different intention.", correct: "False" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication is the intercourse by words, letters or messages.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication is the process of passing information and understanding from one person to another.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "It is communication that binds people and society together. It is considered as a natural process.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Society moves on human interactions and exchange of ideas, thoughts only.", correct: "False" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Lack of communication among the people in society will severely unaffected social cohesion and cohabitation.", correct: "False" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Progress and prosperity will come to a standstill if there is effective communication.", correct: "False" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a factor of building and maintaining bad relations. It enables people to understand each other.", correct: "False" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication is as important and meaningful in individual life as in the society. Individuals make friends, builds up relationship and lead a true social life through communicating effectively with the fellow beings.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication is needed to establish and disseminate the goals of a political organization.", correct: "False" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication helps the organization in arriving at vital decisions.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication helps a lot in planning and coordination.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication it is a basic tool for motivation and an increase in the morale of the employees largely depend upon the effectiveness of communication.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication helps a business as means of bringing about minimum production at the lowest level by maintaining good human relationship in the organization.", correct: "False" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication works as an effective link between branches of the organization situated at great distances.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication helps in publicizing goods and services.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Communication not reduces rumors and ensures smooth running of the organization as a whole.", correct: "False" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Interpersonal skills refer to the disability to communicate or interact well with other people.", correct: "False" },
+  { lecture: "Lecture 2&3", type: "tf", q: "In business lexicon, skills means the set of abilities enabling a person to interact positively and work effectively with others.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Interpersonal communication skills are unnecessary prerequisites for enhancing productivity and continuity of the workforce within an organization.", correct: "False" },
+  { lecture: "Lecture 2&3", type: "tf", q: "Employees with good interpersonal skills are likely to be more productive and permanent than those with poor interpersonal skills.", correct: "True" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Communications refers to a set of techniques used for expressing ideas _______ and the technology of transmission of information.", opts: ["effectively","ineffectively"], correct: "effectively" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is the act of conveying intended meaning from one entity or group to another through the use of _______.", opts: ["mutually understood signs or semiotic rules","mutually understood signs"], correct: "mutually understood signs or semiotic rules" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is a composite of information _______.", opts: ["given and received","given only"], correct: "given and received" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is a composite of a listening effort by _______ involved.", opts: ["some","all"], correct: "all" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is a composite a sympathetic fresh examination of issues by communicator _______.", opts: ["himself","other"], correct: "himself" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is a composite a sensitive interaction of points of view leading to _______ level of shared understanding and _______ intention.", opts: ["a higher / common","lower / different"], correct: "a higher / common" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is the intercourse by _______.", opts: ["words, letters or messages","words, letters only"], correct: "words, letters or messages" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "It is communication that binds people and society together. It is considered as a _______ process.", opts: ["natural","unnatural"], correct: "natural" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Society moves on _______.", opts: ["Human interactions","Exchange of ideas","Thoughts, and feelings","All the above"], correct: "All the above" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Progress and prosperity will come to a standstill if there is _______ communication.", opts: ["effective","ineffective"], correct: "ineffective" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is a factor of building and maintaining _______ relations. It enables people to understand each other.", opts: ["bad","good"], correct: "good" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Individuals make friends, builds up relationship and lead a _______ social life through communicating effectively with the fellow beings.", opts: ["True","Bad"], correct: "True" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is needed to establish and disseminate the goals of a _______ organization.", opts: ["business","political"], correct: "business" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Communication helps the organization in arriving at _______ decisions.", opts: ["vital","inessential"], correct: "vital" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Communication it is a basic tool for motivation and an _______ in the morale of the employees.", opts: ["increase","decrease"], correct: "increase" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Communication helps a business as means of bringing about _______ production at the lowest level.", opts: ["minimum","maximum"], correct: "maximum" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Communication works as an _______ link between branches of the organization situated at great distances.", opts: ["effective","ineffective"], correct: "effective" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Interpersonal skills refer to the _______ to communicate or interact well with other people.", opts: ["ability","disability"], correct: "ability" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "In business lexicon, interpersonal skills means the set of abilities enabling a person to interact _______ and work effectively with others.", opts: ["negatively","Positively"], correct: "Positively" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Interpersonal communication skills are _______ prerequisites for enhancing productivity and continuity of the workforce.", opts: ["necessary","unnecessary"], correct: "necessary" },
+  { lecture: "Lecture 2&3", type: "mcq", q: "Employees with good interpersonal skills are likely to be _______ productive and permanent than those with poor interpersonal skills.", opts: ["more","less"], correct: "more" },
 
-  // --- LECTURE 5: MULTIPLE CHOICE ---
-  {n:143,s:"L5",type:"mc",q:"Process of Communication Elements include __________ elements.",opts:["a. 7","b. 9"],ans:0,exp:"Lecture 5, Slide 4: The standard model contains exactly 7 components: Sender, Message, Encoding, Channel, Receiver, Decoding, Feedback."},
-  {n:144,s:"L5",type:"mc",q:"Message It can be __________.",opts:["a. verbal & non-verbal","b. non-verbal only"],ans:0,exp:"Lecture 5, Slide 6: It comprises spoken/written words (verbal) and signs/pictures/symbols (non-verbal)."},
-  {n:145,s:"L5",type:"mc",q:"__________ is the heart of communication. It is the content the sender wants to covey to the receiver.",opts:["a. Encoding","b. Message"],ans:1,exp:"Lecture 5, Slide 6: The message represents the actual core thoughts/ideas that have been formatted for exchange."},
-  {n:146,s:"L5",type:"mc",q:"__________ is putting the targeted message into appropriate medium which may be verbal or non-verbal depending upon the situation, time, space and nature of the message to be sent.",opts:["a. Message","b. Encoding"],ans:1,exp:"Lecture 5, Slide 7: Encoding is the mechanical process of packaging the thoughts into transmissible codes/symbols."},
-  {n:147,s:"L5",type:"mc",q:"Encoding is putting the targeted message into appropriate medium which may be __________ depending upon the situation, time, space and nature of the message to be sent.",opts:["a. verbal or non-verbal","b. verbal only"],ans:0,exp:"Lecture 5, Slide 7: Medium choices can span verbal and non-verbal arrays, adapted dynamically to the recipient and environment."},
-  {n:148,s:"L5",type:"mc",q:"Encoding is an __________ step in the communication process.",opts:["a. unimportant","b. important"],ans:1,exp:"Lecture 5, Slide 7: Poorly targeted symbols or syntax will result in complete receiver incomprehension."},
-  {n:149,s:"L5",type:"mc",q:"__________ (s) refers to the way or mode the message flows or is transmitted through.",opts:["a. Channel","b. Encoding"],ans:0,exp:"Lecture 5, Slide 8: The physical carrier or path through which formatted signals travel is the channel."},
-  {n:150,s:"L5",type:"mc",q:"The message may be __________ and it may be transmitted through a memorandum, a computer, telephone, cell phone, apps or televisions.",opts:["a. oral or written","b. written only"],ans:0,exp:"Lecture 5, Slide 8: Transmission can be achieved via spoken (oral) or documented (written) formats."},
-  {n:151,s:"L5",type:"mc",q:"Each channel has its __________.",opts:["a. advantages only","b. advantages and disadvantages"],ans:1,exp:"Lecture 5, Slide 9: Selectors must weigh the trade-offs (such as speed vs. official records) of each channel."},
-  {n:152,s:"L5",type:"mc",q:"The extent to which the receiver decodes the message depends on his/her __________.",opts:["A. Knowledge of the subject matter","B. Experience and trust with sender","C. Both A and B","D. None of the above"],ans:2,exp:"Lecture 5, Slide 10: Prior knowledge, experience, trust levels, and sender relationship dictate interpretative accuracy."},
-  {n:153,s:"L5",type:"mc",q:"The __________ is as significant a factor in communication process as the sender is. It is the other end of the process.",opts:["a. message","b. receiver"],ans:1,exp:"Lecture 5, Slide 11: The recipient must be receptive and attentive to close the loop successfully."},
-  {n:154,s:"L5",type:"mc",q:"__________ refers to interpreting or converting the sent message into intelligible language.",opts:["a. Decoding","b. Encoding"],ans:0,exp:"Lecture 5, Slide 12: Translating incoming signals back into clean thoughts is decoding."},
-  {n:155,s:"L5",type:"mc",q:"Feedback is __________ to ensure that the message has been effectively encoded, sent, decoded and comprehended.",opts:["a. unnecessary","b. necessary"],ans:1,exp:"Lecture 5, Slide 13: Verification steps are necessary to validate if actual communication occurred."},
-  {n:156,s:"L5",type:"mc",q:"It is the __________ step of the communication process and establishes that the receiver has received the message in its letter and spirit.",opts:["a. final","b. initial"],ans:0,exp:"Lecture 5, Slide 14: Feedback is the final systemic checkpoint wrapping the cyclic loop."},
-  {n:157,s:"L5",type:"mc",q:"__________ Feedback or corrective comments about past behavior.",opts:["a. Negative","b. Positive"],ans:0,exp:"Lecture 5, Slide 15: Corrective commentary analyzing past performance represents Negative Feedback."},
-  {n:158,s:"L5",type:"mc",q:"__________ Feedback or affirming comments about past behavior.",opts:["a. Negative","b. Positive"],ans:1,exp:"Lecture 5, Slide 15: Affirmative or supportive commentary analyzing past actions is Positive Feedback."},
-  {n:159,s:"L5",type:"mc",q:"__________ or corrective comments about future behavior.",opts:["a. Negative feedforward","b. Positive feedforward"],ans:0,exp:"Lecture 5, Slide 15: Forward-looking guidance highlighting adjustments to future tasks is Negative Feedforward."},
-  {n:160,s:"L5",type:"mc",q:"__________ or affirming comments about future behavior.",opts:["a. Negative feedforward","b. Positive feedforward"],ans:1,exp:"Lecture 5, Slide 15: Encouragement and optimistic guidance focused on upcoming actions represent Positive Feedforward."},
-  {n:161,s:"L5",type:"mc",q:"The process of communication is cyclic because it begins and ends with the __________.",opts:["a. sender","b. receiver"],ans:0,exp:"Lecture 5, Slide 2: It is a cyclic loop starting from the sender and returning to the sender via recipient feedback."},
+  // ===== LECTURE 4 =====
+  { lecture: "Lecture 4", type: "tf", q: "Verbal communication refers to the form of communication in which message is transmitted verbally; where communication is carried out either by word of mouth or by writing.", correct: "True" },
+  { lecture: "Lecture 4", type: "tf", q: "Nonverbal Communication refers to communications made through various wordless or unspoken mediums.", correct: "True" },
+  { lecture: "Lecture 4", type: "tf", q: "Informal communications are those that are formal or 'official'. These are a part of the recognized communication system which is engaged in the operation of the organization.", correct: "False" },
+  { lecture: "Lecture 4", type: "tf", q: "Formal grow out of social interactions among the people who work together within an organization. These are based upon conventions, customs and culture prevalent there in.", correct: "False" },
+  { lecture: "Lecture 4", type: "tf", q: "In a single-stranded chain, information is passed by one person to another, who in turn passes it to some other and the process continues.", correct: "True" },
+  { lecture: "Lecture 4", type: "tf", q: "In a probability chain, information is passed by one person to his/her reliable ones, and the latter passes it to their reliable friends and the communication continues.", correct: "True" },
+  { lecture: "Lecture 4", type: "tf", q: "In a cluster chain, a person passes the information to a randomly chosen person and the communication goes on.", correct: "True" },
+  { lecture: "Lecture 4", type: "tf", q: "In a gossip chain, a person passes the information to a group of people and the members of the group passes it to some more people and the information spreads.", correct: "False" },
+  { lecture: "Lecture 4", type: "tf", q: "Downward communication can be both oral and written.", correct: "True" },
+  { lecture: "Lecture 4", type: "tf", q: "Higher authority of organization takes the initiative to start such communication.", correct: "True" },
+  { lecture: "Lecture 4", type: "tf", q: "Lower authority of organization takes the initiative to start such communication.", correct: "False" },
+  { lecture: "Lecture 4", type: "tf", q: "Upward communication flows from subordinates to superiors and continues up the organizational hierarchy.", correct: "True" },
+  { lecture: "Lecture 4", type: "tf", q: "Downward communication flows from subordinates to superiors and continues up the organizational hierarchy.", correct: "False" },
+  { lecture: "Lecture 4", type: "tf", q: "Upward communication is also called consultative management.", correct: "True" },
+  { lecture: "Lecture 4", type: "mcq", q: "_______ communication refers to the form of communication in which message is transmitted verbally; where communication is carried out either by word of mouth or by writing.", opts: ["Verbal","Nonverbal"], correct: "Verbal" },
+  { lecture: "Lecture 4", type: "mcq", q: "_______ Communication refers to communications made through various wordless or unspoken mediums.", opts: ["Verbal","Nonverbal"], correct: "Nonverbal" },
+  { lecture: "Lecture 4", type: "mcq", q: "Nonverbal Communication refers to communications made through various _______ or _______ mediums.", opts: ["wordless / unspoken","word / spoken"], correct: "wordless / unspoken" },
+  { lecture: "Lecture 4", type: "mcq", q: "_______ communications are those that are formal or 'official'. These are a part of the recognized communication system.", opts: ["Informal","Formal"], correct: "Formal" },
+  { lecture: "Lecture 4", type: "mcq", q: "_______ grow out of social interactions among the people who work together within an organization.", opts: ["Informal","Formal"], correct: "Informal" },
+  { lecture: "Lecture 4", type: "mcq", q: "Informal communications grow _______ of social interactions among the people who work together within an organization.", opts: ["in","out"], correct: "out" },
+  { lecture: "Lecture 4", type: "mcq", q: "_______ communication is also called consultative management.", opts: ["Downward","Upward"], correct: "Upward" },
+  { lecture: "Lecture 4", type: "mcq", q: "In _______ chain, information is passed by one person to another, who in turn passes it to some other and the process continues.", opts: ["A single-stranded","probability"], correct: "A single-stranded" },
+  { lecture: "Lecture 4", type: "mcq", q: "In a _______ chain, information is passed by one person to his/her reliable ones, and the latter passes it to their reliable friends and the communication continues.", opts: ["probability","cluster"], correct: "cluster" },
+  { lecture: "Lecture 4", type: "mcq", q: "In a _______ chain, a person passes the information to a randomly chosen person and the communication goes on.", opts: ["gossip","probability"], correct: "probability" },
+  { lecture: "Lecture 4", type: "mcq", q: "In a _______ chain, a person passes the information to a group of people and the members of the group passes it to some more people and the information spreads.", opts: ["gossip","cluster"], correct: "gossip" },
+  { lecture: "Lecture 4", type: "mcq", q: "Downward communication can be _______.", opts: ["Both oral and written","oral only"], correct: "Both oral and written" },
+  { lecture: "Lecture 4", type: "mcq", q: "_______ of organization takes the initiative to start downward communication.", opts: ["lower authority","Higher authority"], correct: "Higher authority" },
+  { lecture: "Lecture 4", type: "mcq", q: "_______ communication flows from subordinates to superiors and continues up the organizational hierarchy.", opts: ["Downward","Upward"], correct: "Upward" },
+  { lecture: "Lecture 4", type: "mcq", q: "_______ communication is non-directive in nature.", opts: ["Downward","Upward"], correct: "Upward" },
 
-  // --- LECTURE 6: MODELS ---
-  {n:162,s:"L6",type:"tf",q:"A model of Effective communication is a thing used to follow or imitate Communication.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 2: Communication models represent structural guides to help emulate or optimize communications within organizations."},
-  {n:163,s:"L6",type:"tf",q:"Models of communication provide outputs for setting a standard communication system and ensuring effective communication in a business organization.",opts:["True","False"],ans:1,exp:"Correction: Models of communication provide INPUTS (not outputs) for establishing a standard framework, as seen on Slide 2."},
-  {n:164,s:"L6",type:"tf",q:"Models of communication provide inputs for setting a standard communication system and ensuring effective communication in a business organization.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 2: Standardizing corporate message flows depends on popular conceptual inputs derived from research models."},
-  {n:165,s:"L6",type:"tf",q:"Models of communication provide inputs for setting a standard communication system and ensuring effective communication in a political organization.",opts:["True","False"],ans:1,exp:"Correction: Verbatim slides specify 'business organization' as the primary design recipient of these standard inputs."},
-  {n:166,s:"L6",type:"tf",q:"Each organization sets up its own communication system mostly deriving inspiration from popular communication models.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 2: Businesses rarely start from scratch; they model their internal structures on proven classic theories."},
-  {n:167,s:"L6",type:"tf",q:"Models of communication are conceptual models that are used to explain the human communication process.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 3: These frameworks provide simplified conceptual schemas explaining the complex reality of human interactions."},
-  {n:168,s:"L6",type:"tf",q:"Models of communication are behavior models that are used to explain the human communication process.",opts:["True","False"],ans:1,exp:"Correction: They are 'conceptual' models, not behavior models."},
-  {n:169,s:"L6",type:"tf",q:"Models are un visual representation of communicating process.",opts:["True","False"],ans:1,exp:"Correction: They are highly visual representations, helping map out complex message tracks cleanly."},
-  {n:170,s:"L6",type:"tf",q:"Models are visual representation of communicating process.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 3: Diagrams and visual layouts are central to communication modeling."},
-  {n:171,s:"L6",type:"tf",q:"One-Way Communication Model It is known as the linear model of Communication as it occurs in a straight line from sender to receiver and serves to inform, persuade or command.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 4: The linear model is uncompensated by feedback loops, moving sequentially in one straight direction."},
-  {n:172,s:"L6",type:"tf",q:"In one-way communication model the information is only transmitted from one point to another or to many points at a single point of time.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 5: Broadcasting maps perfectly to this, spreading a signal outward to various nodes with no return track."},
-  {n:173,s:"L6",type:"tf",q:"In one-way communication model the information is transmitted from two points to another or to many points at a single point of time.",opts:["True","False"],ans:1,exp:"Correction: Information originates from a single point (the sender) only, moving outward."},
-  {n:174,s:"L6",type:"tf",q:"In one-way communication model, there is no transmission of information from the receiving point.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 5: Receiving nodes are completely restricted from sending return signals inside the linear paradigm."},
-  {n:175,s:"L6",type:"tf",q:"In one-way communication model, the recipient is passive.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 5: Because the receiver has no mechanism to transmit response signals, they remain passive."},
-  {n:176,s:"L6",type:"tf",q:"One-way communication is mostly used to transmit current information like weather information.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 5: Emergency warnings, weather updates, and formal unilateral briefings rely on single-track speed."},
-  {n:177,s:"L6",type:"tf",q:"The accurate time and intensity of weather phenomena are transmitted or communicated through the medium of one way communication.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 6: Real-time broadcast alerts utilize one-way media channels to maximize reach quickly."},
-  {n:178,s:"L6",type:"tf",q:"Like in two-way communication, in one-way communication the sender and recipient of the information may be not only people but also computers or automatic devices.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 6: Digital servers, satellites, and telemetry networks often establish machine-to-machine one-way tracks."},
-  {n:179,s:"L6",type:"tf",q:"Like in two-way communication, in one-way communication the sender and recipient of the information may be only people.",opts:["True","False"],ans:1,exp:"Correction: Automations and computer servers can also function as senders/receivers in modern systems."},
-  {n:180,s:"L6",type:"tf",q:"In one-way communication model, It assumes that there is a clear-cut beginning and end to communication.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 7: It treats communication as a finite, linear process starting at encoding and stopping at reception."},
-  {n:181,s:"L6",type:"tf",q:"The lack of feedback from the receiver is one major drawback of the one-way communication model.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 7: Without feedback, the sender cannot determine if misunderstandings or errors occurred."},
-  {n:182,s:"L6",type:"tf",q:"In the one-way communication model, the sender is the active member and the receiver is the passive one.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 7: Only the sender performs active processing and output; the recipient is just a target node."},
-  {n:183,s:"L6",type:"tf",q:"In the one-way communication model, the sender is passive the member and the receiver is the active one.",opts:["True","False"],ans:1,exp:"Correction: The sender is the active element; the receiver is the passive element in a linear framework."},
-  {n:184,s:"L6",type:"tf",q:"'Transactional' simply means the exchange or interaction between people. It is based on the basic premises of 'exchange' or 'give and take'.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 8: Transactional models view communication as an ongoing, continuous exchange process."},
-  {n:185,s:"L6",type:"tf",q:"The transactional model of communication refers to the exchange of messages or information between the sender and the receiver where each take turns to send or receive messages.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 8: In transactional structures, participants cycle fluidly between sender and receiver roles."},
-  {n:186,s:"L6",type:"tf",q:"The Interactive model of communication refers to the exchange of messages or information between the sender and the receiver where each take turns to send or receive messages.",opts:["True","False"],ans:1,exp:"Correction: This represents the Transactional model, which is highly continuous, as detailed in Slide 8."},
-  {n:187,s:"L6",type:"tf",q:"The Interactive model is the most general model of communication as even our daily interactions are instances of transactional model communication.",opts:["True","False"],ans:1,exp:"Correction: The TRANSACTIONAL model is the most general model, as highlighted on Slide 9."},
-  {n:188,s:"L6",type:"tf",q:"The transactional model is the most general model of communication as even our daily interactions are instances of transactional model communication.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 9: Standard daily human discourse represents ongoing transactional exchanges of meaning."},
-  {n:189,s:"L6",type:"tf",q:"Transactional model becomes more efficient and effective when the participants are of similar environment, know each other and share same social system.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 10: Shared background and identical cultural/social frameworks minimize noise barriers."},
-  {n:190,s:"L6",type:"tf",q:"Interactive communication model is also known as the convergence model.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 11: The Interactive Model emphasizes how meanings converge slowly via back-and-forth loops."},
-  {n:191,s:"L6",type:"tf",q:"The communication process occurs between humans or machines in both verbal and non-verbal ways.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 11: Modern interactive technologies leverage digital signs, text, and voice loops simultaneously."},
-  {n:192,s:"L6",type:"tf",q:"The communication process occurs between humans or machines in non-verbal way only.",opts:["True","False"],ans:1,exp:"Correction: It combines verbal (text/voice commands) and non-verbal pathways."},
-  {n:193,s:"L6",type:"tf",q:"It emphasizes feedback indicating that communication is not a one-way but a two-way process.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 12: Interactive frameworks are built entirely upon looping feedback cycles."},
-  {n:194,s:"L6",type:"tf",q:"Feedback, that is, when the decoder forms a second message after receiving the first message.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 14: Feedback is formed sequentially as a response AFTER processing the initial signal."},
-  {n:195,s:"L6",type:"tf",q:"Feedback, that is, when the decoder forms a second message before receiving the first message.",opts:["True","False"],ans:1,exp:"Correction: Feedback can only be constructed AFTER the incoming message is received and processed."},
-  {n:196,s:"L6",type:"tf",q:"A model of communication gives a wholesome understanding of a system or structure by which people can understand similar systems or structure.",opts:["True","False"],ans:0,exp:"Lecture 6, Slide 16: Models provide conceptual templates; understanding one model helps map similar real-world structures."},
-  {n:197,s:"L6",type:"tf",q:"A model of communication gives a wholesome understanding of a system or structure by which people can understand different systems or structure.",opts:["True","False"],ans:1,exp:"Correction: They help clarify 'similar' systems and structures by establishing baseline principles."},
+  // ===== LECTURE 5 =====
+  { lecture: "Lecture 5", type: "tf", q: "The process of communication as such must be a continuous and dynamic interaction, both affecting and being affected by many variables.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Process of Communication Elements include seven elements.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Process of Communication Elements include ten elements.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "The very foundation of communication process is laid by the person who transmits or sends the message.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Message is the heart of communication. It is the content the sender wants to covey to the receiver.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Message it can be verbal both written and spoken; or non-verbal i.e. pictorial or symbolic, etc.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Message it can be verbal only.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "Message It can be non-verbal only i.e. pictorial or symbolic, etc.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "Encoding is putting the targeted message into appropriate medium which may be verbal or non-verbal depending upon the situation, time, space and nature of the message to be sent.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Message is putting the targeted message into appropriate medium which may be verbal or non-verbal depending upon the situation, time, space and nature of the message to be sent.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "Encoding is putting the targeted message into appropriate medium which may be verbal only depending upon the situation, time, space and nature of the message to be sent.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "Encoding is an important step in the communication process.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Channel(s) refers to the way or mode the message flows or is transmitted through.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Encoding (s) refers to the way or mode the message flows or is transmitted through.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "The message may be oral or written and it may be transmitted through a memorandum, a computer, telephone, cell phone, apps or televisions.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "The message may be written only and it may be transmitted through a memorandum, a computer, telephone, cell phone, apps or televisions.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "Each channel has its advantages and disadvantages.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Each channel has its disadvantages only.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "Each channel has its advantages only.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "Receiver is the person or group who the message is meant for.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "The extent to which the receiver decodes the message depends on his/her knowledge of the subject matter of the message, experience, trust and relationship with the sender.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "The receiver is as significant a factor in communication process as the sender is. It is the other end of the process.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Decoding refers to interpreting or converting the sent message into intelligible language.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Encoding refers to interpreting or converting the sent message into intelligible language.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "Feedback is the ultimate aspect of communication process. It refers to the response of the receiver as to the message sent to him/her by the sender.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Feedback is necessary to ensure that the message has been effectively encoded, sent, decoded and comprehended.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Feedback is unnecessary to ensure that the message has been effectively encoded, sent, decoded and comprehended.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "It is the final step of the communication process and establishes that the receiver has received the message in its letter and spirit.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "It is the first step of the communication process and establishes that the receiver has received the message in its letter and spirit.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "Negative Feedback or corrective comments about past behavior.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Positive Feedback or affirming comments about future behavior.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Negative feedforward or corrective comments about future behavior.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Positive feedforward or affirming comments about future behavior.", correct: "True" },
+  { lecture: "Lecture 5", type: "tf", q: "Positive Feedback or corrective comments about past behavior.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "Negative Feedback or affirming comments about future behavior.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "Positive feedforward or corrective comments about future behavior.", correct: "False" },
+  { lecture: "Lecture 5", type: "tf", q: "Negative feedforward or affirming comments about future behavior.", correct: "False" },
+  { lecture: "Lecture 5", type: "mcq", q: "Process of Communication Elements include _______ elements.", opts: ["7","9"], correct: "7" },
+  { lecture: "Lecture 5", type: "mcq", q: "Message It can be _______.", opts: ["verbal & non-verbal","non-verbal only"], correct: "verbal & non-verbal" },
+  { lecture: "Lecture 5", type: "mcq", q: "_______ is the heart of communication. It is the content the sender wants to covey to the receiver.", opts: ["Message","Encoding"], correct: "Message" },
+  { lecture: "Lecture 5", type: "mcq", q: "_______ is putting the targeted message into appropriate medium which may be verbal or non-verbal depending upon the situation, time, space and nature of the message to be sent.", opts: ["Message","Encoding"], correct: "Encoding" },
+  { lecture: "Lecture 5", type: "mcq", q: "Encoding is putting the targeted message into appropriate medium which may be _______ depending upon the situation, time, space and nature of the message to be sent.", opts: ["verbal or non-verbal","verbal only"], correct: "verbal or non-verbal" },
+  { lecture: "Lecture 5", type: "mcq", q: "Encoding is an _______ step in the communication process.", opts: ["unimportant","important"], correct: "important" },
+  { lecture: "Lecture 5", type: "mcq", q: "_______ refers to the way or mode the message flows or is transmitted through.", opts: ["channel","Encoding"], correct: "channel" },
+  { lecture: "Lecture 5", type: "mcq", q: "The message may be _______ and it may be transmitted through a memorandum, a computer, telephone, cell phone, apps or televisions.", opts: ["oral or written","written only"], correct: "oral or written" },
+  { lecture: "Lecture 5", type: "mcq", q: "Each channel has it's _______.", opts: ["advantages only","advantages and disadvantages"], correct: "advantages and disadvantages" },
+  { lecture: "Lecture 5", type: "mcq", q: "The extent to which the receiver decodes the message depends on his/her _______.", opts: ["Knowledge of the subject matter of the message","Experience","Trust and relationship with the sender","All above"], correct: "All above" },
+  { lecture: "Lecture 5", type: "mcq", q: "The _______ is as significant a factor in communication process as the sender is. It is the other end of the process.", opts: ["message","receiver"], correct: "receiver" },
+  { lecture: "Lecture 5", type: "mcq", q: "_______ refers to interpreting or converting the sent message into intelligible language.", opts: ["Decoding","Encoding"], correct: "Decoding" },
+  { lecture: "Lecture 5", type: "mcq", q: "Feedback is _______ to ensure that the message has been effectively encoded, sent, decoded and comprehended.", opts: ["unnecessary","necessary"], correct: "necessary" },
+  { lecture: "Lecture 5", type: "mcq", q: "It is the _______ step of the communication process and establishes that the receiver has received the message in its letter and spirit.", opts: ["final","first"], correct: "final" },
+  { lecture: "Lecture 5", type: "mcq", q: "_______ Feedback or corrective comments about past behavior.", opts: ["Negative","Positive"], correct: "Negative" },
+  { lecture: "Lecture 5", type: "mcq", q: "_______ or affirming comments about future behavior (Feedback).", opts: ["Negative","Positive"], correct: "Positive" },
+  { lecture: "Lecture 5", type: "mcq", q: "_______ or corrective comments about future behavior.", opts: ["Negative feedforward","Positive feedforward"], correct: "Negative feedforward" },
+  { lecture: "Lecture 5", type: "mcq", q: "_______ or affirming comments about future behavior (feedforward).", opts: ["Negative feedforward","Positive feedforward"], correct: "Positive feedforward" },
 
-  // --- LECTURE 6: MULTIPLE CHOICE ---
-  {n:198,s:"L6",type:"mc",q:"Models of communication provide __________ for setting a standard communication system and ensuring effective communication in a business organization.",opts:["a. inputs","b. outputs"],ans:0,exp:"Lecture 6, Slide 2: Conceptual models act as design inputs when mapping out functional organizational structures."},
-  {n:199,s:"L6",type:"mc",q:"Models of communication provide inputs for setting a standard communication system and ensuring effective communication in a __________ organization.",opts:["a. business","b. political"],ans:0,exp:"Lecture 6, Slide 2: Verbatim text targets commercial efficiency and business operations."},
-  {n:200,s:"L6",type:"mc",q:"Each organization sets up its own communication system mostly deriving inspiration from __________ communication models.",opts:["a. unpopular","b. popular"],ans:1,exp:"Lecture 6, Slide 2: Classic research models (like Shannon-Weaver) inspire standard industry implementations."},
-  {n:201,s:"L6",type:"mc",q:"Models of communication are __________ models that are used to explain the human communication process.",opts:["a. behavior","b. conceptual"],ans:1,exp:"Lecture 6, Slide 3: They abstract complex processes into clean conceptual blocks."},
-  {n:202,s:"L6",type:"mc",q:"Models are __________ representation of communicating process.",opts:["a. visual","b. un visual"],ans:0,exp:"Lecture 6, Slide 3: Visual mapping is fundamental to structural modeling of signals."},
-  {n:203,s:"L6",type:"mc",q:"In one-way communication model the information is transmitted from __________ to another or to many points at a single point of time.",opts:["a. one point","b. two points"],ans:0,exp:"Lecture 6, Slide 5: Linear tracks rely on single-point transmission (broadcast)."},
-  {n:204,s:"L6",type:"mc",q:"One-way communication is mostly used to transmit __________ information.",opts:["a. current","b. old"],ans:0,exp:"Lecture 6, Slide 5: Unilateral tracks excel at immediate, rapid alerts (weather, news)."},
-  {n:205,s:"L6",type:"mc",q:"The accurate time and intensity of weather phenomena are transmitted or communicated through the medium of __________.",opts:["a. Transactional","b. way communication"],ans:1,exp:"Lecture 6, Slide 6: This refers to 'one-way communication' (represented as 'way communication' on the worksheet)."},
-  {n:206,s:"L6",type:"mc",q:"Like in two-way communication, in one-way communication the sender and recipient of the information may be __________ people.",opts:["a. not only","b. only"],ans:0,exp:"Lecture 6, Slide 6: Digital servers, alerts, and automatic nodes expand the pool beyond human-only actors."},
-  {n:207,s:"L6",type:"mc",q:"In the one-way communication model, the sender is the __________ member and the receiver is the __________ one.",opts:["a. active / passive","b. passive / active"],ans:0,exp:"Lecture 6, Slide 7: The sender must formulate and push the message; the recipient merely accepts it without response."},
-  {n:208,s:"L6",type:"mc",q:"__________ simply means the exchange or interaction between people. It is based on the basic premises of 'exchange' or 'give and take'.",opts:["a. Transactional'","b. Interactive"],ans:0,exp:"Lecture 6, Slide 8: Continuous transactional exchange is modeled on reciprocal give-and-take dynamics."},
-  {n:209,s:"L6",type:"mc",q:"The __________ model of communication refers to the exchange of messages or information between the sender and the receiver where each take turns to send or receive messages.",opts:["a. Interactive","b. transactional"],ans:1,exp:"Lecture 6, Slide 8: Fluid, continuous turn-taking is the core of the transactional model."},
-  {n:210,s:"L6",type:"mc",q:"The __________ model is the most general model of communication as even our daily interactions are instances of transactional model communication.",opts:["a. transactional","b. Interactive"],ans:0,exp:"Lecture 6, Slide 9: Normal dialogue cycles operate continuously as transactions of meaning."},
-  {n:211,s:"L6",type:"mc",q:"Transactional model becomes more efficient and effective when the participants are of __________ environment, know each other and share same social system.",opts:["a. similar","b. different"],ans:0,exp:"Lecture 6, Slide 10: High environmental and social alignment minimizes translation blockages."},
-  {n:212,s:"L6",type:"mc",q:"__________ communication model is also known as the convergence model.",opts:["a. transactional","b. Interactive"],ans:1,exp:"Lecture 6, Slide 11: Meaning converges dynamically through iterative interactive loops."},
-  {n:213,s:"L6",type:"mc",q:"The communication process occurs between humans or machines __________.",opts:["a. in non-verbal way only","b. in both verbal and non-verbal ways"],ans:1,exp:"Lecture 6, Slide 11: Complex networks combine text, speech, and graphical status feeds."},
-  {n:214,s:"L6",type:"mc",q:"Feedback, that is, when the decoder forms a second message __________ receiving the first message.",opts:["a. after","b. before"],ans:0,exp:"Lecture 6, Slide 14: Meaningful response requires successful prior parsing of the input signal."},
-  {n:215,s:"L6",type:"mc",q:"A model of communication gives a wholesome understanding of a system or structure by which people can understand __________ systems or structure.",opts:["a. similar","b. different"],ans:0,exp:"Lecture 6, Slide 16: Understanding one modeled system allows easy translation to comparable similar arrangements."},
-  {n:216,s:"L6",type:"mc",q:"The first formal communication model (1948) was developed by __________ and introduced by Warren Weaver.",opts:["a. Claude Shannon","b. Wilbur Schramm"],ans:0,exp:"Lecture 6, Slide 3: Shannon mapped the first mathematical communication block model in 1948."},
+  // ===== LECTURE 6 =====
+  { lecture: "Lecture 6", type: "tf", q: "A model of Effective communication is a thing used to follow or imitate Communication.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "Models of communication provide outputs for setting a standard communication system and ensuring effective communication in a business organization.", correct: "False" },
+  { lecture: "Lecture 6", type: "tf", q: "Models of communication provide inputs for setting a standard communication system and ensuring effective communication in a business organization.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "Models of communication provide inputs for setting a standard communication system and ensuring effective communication in a political organization.", correct: "False" },
+  { lecture: "Lecture 6", type: "tf", q: "Each organization sets up its own communication system mostly deriving inspiration from popular communication models.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "Models of communication are conceptual models that are used to explain the human communication process.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "Models of communication are behavior models that are used to explain the human communication process.", correct: "False" },
+  { lecture: "Lecture 6", type: "tf", q: "Models are un visual representation of communicating process.", correct: "False" },
+  { lecture: "Lecture 6", type: "tf", q: "Models are visual representation of communicating process.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "One-Way Communication Model It is known as the linear model of Communication as it occurs in a straight line from sender to receiver and serves to inform, persuade or command.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "In one-way communication model the information is only transmitted from one point to another or to many points at a single point of time.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "In one-way communication model the information is transmitted from two points to another or to many points at a single point of time.", correct: "False" },
+  { lecture: "Lecture 6", type: "tf", q: "In one-way communication model, there is no transmission of information from the receiving point.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "In one-way communication model, the recipient is passive.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "One-way communication is mostly used to transmit current information like weather information.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "The accurate time and intensity of weather phenomena are transmitted or communicated through the medium of one way communication.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "Like in two-way communication, in one-way communication the sender and recipient of the information may be not only people but also computers or automatic devices.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "Like in two-way communication, in one-way communication the sender and recipient of the information may be only people.", correct: "False" },
+  { lecture: "Lecture 6", type: "tf", q: "In one-way communication model, It assumes that there is a clear-cut beginning and end to communication.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "The lack of feedback from the receiver is one major drawback of the one-way communication model.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "In the one-way communication model, the sender is the active member and the receiver is the passive one.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "In the one-way communication model, the sender is passive the member and the receiver is the active one.", correct: "False" },
+  { lecture: "Lecture 6", type: "tf", q: "Transactional' simply means the exchange or interaction between people. It is based on the basic premises of 'exchange' or 'give and take'.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "The transactional model of communication refers to the exchange of messages or information between the sender and the receiver where each take turns to send or receive messages.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "The Interactive model of communication refers to the exchange of messages or information between the sender and the receiver where each take turns to send or receive messages.", correct: "False" },
+  { lecture: "Lecture 6", type: "tf", q: "The Interactive model is the most general model of communication as even our daily interactions are instances of transactional model communication.", correct: "False" },
+  { lecture: "Lecture 6", type: "tf", q: "The transactional model is the most general model of communication as even our daily interactions are instances of transactional model communication.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "Transactional model becomes more efficient and effective when the participants are of similar environment, know each other and share same social system.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "Interactive communication model is also known as the convergence model.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "The communication process occurs between humans or machines in both verbal and non-verbal ways.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "The communication process occurs between humans or machines in non-verbal way only.", correct: "False" },
+  { lecture: "Lecture 6", type: "tf", q: "It emphasizes feedback indicating that communication is not a one-way but a two-way process.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "Feedback, that is, when the decoder forms a second message after receiving the first message.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "Feedback, that is, when the decoder forms a second message before receiving the first message.", correct: "False" },
+  { lecture: "Lecture 6", type: "tf", q: "A model of communication gives a wholesome understanding of a system or structure by which people can understand similar systems or structure.", correct: "True" },
+  { lecture: "Lecture 6", type: "tf", q: "A model of communication gives a wholesome understanding of a system or structure by which people can understand different systems or structure.", correct: "False" },
+  { lecture: "Lecture 6", type: "mcq", q: "Models of communication provide _______ for setting a standard communication system and ensuring effective communication in a business organization.", opts: ["inputs","outputs"], correct: "inputs" },
+  { lecture: "Lecture 6", type: "mcq", q: "Models of communication provide inputs for setting a standard communication system and ensuring effective communication in a _______ organization.", opts: ["business","political"], correct: "business" },
+  { lecture: "Lecture 6", type: "mcq", q: "Each organization sets up its own communication system mostly deriving inspiration from _______ communication models.", opts: ["unpopular","popular"], correct: "popular" },
+  { lecture: "Lecture 6", type: "mcq", q: "Models of communication are _______ models that are used to explain the human communication process.", opts: ["behavior","conceptual"], correct: "conceptual" },
+  { lecture: "Lecture 6", type: "mcq", q: "Models are _______ representation of communicating process.", opts: ["visual","un visual"], correct: "visual" },
+  { lecture: "Lecture 6", type: "mcq", q: "In one-way communication model the information is transmitted from _______ to another or to many points at a single point of time.", opts: ["one point","two points"], correct: "one point" },
+  { lecture: "Lecture 6", type: "mcq", q: "One-way communication is mostly used to transmit _______ information.", opts: ["current","old"], correct: "current" },
+  { lecture: "Lecture 6", type: "mcq", q: "The accurate time and intensity of weather phenomena are transmitted or communicated through the medium of _______.", opts: ["Transactional","one way communication"], correct: "one way communication" },
+  { lecture: "Lecture 6", type: "mcq", q: "Like in two-way communication, in one-way communication the sender and recipient of the information may be _______ people.", opts: ["not only","only"], correct: "not only" },
+  { lecture: "Lecture 6", type: "mcq", q: "In the one-way communication model, the sender is the _______ member and the receiver is the _______ one.", opts: ["active / passive","passive / active"], correct: "active / passive" },
+  { lecture: "Lecture 6", type: "mcq", q: "_______ simply means the exchange or interaction between people. It is based on the basic premises of 'exchange' or 'give and take'.", opts: ["Transactional","Interactive"], correct: "Transactional" },
+  { lecture: "Lecture 6", type: "mcq", q: "The _______ model of communication refers to the exchange of messages or information between the sender and the receiver where each take turns to send or receive messages.", opts: ["Interactive","transactional"], correct: "transactional" },
+  { lecture: "Lecture 6", type: "mcq", q: "The _______ model is the most general model of communication as even our daily interactions are instances of transactional model communication.", opts: ["transactional","Interactive"], correct: "transactional" },
+  { lecture: "Lecture 6", type: "mcq", q: "Transactional model becomes more efficient and effective when the participants are of _______ environment, know each other and share same social system.", opts: ["similar","different"], correct: "similar" },
+  { lecture: "Lecture 6", type: "mcq", q: "_______ communication model is also known as the convergence model.", opts: ["transactional","Interactive"], correct: "Interactive" },
+  { lecture: "Lecture 6", type: "mcq", q: "The communication process occurs between humans or machines _______.", opts: ["in non-verbal way only","in both verbal and non-verbal ways"], correct: "in both verbal and non-verbal ways" },
+  { lecture: "Lecture 6", type: "mcq", q: "Feedback, that is, when the decoder forms a second message _______ receiving the first message.", opts: ["after","before"], correct: "after" },
+  { lecture: "Lecture 6", type: "mcq", q: "A model of communication gives a wholesome understanding of a system or structure by which people can understand _______ systems or structure.", opts: ["similar","different"], correct: "similar" },
 
-  // --- LECTURE 7: STYLES ---
-  {n:217,s:"L7",type:"tf",q:"Communication style refers to the way in which the act of communicating is carried on.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 4: Style defines the specific manner and personal expression behind the message."},
-  {n:218,s:"L7",type:"tf",q:"Styles of communication may different from occasion to occasion. Each style serves a different purpose.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 4: Flexing communication styles to match diverse contexts is a key professional asset."},
-  {n:219,s:"L7",type:"tf",q:"Styles of communication not different from occasion to occasion. Each style serves a different purpose.",opts:["True","False"],ans:1,exp:"Correction: Communication styles must be dynamic, shifting between different scenarios and goals."},
-  {n:220,s:"L7",type:"tf",q:"There are four major styles of communication.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 5: The curriculum outlines 4 main styles: Aggressive, Passive, Manipulative, and Assertive."},
-  {n:221,s:"L7",type:"tf",q:"In Aggressive style of communication, one always stands up for one's rights simultaneously overlooking others.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 6: Aggression is characterized by pursuing personal objectives while ignoring or trampling others' boundaries."},
-  {n:222,s:"L7",type:"tf",q:"Passive communication style stands in contrast to aggressive style in meaning and uses.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 7: Passivity is quiet, non-confrontational, and yields space, directly contrasting aggressive pushiness."},
-  {n:223,s:"L7",type:"tf",q:"The passive style of communication allows the communicator to put others' rights before his and thus reduce his own self-worth.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 7: Yielding constantly to others' terms diminishes personal agency and self-esteem over time."},
-  {n:224,s:"L7",type:"tf",q:"The passive style of communication allows the communicator to put others' rights after his and thus reduce his own self-worth.",opts:["True","False"],ans:1,exp:"Correction: Passive communicators put others' rights BEFORE their own, neglecting self-worth."},
-  {n:225,s:"L7",type:"tf",q:"Assertive communication style is regarded as the best communicating style. It is more rational and proper than other styles of communication.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 9: Assertiveness is highly professional, balancing personal objectives with respect for others."},
-  {n:226,s:"L7",type:"tf",q:"Assertive communication style is regarded as the best communicating style. It is less rational and proper than other styles of communication.",opts:["True","False"],ans:1,exp:"Correction: Assertiveness is MORE rational, healthy, and highly optimal compared to passive or aggressive paths."},
-  {n:227,s:"L7",type:"tf",q:"This style teaches one to stand up for one's rights while having respect for others rights.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 9: True assertiveness is a balanced state, declaring rights without violating others."},
-  {n:228,s:"L7",type:"tf",q:"This style teaches one to stand up for one's rights while not having respect for others rights.",opts:["True","False"],ans:1,exp:"Correction: Assertive style demands high mutual respect, unlike aggressive style."},
-  {n:229,s:"L7",type:"tf",q:"In Assertive style of communication they deal with people on equal terms.",opts:["True","False"],ans:0,exp:"Lecture 7, Slide 9: Equality and mutual respect define assertive interactions."},
-  {n:230,s:"L7",type:"tf",q:"In Assertive style of communication they deal with people on unequal terms.",opts:["True","False"],ans:1,exp:"Correction: Assertive individuals deal on strictly equal terms, without feeling superior or inferior."},
+  // ===== LECTURE 7 =====
+  { lecture: "Lecture 7", type: "tf", q: "Communication style refers to the way in which the act of communicating is carried on.", correct: "True" },
+  { lecture: "Lecture 7", type: "tf", q: "Styles of communication may different from occasion to occasion. Each style serves a different purpose.", correct: "True" },
+  { lecture: "Lecture 7", type: "tf", q: "Styles of communication not different from occasion to occasion. Each style serves a different purpose.", correct: "False" },
+  { lecture: "Lecture 7", type: "tf", q: "There are four major styles of communication.", correct: "True" },
+  { lecture: "Lecture 7", type: "tf", q: "In Aggressive style of communication, one always stands up for one's rights simultaneously overlooking others.", correct: "True" },
+  { lecture: "Lecture 7", type: "tf", q: "Passive communication style stands in contrast to aggressive style in meaning and uses.", correct: "True" },
+  { lecture: "Lecture 7", type: "tf", q: "The passive style of communication allows the communicator to put others' rights before his and thus reduce his own self-worth.", correct: "True" },
+  { lecture: "Lecture 7", type: "tf", q: "The passive style of communication allows the communicator to put others' rights after his and thus reduce his own self-worth.", correct: "False" },
+  { lecture: "Lecture 7", type: "tf", q: "Assertive communication style is regarded as the best communicating style. It is more rational and proper than other styles of communication.", correct: "True" },
+  { lecture: "Lecture 7", type: "tf", q: "Assertive communication style is regarded as the best communicating style. It is less rational and proper than other styles of communication.", correct: "False" },
+  { lecture: "Lecture 7", type: "tf", q: "This style teaches one to stand up for one's rights while having respect for others rights.", correct: "True" },
+  { lecture: "Lecture 7", type: "tf", q: "This style teaches one to stand up for one's rights while not having respect for others rights.", correct: "False" },
+  { lecture: "Lecture 7", type: "tf", q: "In Assertive style of communication they deal with people on equal terms.", correct: "True" },
+  { lecture: "Lecture 7", type: "tf", q: "In Assertive style of communication they deal with people on unequal terms.", correct: "False" },
+  { lecture: "Lecture 7", type: "mcq", q: "Styles of communication _______ from occasion to occasion. Each style serves a different purpose.", opts: ["not different","may different"], correct: "may different" },
+  { lecture: "Lecture 7", type: "mcq", q: "There are _______ major styles of communication.", opts: ["two","four"], correct: "four" },
+  { lecture: "Lecture 7", type: "mcq", q: "In _______ style of communication, one always stands up for one's rights simultaneously overlooking others.", opts: ["Aggressive","passive"], correct: "Aggressive" },
+  { lecture: "Lecture 7", type: "mcq", q: "In _______ communication style stands in contrast to aggressive style in meaning and uses.", opts: ["Aggressive","passive"], correct: "passive" },
+  { lecture: "Lecture 7", type: "mcq", q: "The passive style of communication allows the communicator to put others' rights _______ his and thus reduce his own self-worth.", opts: ["before","after"], correct: "before" },
+  { lecture: "Lecture 7", type: "mcq", q: "Assertive communication style is regarded as the best communicating style. It is _______ rational and proper than other styles of communication.", opts: ["more","less"], correct: "more" },
+  { lecture: "Lecture 7", type: "mcq", q: "This style teaches one to stand up for one's rights while _______ respect for others rights.", opts: ["having","not having"], correct: "having" },
+  { lecture: "Lecture 7", type: "mcq", q: "In Assertive style of communication they deal with people on _______ terms.", opts: ["equal","unequal"], correct: "equal" },
 
-  // --- LECTURE 7: MULTIPLE CHOICE ---
-  {n:231,s:"L7",type:"mc",q:"Styles of communication __________ from occasion to occasion. Each style serves a different purpose.",opts:["a. not different","b. may different"],ans:1,exp:"Lecture 7, Slide 4: Senders adjust their communication styles to fit different scenarios and audiences."},
-  {n:232,s:"L7",type:"mc",q:"There are __________ major styles of communication.",opts:["a. two","b. four"],ans:1,exp:"Lecture 7, Slide 5: The class lists exactly 4 main profiles: Aggressive, Passive, Manipulative, Assertive."},
-  {n:233,s:"L7",type:"mc",q:"In __________ style of communication, one always stands up for one’s rights simultaneously overlooking others.",opts:["a. Aggressive","b. passive"],ans:0,exp:"Lecture 7, Slide 6: Aggressiveness focuses on self-interest at the expense of colleagues' boundaries."},
-  {n:234,s:"L7",type:"mc",q:"In __________ communication style stands in contrast to aggressive style in meaning and uses.",opts:["a. Aggressive","b. passive"],ans:1,exp:"Lecture 7, Slide 7: Passivity is the exact structural opposite of aggressive self-assertion."},
-  {n:235,s:"L7",type:"mc",q:"The passive style of communication allows the communicator to put others’ rights __________ his and thus reduce his own self-worth.",opts:["a. before","b. after"],ans:0,exp:"Lecture 7, Slide 7: Putting other people's needs first constantly erodes self-worth."},
-  {n:236,s:"L7",type:"mc",q:"Assertive communication style is regarded as the best communicating style. It is __________ rational and proper than other styles of communication.",opts:["a. more","b. less"],ans:0,exp:"Lecture 7, Slide 9: Mutual respect makes assertiveness the most logical and effective choice."},
-  {n:237,s:"L7",type:"mc",q:"This style teaches one to stand up for one’s rights while __________ respect for others rights.",opts:["a. having","b. not having"],ans:0,exp:"Lecture 7, Slide 9: Balanced respect is the core of assertive communication."},
-  {n:238,s:"L7",type:"mc",q:"In Assertive style of communication they deal with people on __________ terms.",opts:["a. equal","b. unequal"],ans:0,exp:"Lecture 7, Slide 9: Assertiveness values all participants as peers, maintaining professional equality."},
-  {n:239,s:"L7",type:"mc",q:"People adopting the __________ style are often scheming, shrewd, and calculating, utilizing hidden agendas.",opts:["a. manipulative","b. assertive"],ans:0,exp:"Lecture 7, Slide 8: Manipulative styles rely on behind-the-scenes control to achieve their goals."},
-
-  // --- LECTURE 8 & 9: VERBATIM CHARACTERISTICS ---
-  {n:240,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Completeness of the Message.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Complete messaging prevents questions and ensures quick execution."},
-  {n:241,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Clearness and Integrity of the Message.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Clear, honest structure prevents ambiguity and builds trust."},
-  {n:242,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Conciseness of the Message.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Saying more with fewer words saves time and highlights key points."},
-  {n:243,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Consideration of Physical Setting and the Recipient.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Adapting to the environment and the audience's background ensures reception."},
-  {n:244,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Clarity of the Message.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Unambiguous language and clear delivery are core requirements."},
-  {n:245,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Courtesy to be maintained.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Polite, respectful language keeps channels open and productive."},
-  {n:246,s:"L89",type:"tf",q:"Characteristics of Effective Communication: Correctness of the Message.",opts:["True","False"],ans:0,exp:"Lecture 8/9, Slide 3: Accuracy in grammar and figures prevents errors and builds authority."},
-
-  // --- LECTURE 8 & 9: MULTIPLE CHOICE ---
-  {n:247,s:"L89",type:"mc",q:"Which of the following are Characteristics of Effective Communication?",opts:["A. Completeness and Conciseness","B. Clearness and Integrity","C. Both A and B","D. None of the above"],ans:2,exp:"Lecture 8/9, Slide 3 lists all these qualities as essential pillars of effective communication."},
-  {n:248,s:"L89",type:"mc",q:"Which of the following are pillars of Effective Communication?",opts:["A. Consideration of Physical Setting & Recipient","B. Clarity and Correctness","C. Courtesy to be maintained","D. All above"],ans:3,exp:"Lecture 8/9, Slide 3: A balanced approach covers all these characteristics to ensure effective delivery."}
+  // ===== LECTURE 8&9 =====
+  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Completeness of the Message.", correct: "True" },
+  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Clearness and Integrity of the Message.", correct: "True" },
+  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Conciseness of the Message.", correct: "True" },
+  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Consideration of Physical Setting and the Recipient.", correct: "True" },
+  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Clarity of the Message.", correct: "True" },
+  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Courtesy to be maintained.", correct: "True" },
+  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Correctness of the Message.", correct: "True" },
+  { lecture: "Lecture 8&9", type: "mcq", q: "Which of the following is a Characteristic of Effective Communication?", opts: ["Completeness of the Message","Clearness and Integrity of the Message","Conciseness of the Message","All above"], correct: "All above" },
+  { lecture: "Lecture 8&9", type: "mcq", q: "Which of the following is also a Characteristic of Effective Communication?", opts: ["Consideration of Physical Setting and the Recipient","Clarity of the Message","Courtesy to be maintained","All above"], correct: "All above" },
 ];
 
-const LABELS = ["A", "B", "C", "D"];
-const SECTION_LABELS = { 
-  L1: "Lecture 1", 
-  L23: "Lecture 2 & 3", 
-  L4: "Lecture 4", 
-  L5: "Lecture 5", 
-  L6: "Lecture 6", 
-  L7: "Lecture 7", 
-  L89: "Lectures 8 & 9" 
+// ===============================================================
+// EXAM DEFINITIONS
+// ===============================================================
+const examDefs = {
+  exam1: {
+    title: "الامتحان الأول — Lectures 1, 2&3, 4",
+    lectures: ["Lecture 1","Lecture 2&3","Lecture 4"]
+  },
+  exam2: {
+    title: "الامتحان الثاني — Lectures 5, 6, 7, 8&9",
+    lectures: ["Lecture 5","Lecture 6","Lecture 7","Lecture 8&9"]
+  },
+  examAll: {
+    title: "الامتحان الشامل — All Lectures",
+    lectures: null // all
+  }
 };
-const PER_PAGE = 10;
 
-let currentQuestions = [];
-let userAnswers = {}; // qNum -> chosenIndex
-let saAnswers = {};    // qNum -> inputString
-let saChecked = {};    // qNum -> boolean
-let currentPage = 0;
-let activeFilter = "all";
+// ===============================================================
+// STATE
+// ===============================================================
+let currentExam = null;
+let questions = [];
+let currentIdx = 0;
+let score = 0;
+let answered = false;
+let examKey = null;
 
-function filterQuestions() {
-  if (activeFilter === "all") {
-    currentQuestions = [...QUESTIONS_DATABASE];
+// ===============================================================
+// UTILS
+// ===============================================================
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ===============================================================
+// START EXAM
+// ===============================================================
+function startExam(key) {
+  examKey = key;
+  const def = examDefs[key];
+  let pool = def.lectures
+    ? allQuestions.filter(q => def.lectures.includes(q.lecture))
+    : allQuestions;
+  questions = shuffle(pool);
+  currentIdx = 0;
+  score = 0;
+  document.getElementById('quizTitleSmall').textContent = def.title;
+  showScreen('quiz');
+  renderQuestion();
+}
+
+function retryExam() {
+  startExam(examKey);
+}
+
+function goHome() {
+  showScreen('home');
+}
+
+// ===============================================================
+// RENDER QUESTION
+// ===============================================================
+function renderQuestion() {
+  answered = false;
+  const q = questions[currentIdx];
+  const total = questions.length;
+
+  document.getElementById('qCounter').textContent = `${currentIdx+1} / ${total}`;
+  const pct = ((currentIdx) / total) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+
+  let optsHtml = '';
+  if (q.type === 'tf') {
+    const opts = shuffle(['True','False']);
+    opts.forEach((o, i) => {
+      const labels = ['أ','ب'];
+      optsHtml += `<button class="option-btn" onclick="selectAnswer(this, '${o}', '${q.correct}')">
+        <span class="opt-label">${labels[i]}</span>${o}
+      </button>`;
+    });
   } else {
-    currentQuestions = QUESTIONS_DATABASE.filter(q => q.s === activeFilter);
+    const opts = shuffle([...q.opts]);
+    const labels = ['أ','ب','ج','د'];
+    opts.forEach((o, i) => {
+      const safe = o.replace(/'/g, "\\'");
+      optsHtml += `<button class="option-btn" onclick="selectAnswer(this, '${safe}', '${q.correct.replace(/'/g,"\\'")}')">
+        <span class="opt-label">${labels[i]}</span>${o}
+      </button>`;
+    });
+  }
+
+  const typeLabel = q.type === 'tf' ? '✅ True / False' : '🔘 MCQ';
+
+  document.getElementById('quizBody').innerHTML = `
+    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;">
+      <span class="lecture-tag">📖 ${q.lecture}</span>
+      <span class="q-type-badge">${typeLabel}</span>
+    </div>
+    <div class="q-text">${q.q}</div>
+    <div class="options-list" id="optsList">${optsHtml}</div>
+    <div class="feedback-box" id="feedbackBox"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">
+      ${currentIdx + 1 < questions.length ? 'السؤال التالي ←' : '🏁 عرض النتيجة'}
+    </button>
+  `;
+
+  document.getElementById('quizBody').classList.remove('q-anim');
+  void document.getElementById('quizBody').offsetWidth;
+  document.getElementById('quizBody').classList.add('q-anim');
+}
+
+// ===============================================================
+// SELECT ANSWER
+// ===============================================================
+function selectAnswer(btn, chosen, correct) {
+  if (answered) return;
+  answered = true;
+
+  const allBtns = document.querySelectorAll('.option-btn');
+  allBtns.forEach(b => b.disabled = true);
+
+  const feedbackBox = document.getElementById('feedbackBox');
+  const nextBtn = document.getElementById('nextBtn');
+
+  if (chosen === correct) {
+    btn.classList.add('correct');
+    score++;
+    feedbackBox.className = 'feedback-box show correct-fb';
+    feedbackBox.textContent = '✅ إجابة صحيحة!';
+  } else {
+    btn.classList.add('wrong');
+    feedbackBox.className = 'feedback-box show wrong-fb';
+    feedbackBox.textContent = `❌ خطأ — الإجابة الصحيحة: ${correct}`;
+    // highlight correct
+    allBtns.forEach(b => {
+      const txt = b.textContent.trim();
+      if (txt === correct || txt.endsWith(correct) || b.textContent.includes(correct)) {
+        b.classList.add('reveal-correct');
+      }
+    });
+  }
+
+  nextBtn.classList.add('show');
+}
+
+// ===============================================================
+// NEXT QUESTION
+// ===============================================================
+function nextQuestion() {
+  currentIdx++;
+  if (currentIdx >= questions.length) {
+    showResult();
+  } else {
+    renderQuestion();
   }
 }
 
-function getTotalPages() {
-  return Math.ceil(currentQuestions.length / PER_PAGE);
+// ===============================================================
+// SHOW RESULT
+// ===============================================================
+function showResult() {
+  const total = questions.length;
+  const pct = Math.round((score / total) * 100);
+  const wrong = total - score;
+
+  let emoji, title;
+  if (pct >= 90) { emoji='🏆'; title='ممتاز!'; }
+  else if (pct >= 75) { emoji='🌟'; title='جيد جداً!'; }
+  else if (pct >= 60) { emoji='👍'; title='جيد'; }
+  else if (pct >= 50) { emoji='📚'; title='تحتاج مراجعة'; }
+  else { emoji='💪'; title='حاول مجدداً'; }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultSubtitle').textContent = examDefs[examKey].title;
+  document.getElementById('scoreBig').textContent = pct + '%';
+  document.getElementById('scoreLabel').textContent = `${score} إجابة صحيحة من ${total} سؤال`;
+  document.getElementById('correctCount').textContent = score;
+  document.getElementById('wrongCount').textContent = wrong;
+  document.getElementById('totalCount').textContent = total;
+
+  showScreen('result');
 }
-
-function getPageQuestions() {
-  const start = currentPage * PER_PAGE;
-  return currentQuestions.slice(start, start + PER_PAGE);
-}
-
-function countScore() {
-  let answered = 0;
-  let correct = 0;
-  let wrong = 0;
-
-  currentQuestions.forEach(q => {
-    if (q.type === 'sa') {
-      if (saChecked[q.n]) {
-        answered++;
-        const input = (saAnswers[q.n] || '').toLowerCase().trim();
-        let isCorrect = false;
-        if (q.n === 24) {
-          isCorrect = input.includes('communis') && input.includes('sender') && input.includes('receiver');
-        } else if (q.n === 104) {
-          isCorrect = input.includes('verbal') && input.includes('formal') && input.includes('downward');
-        } else if (q.n === 105) {
-          isCorrect = input.includes('oral') || input.includes('written') || input.includes('language');
-        } else {
-          isCorrect = input.length > 15;
-        }
-        if (isCorrect) correct++; else wrong++;
-      }
-    } else {
-      const selected = userAnswers[q.n];
-      if (selected !== undefined) {
-        answered++;
-        if (selected === q.ans) {
-          correct++;
-        } else {
-          wrong++;
-        }
-      }
-    }
-  });
-
-  return { total: currentQuestions.length, answered, correct, wrong };
-}
-
-function updateCounters() {
-  const stats = countScore();
-  document.getElementById("st-total").textContent = stats.total;
-  document.getElementById("st-answered").textContent = stats.answered;
-  document.getElementById("st-correct").textContent = stats.correct;
-  document.getElementById("st-wrong").textContent = stats.wrong;
-
-  const progressPct = stats.total > 0 ? Math.round((stats.answered / stats.total) * 100) : 0;
-  document.getElementById("prog-fill").style.width = progressPct + "%";
-  document.getElementById("prog-label").textContent = stats.answered + " / " + stats.total + " answered (" + progressPct + "% completed)";
-}
-
-function selectOption(qNum, selectedIndex) {
-  if (userAnswers[qNum] !== undefined) return;
-  userAnswers[qNum] = selectedIndex;
-  renderPage();
-}
-
-function verifyShortAnswer(qNum) {
-  saChecked[qNum] = true;
-  renderPage();
-}
-
-function renderPage() {
-  const container = document.getElementById("q-container");
-  container.innerHTML = "";
-
-  const pageQuestions = getPageQuestions();
-  pageQuestions.forEach(q => {
-    const card = document.createElement("div");
-    card.className = "q-card";
-
-    const isAnswered = q.type !== 'sa' ? (userAnswers[q.n] !== undefined) : (saChecked[q.n] === true);
-    let correctClass = "";
-    if (isAnswered) {
-      if (q.type !== 'sa') {
-        correctClass = userAnswers[q.n] === q.ans ? " correct-card" : " wrong-card";
-      } else {
-        correctClass = " correct-card"; // Short answers highlight in green on submission
-      }
-      card.className += correctClass;
-    }
-
-    // Header Meta
-    const headerHTML = `
-      <div class="q-header">
-        <span class="q-num">Q${q.n}</span>
-        <span class="q-badge">${SECTION_LABELS[q.s]}</span>
-      </div>
-    `;
-
-    // Question Text
-    const textHTML = `<div class="q-text">${q.q}</div>`;
-
-    // Input Mechanics
-    let inputHTML = "";
-    if (q.type !== 'sa') {
-      const optionsHTML = q.opts.map((opt, optIndex) => {
-        let optCls = "opt";
-        if (isAnswered) {
-          if (optIndex === q.ans) {
-            optCls += " opt-correct";
-          } else if (optIndex === userAnswers[q.n]) {
-            optCls += " opt-wrong";
-          }
-        }
-        const disabled = isAnswered ? "disabled" : "";
-        return `
-          <button class="${optCls}" ${disabled} onclick="selectOption(${q.n}, ${optIndex})">
-            <span class="opt-label">${LABELS[optIndex]}</span>
-            <span>${opt}</span>
-          </button>
-        `;
-      }).join("");
-      inputHTML = `<div class="options">${optionsHTML}</div>`;
-    } else {
-      const currentInputVal = saAnswers[q.n] || "";
-      const disabledAttr = isAnswered ? "disabled" : "";
-      
-      let saControlHTML = "";
-      if (!isAnswered) {
-        saControlHTML = `
-          <div style="display:flex; justify-content:flex-end;">
-            <button class="btn-primary" style="font-size:11px; padding:6px 12px;" onclick="verifyShortAnswer(${q.n})">Verify Answer</button>
-          </div>
-        `;
-      } else {
-        saControlHTML = `
-          <div class="feedback fb-correct">
-            <span class="feedback-title">✓ Checked — Compare your answer with standard definitions below:</span>
-            <div style="color:var(--text); font-style:italic; font-weight:600; margin-top:4px;">"${q.ans}"</div>
-          </div>
-        `;
-      }
-
-      inputHTML = `
-        <div style="width:100%;">
-          <textarea class="sa-input" id="sa-textarea-${q.n}" rows="2" ${disabledAttr} placeholder="Type your lecture response here..." oninput="saAnswers[${q.n}] = this.value">${currentInputVal}</textarea>
-          ${saControlHTML}
-        </div>
-      `;
-    }
-
-    // Explanation / Feedback Context
-    let feedbackHTML = "";
-    if (isAnswered) {
-      if (q.type !== 'sa') {
-        const isUserCorrect = userAnswers[q.n] === q.ans;
-        feedbackHTML = `
-          <div class="feedback ${isUserCorrect ? 'fb-correct' : 'fb-wrong'}">
-            <span class="feedback-title">${isUserCorrect ? '✓ Correct Answer' : '✗ Incorrect Answer'}</span>
-            <div>Verified Choice: <strong>${q.opts[q.ans]}</strong></div>
-            ${q.exp ? `<div style="font-size:11px; color:var(--muted); margin-top:6px; border-top:1px solid rgba(255,255,255,0.05); padding-top:6px;"><strong>Context:</strong> ${q.exp}</div>` : ""}
-          </div>
-        `;
-      } else {
-        // Standard context info for short answers
-        feedbackHTML = `
-          <div class="feedback fb-correct" style="font-size:11px; color:var(--muted);">
-            <strong>Lecture Context:</strong> ${q.exp}
-          </div>
-        `;
-      }
-    }
-
-    card.innerHTML = headerHTML + textHTML + inputHTML + feedbackHTML;
-    container.appendChild(card);
-  });
-
-  const totalPages = getTotalPages();
-  document.getElementById("page-info").textContent = "Page " + (currentPage + 1) + " / " + (totalPages || 1);
-  updateCounters();
-}
-
-function prevPage() {
-  if (currentPage > 0) {
-    currentPage--;
-    renderPage();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-}
-
-function nextPage() {
-  if (currentPage < getTotalPages() - 1) {
-    currentPage++;
-    renderPage();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-}
-
-function filterSection() {
-  activeFilter = document.getElementById("section-sel").value;
-  currentPage = 0;
-  filterQuestions();
-  renderPage();
-}
-
-function resetQuiz() {
-  userAnswers = {};
-  saAnswers = {};
-  saChecked = {};
-  currentPage = 0;
-  renderPage();
-}
-
-// Initial Run
-filterQuestions();
-renderPage();
 </script>
+
 </body>
 </html>
