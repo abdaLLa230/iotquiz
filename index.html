@@ -1,1069 +1,382 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Communication Skills - Quiz</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<title>سبحة إلكترونية</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --bg: #0f0f1a;
-    --card: #1a1a2e;
-    --card2: #16213e;
-    --accent: #e94560;
-    --accent2: #0f3460;
-    --gold: #f5a623;
-    --green: #00d4aa;
-    --red: #ff4757;
-    --text: #eaeaea;
-    --text2: #a0a8c0;
-    --border: #2a2a4a;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --gold-dim: rgba(201,168,76,0.15);
+    --gold-border: rgba(201,168,76,0.35);
+    --bg: #0e0d0b;
+    --bg-2: #161410;
+    --bg-3: #1e1b14;
+    --text: #f0e6cc;
+    --text-muted: #6b6050;
+    --text-sub: #9e8c6e;
+    --radius: 999px;
   }
 
-- { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-background: var(–bg);
-color: var(–text);
-font-family: ‘Cairo’, sans-serif;
-min-height: 100vh;
-background-image: radial-gradient(ellipse at 20% 50%, rgba(233,69,96,0.08) 0%, transparent 50%),
-radial-gradient(ellipse at 80% 20%, rgba(15,52,96,0.15) 0%, transparent 50%);
-}
-
-/* SCREENS */
-.screen { display:none; }
-.screen.active { display:flex; flex-direction:column; min-height:100vh; }
-
-/* ===== HOME SCREEN ===== */
-#home {
-align-items: center;
-justify-content: center;
-padding: 40px 20px;
-gap: 30px;
-}
-
-.logo-area {
-text-align: center;
-animation: fadeDown 0.8s ease;
-}
-
-.logo-icon {
-font-size: 64px;
-display: block;
-margin-bottom: 16px;
-filter: drop-shadow(0 0 20px rgba(233,69,96,0.5));
-}
-
-.logo-area h1 {
-font-size: 28px;
-font-weight: 900;
-background: linear-gradient(135deg, var(–accent), var(–gold));
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-line-height: 1.3;
-}
-
-.logo-area p {
-color: var(–text2);
-font-size: 14px;
-margin-top: 8px;
-font-family: ‘Tajawal’, sans-serif;
-}
-
-.exam-cards {
-display: flex;
-flex-direction: column;
-gap: 16px;
-width: 100%;
-max-width: 480px;
-animation: fadeUp 0.9s ease;
-}
-
-.exam-card {
-background: var(–card);
-border: 1px solid var(–border);
-border-radius: 20px;
-padding: 24px;
-cursor: pointer;
-transition: all 0.3s ease;
-position: relative;
-overflow: hidden;
-}
-
-.exam-card::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 0; right: 0; bottom: 0;
-opacity: 0;
-transition: opacity 0.3s;
-border-radius: 20px;
-}
-
-.exam-card:hover { transform: translateY(-4px); border-color: var(–accent); }
-.exam-card:hover::before { opacity: 1; }
-
-.exam-card.card-1::before { background: linear-gradient(135deg, rgba(233,69,96,0.08), transparent); }
-.exam-card.card-2::before { background: linear-gradient(135deg, rgba(0,212,170,0.08), transparent); }
-.exam-card.card-all::before { background: linear-gradient(135deg, rgba(245,166,35,0.08), transparent); }
-
-.card-header {
-display: flex;
-align-items: center;
-gap: 14px;
-margin-bottom: 12px;
-}
-
-.card-icon {
-width: 50px; height: 50px;
-border-radius: 14px;
-display: flex; align-items: center; justify-content: center;
-font-size: 24px;
-flex-shrink: 0;
-}
-
-.card-1 .card-icon { background: rgba(233,69,96,0.15); }
-.card-2 .card-icon { background: rgba(0,212,170,0.15); }
-.card-all .card-icon { background: rgba(245,166,35,0.15); }
-
-.card-title { font-size: 17px; font-weight: 700; }
-.card-subtitle { color: var(–text2); font-size: 13px; font-family:‘Tajawal’,sans-serif; margin-top:2px; }
-
-.card-meta {
-display: flex;
-gap: 12px;
-flex-wrap: wrap;
-}
-
-.meta-badge {
-background: rgba(255,255,255,0.05);
-border: 1px solid var(–border);
-border-radius: 8px;
-padding: 4px 12px;
-font-size: 12px;
-color: var(–text2);
-font-family:‘Tajawal’,sans-serif;
-}
-
-.start-btn {
-background: linear-gradient(135deg, var(–accent), #c0392b);
-color: white;
-border: none;
-border-radius: 14px;
-padding: 14px 32px;
-font-size: 16px;
-font-weight: 700;
-font-family: ‘Cairo’, sans-serif;
-cursor: pointer;
-transition: all 0.3s;
-align-self: center;
-box-shadow: 0 8px 24px rgba(233,69,96,0.3);
-margin-top: 4px;
-}
-
-.start-btn:hover { transform: scale(1.04); box-shadow: 0 12px 30px rgba(233,69,96,0.45); }
-
-/* ===== QUIZ SCREEN ===== */
-#quiz {
-padding: 0;
-}
-
-.quiz-header {
-background: var(–card2);
-border-bottom: 1px solid var(–border);
-padding: 16px 20px;
-display: flex;
-align-items: center;
-gap: 12px;
-position: sticky;
-top: 0;
-z-index: 10;
-}
-
-.back-btn {
-background: rgba(255,255,255,0.08);
-border: 1px solid var(–border);
-border-radius: 10px;
-padding: 8px 14px;
-color: var(–text);
-cursor: pointer;
-font-size: 18px;
-transition: all 0.2s;
-font-family:‘Cairo’,sans-serif;
-}
-
-.back-btn:hover { background: rgba(233,69,96,0.2); border-color: var(–accent); }
-
-.quiz-title-small {
-flex: 1;
-font-size: 14px;
-font-weight: 600;
-color: var(–text2);
-}
-
-.q-counter {
-background: var(–accent);
-border-radius: 10px;
-padding: 6px 14px;
-font-size: 13px;
-font-weight: 700;
-white-space: nowrap;
-}
-
-.progress-bar-wrap {
-background: var(–card2);
-padding: 0 20px 12px;
-border-bottom: 1px solid var(–border);
-}
-
-.progress-bar {
-height: 4px;
-background: rgba(255,255,255,0.08);
-border-radius: 4px;
-overflow: hidden;
-}
-
-.progress-fill {
-height: 100%;
-background: linear-gradient(90deg, var(–accent), var(–gold));
-border-radius: 4px;
-transition: width 0.5s ease;
-}
-
-.quiz-body {
-padding: 24px 20px;
-flex: 1;
-display: flex;
-flex-direction: column;
-gap: 20px;
-max-width: 640px;
-margin: 0 auto;
-width: 100%;
-}
-
-.lecture-tag {
-display: inline-flex;
-align-items: center;
-gap: 6px;
-background: rgba(233,69,96,0.1);
-border: 1px solid rgba(233,69,96,0.3);
-border-radius: 8px;
-padding: 5px 12px;
-font-size: 12px;
-color: var(–accent);
-font-family:‘Tajawal’,sans-serif;
-align-self: flex-start;
-}
-
-.q-type-badge {
-display: inline-flex;
-background: rgba(245,166,35,0.1);
-border: 1px solid rgba(245,166,35,0.3);
-border-radius: 8px;
-padding: 5px 12px;
-font-size: 12px;
-color: var(–gold);
-font-family:‘Tajawal’,sans-serif;
-margin-right: 8px;
-}
-
-.q-text {
-font-size: 17px;
-font-weight: 600;
-line-height: 1.7;
-color: var(–text);
-direction: ltr;
-text-align: left;
-}
-
-.options-list {
-display: flex;
-flex-direction: column;
-gap: 10px;
-}
-
-.option-btn {
-background: var(–card);
-border: 1.5px solid var(–border);
-border-radius: 14px;
-padding: 14px 18px;
-text-align: left;
-cursor: pointer;
-transition: all 0.25s;
-font-size: 15px;
-font-family: ‘Cairo’, sans-serif;
-color: var(–text);
-display: flex;
-align-items: center;
-gap: 12px;
-direction: ltr;
-}
-
-.option-btn:hover:not(:disabled) {
-border-color: var(–gold);
-background: rgba(245,166,35,0.06);
-transform: translateX(-3px);
-}
-
-.option-btn:disabled { cursor: default; }
-
-.option-btn.correct {
-background: rgba(0,212,170,0.12);
-border-color: var(–green);
-color: var(–green);
-}
-
-.option-btn.wrong {
-background: rgba(255,71,87,0.12);
-border-color: var(–red);
-color: var(–red);
-}
-
-.option-btn.reveal-correct {
-background: rgba(0,212,170,0.06);
-border-color: rgba(0,212,170,0.4);
-color: var(–green);
-}
-
-.opt-label {
-width: 30px; height: 30px;
-border-radius: 8px;
-background: rgba(255,255,255,0.07);
-display: flex; align-items: center; justify-content: center;
-font-size: 13px;
-font-weight: 700;
-flex-shrink: 0;
-transition: all 0.25s;
-}
-
-.option-btn.correct .opt-label { background: var(–green); color: #0f1a0f; }
-.option-btn.wrong .opt-label { background: var(–red); color: white; }
-.option-btn.reveal-correct .opt-label { background: rgba(0,212,170,0.3); }
-
-.feedback-box {
-border-radius: 14px;
-padding: 14px 18px;
-font-size: 14px;
-font-family: ‘Tajawal’, sans-serif;
-line-height: 1.6;
-display: none;
-animation: popIn 0.3s ease;
-}
-
-.feedback-box.show { display: block; }
-.feedback-box.correct-fb { background: rgba(0,212,170,0.1); border: 1px solid rgba(0,212,170,0.3); color: var(–green); }
-.feedback-box.wrong-fb { background: rgba(255,71,87,0.1); border: 1px solid rgba(255,71,87,0.3); color: var(–red); }
-
-.next-btn {
-background: linear-gradient(135deg, var(–accent), #c0392b);
-color: white;
-border: none;
-border-radius: 14px;
-padding: 16px;
-font-size: 16px;
-font-weight: 700;
-font-family: ‘Cairo’, sans-serif;
-cursor: pointer;
-transition: all 0.3s;
-display: none;
-box-shadow: 0 6px 20px rgba(233,69,96,0.3);
-}
-
-.next-btn.show { display: block; }
-.next-btn:hover { transform: scale(1.02); }
-
-/* ===== RESULT SCREEN ===== */
-#result {
-align-items: center;
-justify-content: center;
-padding: 40px 20px;
-gap: 24px;
-}
-
-.result-card {
-background: var(–card);
-border: 1px solid var(–border);
-border-radius: 24px;
-padding: 36px 28px;
-max-width: 480px;
-width: 100%;
-text-align: center;
-animation: fadeUp 0.6s ease;
-}
-
-.result-emoji { font-size: 72px; display: block; margin-bottom: 16px; }
-
-.result-title {
-font-size: 26px;
-font-weight: 900;
-margin-bottom: 8px;
-}
-
-.result-subtitle {
-color: var(–text2);
-font-size: 14px;
-font-family: ‘Tajawal’, sans-serif;
-margin-bottom: 24px;
-}
-
-.score-big {
-font-size: 64px;
-font-weight: 900;
-background: linear-gradient(135deg, var(–gold), var(–accent));
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-line-height: 1;
-margin-bottom: 4px;
-}
-
-.score-label { color: var(–text2); font-size: 13px; font-family:‘Tajawal’,sans-serif; margin-bottom: 28px; }
-
-.stats-row {
-display: flex;
-gap: 12px;
-margin-bottom: 28px;
-}
-
-.stat-box {
-flex: 1;
-background: rgba(255,255,255,0.04);
-border: 1px solid var(–border);
-border-radius: 14px;
-padding: 14px 8px;
-}
-
-.stat-num { font-size: 24px; font-weight: 800; }
-.stat-num.g { color: var(–green); }
-.stat-num.r { color: var(–red); }
-.stat-lbl { font-size: 11px; color: var(–text2); font-family:‘Tajawal’,sans-serif; margin-top: 2px; }
-
-.result-actions {
-display: flex;
-flex-direction: column;
-gap: 10px;
-}
-
-.btn-primary {
-background: linear-gradient(135deg, var(–accent), #c0392b);
-color: white;
-border: none;
-border-radius: 14px;
-padding: 14px;
-font-size: 15px;
-font-weight: 700;
-font-family: ‘Cairo’, sans-serif;
-cursor: pointer;
-transition: all 0.3s;
-}
-
-.btn-primary:hover { transform: scale(1.03); }
-
-.btn-secondary {
-background: transparent;
-color: var(–text2);
-border: 1px solid var(–border);
-border-radius: 14px;
-padding: 14px;
-font-size: 15px;
-font-weight: 600;
-font-family: ‘Cairo’, sans-serif;
-cursor: pointer;
-transition: all 0.3s;
-}
-
-.btn-secondary:hover { border-color: var(–text2); color: var(–text); }
-
-/* ANIMATIONS */
-@keyframes fadeDown {
-from { opacity: 0; transform: translateY(-20px); }
-to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeUp {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes popIn {
-from { opacity: 0; transform: scale(0.95); }
-to { opacity: 1; transform: scale(1); }
-}
-
-.q-anim {
-animation: fadeUp 0.4s ease;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(–bg); }
-::-webkit-scrollbar-thumb { background: var(–border); border-radius: 3px; }
+  body {
+    font-family: 'Amiri', serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding: 2rem 1.5rem;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 50% 100%, rgba(201,168,76,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  * { position: relative; z-index: 1; }
+
+  .header { text-align: center; }
+  .header h1 {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: .12em;
+  }
+  .header p { font-size: .85rem; color: var(--text-muted); margin-top: .25rem; letter-spacing: .05em; }
+
+  .milestone {
+    padding: .4rem 1.4rem;
+    border-radius: var(--radius);
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    color: var(--gold-light);
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity .4s, transform .4s;
+    pointer-events: none;
+    min-height: 2rem;
+  }
+  .milestone.show { opacity: 1; transform: translateY(0); }
+
+  .btn-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--gold-border);
+    animation: breathe 4s ease-in-out infinite;
+  }
+  .ring-1 { width: calc(var(--btn-size, 220px) + 44px); height: calc(var(--btn-size, 220px) + 44px); opacity: .4; }
+  .ring-2 { width: calc(var(--btn-size, 220px) + 80px); height: calc(var(--btn-size, 220px) + 80px); opacity: .2; animation-delay: .6s; }
+  .ring-3 { width: calc(var(--btn-size, 220px) + 116px); height: calc(var(--btn-size, 220px) + 116px); opacity: .1; animation-delay: 1.2s; }
+
+  @keyframes breathe {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.025); }
+  }
+
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    width: clamp(180px, 44vw, 240px);
+    height: clamp(180px, 44vw, 240px);
+    border: 2px solid var(--gold);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .ripple.go { animation: ripple-out .55s ease-out forwards; }
+  @keyframes ripple-out {
+    0%   { transform: scale(1); opacity: .5; }
+    100% { transform: scale(1.9); opacity: 0; }
+  }
+
+  .tap-btn {
+    width: clamp(180px, 44vw, 240px);
+    height: clamp(180px, 44vw, 240px);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #2a2519, #111009);
+    border: 2px solid var(--gold-border);
+    box-shadow:
+      0 0 0 1px rgba(201,168,76,.08),
+      inset 0 1px 0 rgba(201,168,76,.12),
+      0 20px 60px rgba(0,0,0,.6),
+      0 0 80px rgba(201,168,76,.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .3rem;
+    cursor: pointer;
+    transition: transform .1s, box-shadow .1s;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+  .tap-btn:active {
+    transform: scale(.92);
+    box-shadow:
+      0 0 0 1px rgba(201,168,76,.15),
+      inset 0 1px 0 rgba(201,168,76,.2),
+      0 8px 30px rgba(0,0,0,.5),
+      0 0 50px rgba(201,168,76,.12);
+  }
+
+  .count-num {
+    font-size: clamp(3.5rem, 12vw, 5rem);
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+  .count-num.pop { animation: pop .2s ease; }
+  @keyframes pop {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+  .count-sub { font-size: .8rem; color: var(--text-muted); letter-spacing: .1em; }
+
+  .progress-wrap { width: min(320px, 88vw); }
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: .78rem;
+    color: var(--text-muted);
+    margin-bottom: .5rem;
+  }
+  .progress-track {
+    width: 100%;
+    height: 4px;
+    background: #1e1b14;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.04);
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7a5c1e, var(--gold-light));
+    border-radius: var(--radius);
+    transition: width .3s ease;
+    width: 0%;
+  }
+
+  .stats {
+    display: flex;
+    gap: 1rem;
+    width: min(320px, 88vw);
+  }
+  .stat-card {
+    flex: 1;
+    background: var(--bg-3);
+    border: 1px solid rgba(255,255,255,.05);
+    border-radius: 16px;
+    padding: .75rem 1rem;
+    text-align: center;
+  }
+  .stat-label { font-size: .72rem; color: var(--text-muted); letter-spacing: .06em; display: block; }
+  .stat-val { font-size: 1.3rem; font-weight: 700; color: var(--gold); margin-top: .15rem; display: block; }
+
+  .actions {
+    display: flex;
+    gap: .75rem;
+    width: min(320px, 88vw);
+  }
+  .action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+    padding: .85rem;
+    border-radius: 14px;
+    font-family: 'Amiri', serif;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform .1s, background .15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .action-btn:active { transform: scale(.95); }
+  .action-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  .btn-save { background: var(--gold-dim); border-color: var(--gold-border); color: var(--gold-light); }
+  .btn-save:hover { background: rgba(201,168,76,.22); }
+  .btn-reset { background: rgba(255,255,255,.03); border-color: rgba(255,255,255,.07); color: var(--text-sub); }
+  .btn-reset:hover { background: rgba(255,255,255,.06); }
+
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+    background: var(--gold);
+    color: #0e0d0b;
+    font-family: 'Amiri', serif;
+    font-weight: 700;
+    font-size: .9rem;
+    padding: .5rem 1.6rem;
+    border-radius: var(--radius);
+    opacity: 0;
+    transition: opacity .3s, transform .3s;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 99;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .ornament { color: var(--text-muted); font-size: .75rem; letter-spacing: .3em; opacity: .5; }
 </style>
-
 </head>
 <body>
 
-<!-- HOME SCREEN -->
-
-<div id="home" class="screen active">
-  <div class="logo-area">
-    <span class="logo-icon">🎓</span>
-    <h1>Communication Skills<br>Quiz System</h1>
-    <p>October 6 University — Faculty of Information Systems</p>
+  <div class="header">
+    <h1>سبحة إلكترونية</h1>
+    <p>اضغط للتسبيح • سبحان الله</p>
   </div>
 
-  <div class="exam-cards">
-    <div class="exam-card card-1" onclick="startExam('exam1')">
-      <div class="card-header">
-        <div class="card-icon">📚</div>
-        <div>
-          <div class="card-title">الامتحان الأول</div>
-          <div class="card-subtitle">Lectures 1, 2&3, 4</div>
-        </div>
-      </div>
-      <div class="card-meta">
-        <span class="meta-badge">📖 Lectures 1–4</span>
-        <span class="meta-badge">✅ True/False</span>
-        <span class="meta-badge">🔘 MCQ</span>
-      </div>
-    </div>
+  <div id="milestone" class="milestone">✦ 33 سبحان الله ✦</div>
 
-```
-<div class="exam-card card-2" onclick="startExam('exam2')">
-  <div class="card-header">
-    <div class="card-icon">⚡</div>
-    <div>
-      <div class="card-title">الامتحان الثاني</div>
-      <div class="card-subtitle">Lectures 5, 6, 7, 8&9</div>
+  <div class="btn-wrap">
+    <div class="ring ring-1"></div>
+    <div class="ring ring-2"></div>
+    <div class="ring ring-3"></div>
+    <div class="ripple" id="ripple"></div>
+    <button class="tap-btn" id="tapBtn" onclick="tap()" aria-label="عد تسبيحة">
+      <span class="count-num" id="counter">0</span>
+      <span class="count-sub">تسبيحة</span>
+    </button>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-labels">
+      <span>التقدم للـ 99</span>
+      <span id="progressLabel">0 / 99</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
     </div>
   </div>
-  <div class="card-meta">
-    <span class="meta-badge">📖 Lectures 5–9</span>
-    <span class="meta-badge">✅ True/False</span>
-    <span class="meta-badge">🔘 MCQ</span>
-  </div>
-</div>
 
-<div class="exam-card card-all" onclick="startExam('examAll')">
-  <div class="card-header">
-    <div class="card-icon">🏆</div>
-    <div>
-      <div class="card-title">الامتحان الشامل</div>
-      <div class="card-subtitle">All Lectures — Full Revision</div>
+  <div class="stats">
+    <div class="stat-card">
+      <span class="stat-label">الجلسة</span>
+      <span class="stat-val" id="sessionVal">0</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">الإجمالي</span>
+      <span class="stat-val" id="totalVal">0</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">الختمات</span>
+      <span class="stat-val" id="roundsVal">0</span>
     </div>
   </div>
-  <div class="card-meta">
-    <span class="meta-badge">📖 All Lectures</span>
-    <span class="meta-badge">🎲 Random Order</span>
-    <span class="meta-badge">💯 Full Exam</span>
-  </div>
-</div>
-```
 
+  <div class="actions">
+    <button class="action-btn btn-save" onclick="save()">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+      حفظ
+    </button>
+    <button class="action-btn btn-reset" onclick="reset()">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+      إعادة
+    </button>
   </div>
-</div>
 
-<!-- QUIZ SCREEN -->
+  <span class="ornament">﷽</span>
 
-<div id="quiz" class="screen">
-  <div class="quiz-header">
-    <button class="back-btn" onclick="goHome()">←</button>
-    <div class="quiz-title-small" id="quizTitleSmall">Quiz</div>
-    <div class="q-counter" id="qCounter">1 / ?</div>
-  </div>
-  <div class="progress-bar-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-  </div>
-  <div class="quiz-body q-anim" id="quizBody"></div>
-</div>
-
-<!-- RESULT SCREEN -->
-
-<div id="result" class="screen">
-  <div class="result-card">
-    <span class="result-emoji" id="resultEmoji">🎉</span>
-    <div class="result-title" id="resultTitle">النتيجة</div>
-    <div class="result-subtitle" id="resultSubtitle"></div>
-    <div class="score-big" id="scoreBig">0%</div>
-    <div class="score-label" id="scoreLabel"></div>
-    <div class="stats-row">
-      <div class="stat-box">
-        <div class="stat-num g" id="correctCount">0</div>
-        <div class="stat-lbl">إجابات صحيحة</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num r" id="wrongCount">0</div>
-        <div class="stat-lbl">إجابات خاطئة</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" id="totalCount">0</div>
-        <div class="stat-lbl">إجمالي الأسئلة</div>
-      </div>
-    </div>
-    <div class="result-actions">
-      <button class="btn-primary" id="retryBtn" onclick="retryExam()">🔄 إعادة الاختبار</button>
-      <button class="btn-secondary" onclick="goHome()">🏠 الصفحة الرئيسية</button>
-    </div>
-  </div>
-</div>
+  <div class="toast" id="toast">✓ تم الحفظ</div>
 
 <script>
-// ===============================================================
-// ALL QUESTIONS — Exact answers from the PDFs, no changes
-// ===============================================================
+  const MILESTONES = {33:'✦ 33 سبحان الله ✦', 66:'✦ 66 الحمد لله ✦', 99:'✦ 99 الله أكبر ✦'};
+  let count = 0;
+  let total  = +localStorage.getItem('tsb_total')  || 0;
+  let rounds = +localStorage.getItem('tsb_rounds') || 0;
 
-const allQuestions = [
+  const elCount   = document.getElementById('counter');
+  const elProg    = document.getElementById('progressFill');
+  const elProgLbl = document.getElementById('progressLabel');
+  const elSession = document.getElementById('sessionVal');
+  const elTotal   = document.getElementById('totalVal');
+  const elRounds  = document.getElementById('roundsVal');
+  const elMile    = document.getElementById('milestone');
+  const elRipple  = document.getElementById('ripple');
+  const elToast   = document.getElementById('toast');
 
-  // ===== LECTURE 1 =====
-  { lecture: "Lecture 1", type: "tf", q: "Communication is the lifeline of society and social organizations.", correct: "True" },
-  { lecture: "Lecture 1", type: "tf", q: "An organization can hardly be conceived without communication.", correct: "True" },
-  { lecture: "Lecture 1", type: "tf", q: "In the absence of one of the most essential gradients like communication, an organization would turn into a mere assembly of unrelated and organized individuals, materials and machines and tools, which neither makes any sense nor, in fact, any kind of organization.", correct: "True" },
-  { lecture: "Lecture 1", type: "tf", q: "Prevalence of unperturbed and meaningful communication system, which is called ineffective communication.", correct: "False" },
-  { lecture: "Lecture 1", type: "tf", q: "The study of communication in management education and operation of an organization has been quite unavoidable.", correct: "True" },
-  { lecture: "Lecture 1", type: "tf", q: "Regular training and refreshment is always provided to people in an organization to maintain Effective Communication.", correct: "True" },
-  { lecture: "Lecture 1", type: "tf", q: "Man used to communicate with his fellow beings by means of sounds, signals, gestures when there was no language developed.", correct: "True" },
-  { lecture: "Lecture 1", type: "tf", q: "The word communication has been derived from the Latin word 'communis', meaning to share. It basically involves a sender, a message and a receiver.", correct: "True" },
-  { lecture: "Lecture 1", type: "tf", q: "Communication is usually a two-way process.", correct: "True" },
-  { lecture: "Lecture 1", type: "tf", q: "Communication, therefore, involves more than one person.", correct: "True" },
-  { lecture: "Lecture 1", type: "mcq", q: "Communication is the lifeline of society and _______ organizations.", opts: ["business","social"], correct: "social" },
-  { lecture: "Lecture 1", type: "mcq", q: "An organization can hardly be conceived _______.", opts: ["without communication","with communication"], correct: "without communication" },
-  { lecture: "Lecture 1", type: "mcq", q: "In the absence of communication, an organization would turn into a mere assembly of _______ and unorganized individuals.", opts: ["related","unrelated"], correct: "unrelated" },
-  { lecture: "Lecture 1", type: "mcq", q: "Prevalence of unperturbed and meaningful communication system, which is called _______ communication.", opts: ["effective","ineffective"], correct: "effective" },
-  { lecture: "Lecture 1", type: "mcq", q: "The study of communication in management, education and operation of an organization has been quite _______.", opts: ["unavoidable","avoidable"], correct: "unavoidable" },
-  { lecture: "Lecture 1", type: "mcq", q: "Regular training and refreshment is always provided to people in an organization to maintain _______ Communication.", opts: ["effective","ineffective"], correct: "effective" },
-  { lecture: "Lecture 1", type: "mcq", q: "Regular training and refreshment is always provided to people in an organization to _______ Effective Communication.", opts: ["increase","maintain"], correct: "maintain" },
-  { lecture: "Lecture 1", type: "mcq", q: "The word communication has been derived from the Latin word 'communis', meaning to share. It basically involves _______.", opts: ["a sender, a message and a receiver","a sender, a message only"], correct: "a sender, a message and a receiver" },
-  { lecture: "Lecture 1", type: "mcq", q: "Communication, therefore, involves _______.", opts: ["one person","more than one person"], correct: "more than one person" },
-  { lecture: "Lecture 1", type: "mcq", q: "Communication is the activity of conveying _______.", opts: ["information","data","Characters"], correct: "information" },
-  { lecture: "Lecture 1", type: "mcq", q: "Communication is usually a _______ way process.", opts: ["one","two","multi"], correct: "two" },
+  elTotal.textContent  = total;
+  elRounds.textContent = rounds;
 
-  // ===== LECTURE 2&3 =====
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication is the act of conveying intended meaning from one entity or group to another through the use of mutually understood signs or semiotic rules.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a composite of information given and received.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a composite of a listening effort by some involved.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a composite a sympathetic fresh examination of issues by communicator himself.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a composite a sensitive interaction of points of view leading to a higher level of shared understanding and common intention.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a composite a sensitive interaction of points of view leading to a lower level of shared understanding and common intention.", correct: "False" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a composite a sensitive interaction of points of view leading to a higher level of shared understanding and different intention.", correct: "False" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication is the intercourse by words, letters or messages.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication is the process of passing information and understanding from one person to another.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "It is communication that binds people and society together. It is considered as a natural process.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Society moves on human interactions and exchange of ideas, thoughts only.", correct: "False" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Lack of communication among the people in society will severely unaffected social cohesion and cohabitation.", correct: "False" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Progress and prosperity will come to a standstill if there is effective communication.", correct: "False" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication is a factor of building and maintaining bad relations. It enables people to understand each other.", correct: "False" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication is as important and meaningful in individual life as in the society. Individuals make friends, builds up relationship and lead a true social life through communicating effectively with the fellow beings.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication is needed to establish and disseminate the goals of a political organization.", correct: "False" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication helps the organization in arriving at vital decisions.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication helps a lot in planning and coordination.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication it is a basic tool for motivation and an increase in the morale of the employees largely depend upon the effectiveness of communication.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication helps a business as means of bringing about minimum production at the lowest level by maintaining good human relationship in the organization.", correct: "False" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication works as an effective link between branches of the organization situated at great distances.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication helps in publicizing goods and services.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Communication not reduces rumors and ensures smooth running of the organization as a whole.", correct: "False" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Interpersonal skills refer to the disability to communicate or interact well with other people.", correct: "False" },
-  { lecture: "Lecture 2&3", type: "tf", q: "In business lexicon, skills means the set of abilities enabling a person to interact positively and work effectively with others.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Interpersonal communication skills are unnecessary prerequisites for enhancing productivity and continuity of the workforce within an organization.", correct: "False" },
-  { lecture: "Lecture 2&3", type: "tf", q: "Employees with good interpersonal skills are likely to be more productive and permanent than those with poor interpersonal skills.", correct: "True" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Communications refers to a set of techniques used for expressing ideas _______ and the technology of transmission of information.", opts: ["effectively","ineffectively"], correct: "effectively" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is the act of conveying intended meaning from one entity or group to another through the use of _______.", opts: ["mutually understood signs or semiotic rules","mutually understood signs"], correct: "mutually understood signs or semiotic rules" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is a composite of information _______.", opts: ["given and received","given only"], correct: "given and received" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is a composite of a listening effort by _______ involved.", opts: ["some","all"], correct: "all" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is a composite a sympathetic fresh examination of issues by communicator _______.", opts: ["himself","other"], correct: "himself" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is a composite a sensitive interaction of points of view leading to _______ level of shared understanding and _______ intention.", opts: ["a higher / common","lower / different"], correct: "a higher / common" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is the intercourse by _______.", opts: ["words, letters or messages","words, letters only"], correct: "words, letters or messages" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "It is communication that binds people and society together. It is considered as a _______ process.", opts: ["natural","unnatural"], correct: "natural" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Society moves on _______.", opts: ["Human interactions","Exchange of ideas","Thoughts, and feelings","All the above"], correct: "All the above" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Progress and prosperity will come to a standstill if there is _______ communication.", opts: ["effective","ineffective"], correct: "ineffective" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is a factor of building and maintaining _______ relations. It enables people to understand each other.", opts: ["bad","good"], correct: "good" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Individuals make friends, builds up relationship and lead a _______ social life through communicating effectively with the fellow beings.", opts: ["True","Bad"], correct: "True" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Communication is needed to establish and disseminate the goals of a _______ organization.", opts: ["business","political"], correct: "business" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Communication helps the organization in arriving at _______ decisions.", opts: ["vital","inessential"], correct: "vital" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Communication it is a basic tool for motivation and an _______ in the morale of the employees.", opts: ["increase","decrease"], correct: "increase" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Communication helps a business as means of bringing about _______ production at the lowest level.", opts: ["minimum","maximum"], correct: "maximum" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Communication works as an _______ link between branches of the organization situated at great distances.", opts: ["effective","ineffective"], correct: "effective" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Interpersonal skills refer to the _______ to communicate or interact well with other people.", opts: ["ability","disability"], correct: "ability" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "In business lexicon, interpersonal skills means the set of abilities enabling a person to interact _______ and work effectively with others.", opts: ["negatively","Positively"], correct: "Positively" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Interpersonal communication skills are _______ prerequisites for enhancing productivity and continuity of the workforce.", opts: ["necessary","unnecessary"], correct: "necessary" },
-  { lecture: "Lecture 2&3", type: "mcq", q: "Employees with good interpersonal skills are likely to be _______ productive and permanent than those with poor interpersonal skills.", opts: ["more","less"], correct: "more" },
-
-  // ===== LECTURE 4 =====
-  { lecture: "Lecture 4", type: "tf", q: "Verbal communication refers to the form of communication in which message is transmitted verbally; where communication is carried out either by word of mouth or by writing.", correct: "True" },
-  { lecture: "Lecture 4", type: "tf", q: "Nonverbal Communication refers to communications made through various wordless or unspoken mediums.", correct: "True" },
-  { lecture: "Lecture 4", type: "tf", q: "Informal communications are those that are formal or 'official'. These are a part of the recognized communication system which is engaged in the operation of the organization.", correct: "False" },
-  { lecture: "Lecture 4", type: "tf", q: "Formal grow out of social interactions among the people who work together within an organization. These are based upon conventions, customs and culture prevalent there in.", correct: "False" },
-  { lecture: "Lecture 4", type: "tf", q: "In a single-stranded chain, information is passed by one person to another, who in turn passes it to some other and the process continues.", correct: "True" },
-  { lecture: "Lecture 4", type: "tf", q: "In a probability chain, information is passed by one person to his/her reliable ones, and the latter passes it to their reliable friends and the communication continues.", correct: "True" },
-  { lecture: "Lecture 4", type: "tf", q: "In a cluster chain, a person passes the information to a randomly chosen person and the communication goes on.", correct: "True" },
-  { lecture: "Lecture 4", type: "tf", q: "In a gossip chain, a person passes the information to a group of people and the members of the group passes it to some more people and the information spreads.", correct: "False" },
-  { lecture: "Lecture 4", type: "tf", q: "Downward communication can be both oral and written.", correct: "True" },
-  { lecture: "Lecture 4", type: "tf", q: "Higher authority of organization takes the initiative to start such communication.", correct: "True" },
-  { lecture: "Lecture 4", type: "tf", q: "Lower authority of organization takes the initiative to start such communication.", correct: "False" },
-  { lecture: "Lecture 4", type: "tf", q: "Upward communication flows from subordinates to superiors and continues up the organizational hierarchy.", correct: "True" },
-  { lecture: "Lecture 4", type: "tf", q: "Downward communication flows from subordinates to superiors and continues up the organizational hierarchy.", correct: "False" },
-  { lecture: "Lecture 4", type: "tf", q: "Upward communication is also called consultative management.", correct: "True" },
-  { lecture: "Lecture 4", type: "mcq", q: "_______ communication refers to the form of communication in which message is transmitted verbally; where communication is carried out either by word of mouth or by writing.", opts: ["Verbal","Nonverbal"], correct: "Verbal" },
-  { lecture: "Lecture 4", type: "mcq", q: "_______ Communication refers to communications made through various wordless or unspoken mediums.", opts: ["Verbal","Nonverbal"], correct: "Nonverbal" },
-  { lecture: "Lecture 4", type: "mcq", q: "Nonverbal Communication refers to communications made through various _______ or _______ mediums.", opts: ["wordless / unspoken","word / spoken"], correct: "wordless / unspoken" },
-  { lecture: "Lecture 4", type: "mcq", q: "_______ communications are those that are formal or 'official'. These are a part of the recognized communication system.", opts: ["Informal","Formal"], correct: "Formal" },
-  { lecture: "Lecture 4", type: "mcq", q: "_______ grow out of social interactions among the people who work together within an organization.", opts: ["Informal","Formal"], correct: "Informal" },
-  { lecture: "Lecture 4", type: "mcq", q: "Informal communications grow _______ of social interactions among the people who work together within an organization.", opts: ["in","out"], correct: "out" },
-  { lecture: "Lecture 4", type: "mcq", q: "_______ communication is also called consultative management.", opts: ["Downward","Upward"], correct: "Upward" },
-  { lecture: "Lecture 4", type: "mcq", q: "In _______ chain, information is passed by one person to another, who in turn passes it to some other and the process continues.", opts: ["A single-stranded","probability"], correct: "A single-stranded" },
-  { lecture: "Lecture 4", type: "mcq", q: "In a _______ chain, information is passed by one person to his/her reliable ones, and the latter passes it to their reliable friends and the communication continues.", opts: ["probability","cluster"], correct: "cluster" },
-  { lecture: "Lecture 4", type: "mcq", q: "In a _______ chain, a person passes the information to a randomly chosen person and the communication goes on.", opts: ["gossip","probability"], correct: "probability" },
-  { lecture: "Lecture 4", type: "mcq", q: "In a _______ chain, a person passes the information to a group of people and the members of the group passes it to some more people and the information spreads.", opts: ["gossip","cluster"], correct: "gossip" },
-  { lecture: "Lecture 4", type: "mcq", q: "Downward communication can be _______.", opts: ["Both oral and written","oral only"], correct: "Both oral and written" },
-  { lecture: "Lecture 4", type: "mcq", q: "_______ of organization takes the initiative to start downward communication.", opts: ["lower authority","Higher authority"], correct: "Higher authority" },
-  { lecture: "Lecture 4", type: "mcq", q: "_______ communication flows from subordinates to superiors and continues up the organizational hierarchy.", opts: ["Downward","Upward"], correct: "Upward" },
-  { lecture: "Lecture 4", type: "mcq", q: "_______ communication is non-directive in nature.", opts: ["Downward","Upward"], correct: "Upward" },
-
-  // ===== LECTURE 5 =====
-  { lecture: "Lecture 5", type: "tf", q: "The process of communication as such must be a continuous and dynamic interaction, both affecting and being affected by many variables.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Process of Communication Elements include seven elements.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Process of Communication Elements include ten elements.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "The very foundation of communication process is laid by the person who transmits or sends the message.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Message is the heart of communication. It is the content the sender wants to covey to the receiver.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Message it can be verbal both written and spoken; or non-verbal i.e. pictorial or symbolic, etc.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Message it can be verbal only.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "Message It can be non-verbal only i.e. pictorial or symbolic, etc.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "Encoding is putting the targeted message into appropriate medium which may be verbal or non-verbal depending upon the situation, time, space and nature of the message to be sent.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Message is putting the targeted message into appropriate medium which may be verbal or non-verbal depending upon the situation, time, space and nature of the message to be sent.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "Encoding is putting the targeted message into appropriate medium which may be verbal only depending upon the situation, time, space and nature of the message to be sent.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "Encoding is an important step in the communication process.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Channel(s) refers to the way or mode the message flows or is transmitted through.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Encoding (s) refers to the way or mode the message flows or is transmitted through.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "The message may be oral or written and it may be transmitted through a memorandum, a computer, telephone, cell phone, apps or televisions.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "The message may be written only and it may be transmitted through a memorandum, a computer, telephone, cell phone, apps or televisions.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "Each channel has its advantages and disadvantages.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Each channel has its disadvantages only.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "Each channel has its advantages only.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "Receiver is the person or group who the message is meant for.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "The extent to which the receiver decodes the message depends on his/her knowledge of the subject matter of the message, experience, trust and relationship with the sender.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "The receiver is as significant a factor in communication process as the sender is. It is the other end of the process.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Decoding refers to interpreting or converting the sent message into intelligible language.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Encoding refers to interpreting or converting the sent message into intelligible language.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "Feedback is the ultimate aspect of communication process. It refers to the response of the receiver as to the message sent to him/her by the sender.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Feedback is necessary to ensure that the message has been effectively encoded, sent, decoded and comprehended.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Feedback is unnecessary to ensure that the message has been effectively encoded, sent, decoded and comprehended.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "It is the final step of the communication process and establishes that the receiver has received the message in its letter and spirit.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "It is the first step of the communication process and establishes that the receiver has received the message in its letter and spirit.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "Negative Feedback or corrective comments about past behavior.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Positive Feedback or affirming comments about future behavior.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Negative feedforward or corrective comments about future behavior.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Positive feedforward or affirming comments about future behavior.", correct: "True" },
-  { lecture: "Lecture 5", type: "tf", q: "Positive Feedback or corrective comments about past behavior.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "Negative Feedback or affirming comments about future behavior.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "Positive feedforward or corrective comments about future behavior.", correct: "False" },
-  { lecture: "Lecture 5", type: "tf", q: "Negative feedforward or affirming comments about future behavior.", correct: "False" },
-  { lecture: "Lecture 5", type: "mcq", q: "Process of Communication Elements include _______ elements.", opts: ["7","9"], correct: "7" },
-  { lecture: "Lecture 5", type: "mcq", q: "Message It can be _______.", opts: ["verbal & non-verbal","non-verbal only"], correct: "verbal & non-verbal" },
-  { lecture: "Lecture 5", type: "mcq", q: "_______ is the heart of communication. It is the content the sender wants to covey to the receiver.", opts: ["Message","Encoding"], correct: "Message" },
-  { lecture: "Lecture 5", type: "mcq", q: "_______ is putting the targeted message into appropriate medium which may be verbal or non-verbal depending upon the situation, time, space and nature of the message to be sent.", opts: ["Message","Encoding"], correct: "Encoding" },
-  { lecture: "Lecture 5", type: "mcq", q: "Encoding is putting the targeted message into appropriate medium which may be _______ depending upon the situation, time, space and nature of the message to be sent.", opts: ["verbal or non-verbal","verbal only"], correct: "verbal or non-verbal" },
-  { lecture: "Lecture 5", type: "mcq", q: "Encoding is an _______ step in the communication process.", opts: ["unimportant","important"], correct: "important" },
-  { lecture: "Lecture 5", type: "mcq", q: "_______ refers to the way or mode the message flows or is transmitted through.", opts: ["channel","Encoding"], correct: "channel" },
-  { lecture: "Lecture 5", type: "mcq", q: "The message may be _______ and it may be transmitted through a memorandum, a computer, telephone, cell phone, apps or televisions.", opts: ["oral or written","written only"], correct: "oral or written" },
-  { lecture: "Lecture 5", type: "mcq", q: "Each channel has it's _______.", opts: ["advantages only","advantages and disadvantages"], correct: "advantages and disadvantages" },
-  { lecture: "Lecture 5", type: "mcq", q: "The extent to which the receiver decodes the message depends on his/her _______.", opts: ["Knowledge of the subject matter of the message","Experience","Trust and relationship with the sender","All above"], correct: "All above" },
-  { lecture: "Lecture 5", type: "mcq", q: "The _______ is as significant a factor in communication process as the sender is. It is the other end of the process.", opts: ["message","receiver"], correct: "receiver" },
-  { lecture: "Lecture 5", type: "mcq", q: "_______ refers to interpreting or converting the sent message into intelligible language.", opts: ["Decoding","Encoding"], correct: "Decoding" },
-  { lecture: "Lecture 5", type: "mcq", q: "Feedback is _______ to ensure that the message has been effectively encoded, sent, decoded and comprehended.", opts: ["unnecessary","necessary"], correct: "necessary" },
-  { lecture: "Lecture 5", type: "mcq", q: "It is the _______ step of the communication process and establishes that the receiver has received the message in its letter and spirit.", opts: ["final","first"], correct: "final" },
-  { lecture: "Lecture 5", type: "mcq", q: "_______ Feedback or corrective comments about past behavior.", opts: ["Negative","Positive"], correct: "Negative" },
-  { lecture: "Lecture 5", type: "mcq", q: "_______ or affirming comments about future behavior (Feedback).", opts: ["Negative","Positive"], correct: "Positive" },
-  { lecture: "Lecture 5", type: "mcq", q: "_______ or corrective comments about future behavior.", opts: ["Negative feedforward","Positive feedforward"], correct: "Negative feedforward" },
-  { lecture: "Lecture 5", type: "mcq", q: "_______ or affirming comments about future behavior (feedforward).", opts: ["Negative feedforward","Positive feedforward"], correct: "Positive feedforward" },
-
-  // ===== LECTURE 6 =====
-  { lecture: "Lecture 6", type: "tf", q: "A model of Effective communication is a thing used to follow or imitate Communication.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "Models of communication provide outputs for setting a standard communication system and ensuring effective communication in a business organization.", correct: "False" },
-  { lecture: "Lecture 6", type: "tf", q: "Models of communication provide inputs for setting a standard communication system and ensuring effective communication in a business organization.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "Models of communication provide inputs for setting a standard communication system and ensuring effective communication in a political organization.", correct: "False" },
-  { lecture: "Lecture 6", type: "tf", q: "Each organization sets up its own communication system mostly deriving inspiration from popular communication models.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "Models of communication are conceptual models that are used to explain the human communication process.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "Models of communication are behavior models that are used to explain the human communication process.", correct: "False" },
-  { lecture: "Lecture 6", type: "tf", q: "Models are un visual representation of communicating process.", correct: "False" },
-  { lecture: "Lecture 6", type: "tf", q: "Models are visual representation of communicating process.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "One-Way Communication Model It is known as the linear model of Communication as it occurs in a straight line from sender to receiver and serves to inform, persuade or command.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "In one-way communication model the information is only transmitted from one point to another or to many points at a single point of time.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "In one-way communication model the information is transmitted from two points to another or to many points at a single point of time.", correct: "False" },
-  { lecture: "Lecture 6", type: "tf", q: "In one-way communication model, there is no transmission of information from the receiving point.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "In one-way communication model, the recipient is passive.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "One-way communication is mostly used to transmit current information like weather information.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "The accurate time and intensity of weather phenomena are transmitted or communicated through the medium of one way communication.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "Like in two-way communication, in one-way communication the sender and recipient of the information may be not only people but also computers or automatic devices.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "Like in two-way communication, in one-way communication the sender and recipient of the information may be only people.", correct: "False" },
-  { lecture: "Lecture 6", type: "tf", q: "In one-way communication model, It assumes that there is a clear-cut beginning and end to communication.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "The lack of feedback from the receiver is one major drawback of the one-way communication model.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "In the one-way communication model, the sender is the active member and the receiver is the passive one.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "In the one-way communication model, the sender is passive the member and the receiver is the active one.", correct: "False" },
-  { lecture: "Lecture 6", type: "tf", q: "Transactional' simply means the exchange or interaction between people. It is based on the basic premises of 'exchange' or 'give and take'.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "The transactional model of communication refers to the exchange of messages or information between the sender and the receiver where each take turns to send or receive messages.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "The Interactive model of communication refers to the exchange of messages or information between the sender and the receiver where each take turns to send or receive messages.", correct: "False" },
-  { lecture: "Lecture 6", type: "tf", q: "The Interactive model is the most general model of communication as even our daily interactions are instances of transactional model communication.", correct: "False" },
-  { lecture: "Lecture 6", type: "tf", q: "The transactional model is the most general model of communication as even our daily interactions are instances of transactional model communication.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "Transactional model becomes more efficient and effective when the participants are of similar environment, know each other and share same social system.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "Interactive communication model is also known as the convergence model.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "The communication process occurs between humans or machines in both verbal and non-verbal ways.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "The communication process occurs between humans or machines in non-verbal way only.", correct: "False" },
-  { lecture: "Lecture 6", type: "tf", q: "It emphasizes feedback indicating that communication is not a one-way but a two-way process.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "Feedback, that is, when the decoder forms a second message after receiving the first message.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "Feedback, that is, when the decoder forms a second message before receiving the first message.", correct: "False" },
-  { lecture: "Lecture 6", type: "tf", q: "A model of communication gives a wholesome understanding of a system or structure by which people can understand similar systems or structure.", correct: "True" },
-  { lecture: "Lecture 6", type: "tf", q: "A model of communication gives a wholesome understanding of a system or structure by which people can understand different systems or structure.", correct: "False" },
-  { lecture: "Lecture 6", type: "mcq", q: "Models of communication provide _______ for setting a standard communication system and ensuring effective communication in a business organization.", opts: ["inputs","outputs"], correct: "inputs" },
-  { lecture: "Lecture 6", type: "mcq", q: "Models of communication provide inputs for setting a standard communication system and ensuring effective communication in a _______ organization.", opts: ["business","political"], correct: "business" },
-  { lecture: "Lecture 6", type: "mcq", q: "Each organization sets up its own communication system mostly deriving inspiration from _______ communication models.", opts: ["unpopular","popular"], correct: "popular" },
-  { lecture: "Lecture 6", type: "mcq", q: "Models of communication are _______ models that are used to explain the human communication process.", opts: ["behavior","conceptual"], correct: "conceptual" },
-  { lecture: "Lecture 6", type: "mcq", q: "Models are _______ representation of communicating process.", opts: ["visual","un visual"], correct: "visual" },
-  { lecture: "Lecture 6", type: "mcq", q: "In one-way communication model the information is transmitted from _______ to another or to many points at a single point of time.", opts: ["one point","two points"], correct: "one point" },
-  { lecture: "Lecture 6", type: "mcq", q: "One-way communication is mostly used to transmit _______ information.", opts: ["current","old"], correct: "current" },
-  { lecture: "Lecture 6", type: "mcq", q: "The accurate time and intensity of weather phenomena are transmitted or communicated through the medium of _______.", opts: ["Transactional","one way communication"], correct: "one way communication" },
-  { lecture: "Lecture 6", type: "mcq", q: "Like in two-way communication, in one-way communication the sender and recipient of the information may be _______ people.", opts: ["not only","only"], correct: "not only" },
-  { lecture: "Lecture 6", type: "mcq", q: "In the one-way communication model, the sender is the _______ member and the receiver is the _______ one.", opts: ["active / passive","passive / active"], correct: "active / passive" },
-  { lecture: "Lecture 6", type: "mcq", q: "_______ simply means the exchange or interaction between people. It is based on the basic premises of 'exchange' or 'give and take'.", opts: ["Transactional","Interactive"], correct: "Transactional" },
-  { lecture: "Lecture 6", type: "mcq", q: "The _______ model of communication refers to the exchange of messages or information between the sender and the receiver where each take turns to send or receive messages.", opts: ["Interactive","transactional"], correct: "transactional" },
-  { lecture: "Lecture 6", type: "mcq", q: "The _______ model is the most general model of communication as even our daily interactions are instances of transactional model communication.", opts: ["transactional","Interactive"], correct: "transactional" },
-  { lecture: "Lecture 6", type: "mcq", q: "Transactional model becomes more efficient and effective when the participants are of _______ environment, know each other and share same social system.", opts: ["similar","different"], correct: "similar" },
-  { lecture: "Lecture 6", type: "mcq", q: "_______ communication model is also known as the convergence model.", opts: ["transactional","Interactive"], correct: "Interactive" },
-  { lecture: "Lecture 6", type: "mcq", q: "The communication process occurs between humans or machines _______.", opts: ["in non-verbal way only","in both verbal and non-verbal ways"], correct: "in both verbal and non-verbal ways" },
-  { lecture: "Lecture 6", type: "mcq", q: "Feedback, that is, when the decoder forms a second message _______ receiving the first message.", opts: ["after","before"], correct: "after" },
-  { lecture: "Lecture 6", type: "mcq", q: "A model of communication gives a wholesome understanding of a system or structure by which people can understand _______ systems or structure.", opts: ["similar","different"], correct: "similar" },
-
-  // ===== LECTURE 7 =====
-  { lecture: "Lecture 7", type: "tf", q: "Communication style refers to the way in which the act of communicating is carried on.", correct: "True" },
-  { lecture: "Lecture 7", type: "tf", q: "Styles of communication may different from occasion to occasion. Each style serves a different purpose.", correct: "True" },
-  { lecture: "Lecture 7", type: "tf", q: "Styles of communication not different from occasion to occasion. Each style serves a different purpose.", correct: "False" },
-  { lecture: "Lecture 7", type: "tf", q: "There are four major styles of communication.", correct: "True" },
-  { lecture: "Lecture 7", type: "tf", q: "In Aggressive style of communication, one always stands up for one's rights simultaneously overlooking others.", correct: "True" },
-  { lecture: "Lecture 7", type: "tf", q: "Passive communication style stands in contrast to aggressive style in meaning and uses.", correct: "True" },
-  { lecture: "Lecture 7", type: "tf", q: "The passive style of communication allows the communicator to put others' rights before his and thus reduce his own self-worth.", correct: "True" },
-  { lecture: "Lecture 7", type: "tf", q: "The passive style of communication allows the communicator to put others' rights after his and thus reduce his own self-worth.", correct: "False" },
-  { lecture: "Lecture 7", type: "tf", q: "Assertive communication style is regarded as the best communicating style. It is more rational and proper than other styles of communication.", correct: "True" },
-  { lecture: "Lecture 7", type: "tf", q: "Assertive communication style is regarded as the best communicating style. It is less rational and proper than other styles of communication.", correct: "False" },
-  { lecture: "Lecture 7", type: "tf", q: "This style teaches one to stand up for one's rights while having respect for others rights.", correct: "True" },
-  { lecture: "Lecture 7", type: "tf", q: "This style teaches one to stand up for one's rights while not having respect for others rights.", correct: "False" },
-  { lecture: "Lecture 7", type: "tf", q: "In Assertive style of communication they deal with people on equal terms.", correct: "True" },
-  { lecture: "Lecture 7", type: "tf", q: "In Assertive style of communication they deal with people on unequal terms.", correct: "False" },
-  { lecture: "Lecture 7", type: "mcq", q: "Styles of communication _______ from occasion to occasion. Each style serves a different purpose.", opts: ["not different","may different"], correct: "may different" },
-  { lecture: "Lecture 7", type: "mcq", q: "There are _______ major styles of communication.", opts: ["two","four"], correct: "four" },
-  { lecture: "Lecture 7", type: "mcq", q: "In _______ style of communication, one always stands up for one's rights simultaneously overlooking others.", opts: ["Aggressive","passive"], correct: "Aggressive" },
-  { lecture: "Lecture 7", type: "mcq", q: "In _______ communication style stands in contrast to aggressive style in meaning and uses.", opts: ["Aggressive","passive"], correct: "passive" },
-  { lecture: "Lecture 7", type: "mcq", q: "The passive style of communication allows the communicator to put others' rights _______ his and thus reduce his own self-worth.", opts: ["before","after"], correct: "before" },
-  { lecture: "Lecture 7", type: "mcq", q: "Assertive communication style is regarded as the best communicating style. It is _______ rational and proper than other styles of communication.", opts: ["more","less"], correct: "more" },
-  { lecture: "Lecture 7", type: "mcq", q: "This style teaches one to stand up for one's rights while _______ respect for others rights.", opts: ["having","not having"], correct: "having" },
-  { lecture: "Lecture 7", type: "mcq", q: "In Assertive style of communication they deal with people on _______ terms.", opts: ["equal","unequal"], correct: "equal" },
-
-  // ===== LECTURE 8&9 =====
-  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Completeness of the Message.", correct: "True" },
-  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Clearness and Integrity of the Message.", correct: "True" },
-  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Conciseness of the Message.", correct: "True" },
-  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Consideration of Physical Setting and the Recipient.", correct: "True" },
-  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Clarity of the Message.", correct: "True" },
-  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Courtesy to be maintained.", correct: "True" },
-  { lecture: "Lecture 8&9", type: "tf", q: "Characteristics of Effective Communication: Correctness of the Message.", correct: "True" },
-  { lecture: "Lecture 8&9", type: "mcq", q: "Which of the following is a Characteristic of Effective Communication?", opts: ["Completeness of the Message","Clearness and Integrity of the Message","Conciseness of the Message","All above"], correct: "All above" },
-  { lecture: "Lecture 8&9", type: "mcq", q: "Which of the following is also a Characteristic of Effective Communication?", opts: ["Consideration of Physical Setting and the Recipient","Clarity of the Message","Courtesy to be maintained","All above"], correct: "All above" },
-];
-
-// ===============================================================
-// EXAM DEFINITIONS
-// ===============================================================
-const examDefs = {
-  exam1: {
-    title: "الامتحان الأول — Lectures 1, 2&3, 4",
-    lectures: ["Lecture 1","Lecture 2&3","Lecture 4"]
-  },
-  exam2: {
-    title: "الامتحان الثاني — Lectures 5, 6, 7, 8&9",
-    lectures: ["Lecture 5","Lecture 6","Lecture 7","Lecture 8&9"]
-  },
-  examAll: {
-    title: "الامتحان الشامل — All Lectures",
-    lectures: null // all
-  }
-};
-
-// ===============================================================
-// STATE
-// ===============================================================
-let currentExam = null;
-let questions = [];
-let currentIdx = 0;
-let score = 0;
-let answered = false;
-let examKey = null;
-
-// ===============================================================
-// UTILS
-// ===============================================================
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i+1));
-    [a[i],a[j]] = [a[j],a[i]];
-  }
-  return a;
-}
-
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-// ===============================================================
-// START EXAM
-// ===============================================================
-function startExam(key) {
-  examKey = key;
-  const def = examDefs[key];
-  let pool = def.lectures
-    ? allQuestions.filter(q => def.lectures.includes(q.lecture))
-    : allQuestions;
-  questions = shuffle(pool);
-  currentIdx = 0;
-  score = 0;
-  document.getElementById('quizTitleSmall').textContent = def.title;
-  showScreen('quiz');
-  renderQuestion();
-}
-
-function retryExam() {
-  startExam(examKey);
-}
-
-function goHome() {
-  showScreen('home');
-}
-
-// ===============================================================
-// RENDER QUESTION
-// ===============================================================
-function renderQuestion() {
-  answered = false;
-  const q = questions[currentIdx];
-  const total = questions.length;
-
-  document.getElementById('qCounter').textContent = `${currentIdx+1} / ${total}`;
-  const pct = ((currentIdx) / total) * 100;
-  document.getElementById('progressFill').style.width = pct + '%';
-
-  let optsHtml = '';
-  if (q.type === 'tf') {
-    const opts = shuffle(['True','False']);
-    opts.forEach((o, i) => {
-      const labels = ['أ','ب'];
-      optsHtml += `<button class="option-btn" onclick="selectAnswer(this, '${o}', '${q.correct}')">
-        <span class="opt-label">${labels[i]}</span>${o}
-      </button>`;
-    });
-  } else {
-    const opts = shuffle([...q.opts]);
-    const labels = ['أ','ب','ج','د'];
-    opts.forEach((o, i) => {
-      const safe = o.replace(/'/g, "\\'");
-      optsHtml += `<button class="option-btn" onclick="selectAnswer(this, '${safe}', '${q.correct.replace(/'/g,"\\'")}')">
-        <span class="opt-label">${labels[i]}</span>${o}
-      </button>`;
-    });
+  function tap() {
+    count++;
+    elCount.textContent = count;
+    elCount.classList.remove('pop');
+    void elCount.offsetWidth;
+    elCount.classList.add('pop');
+    elRipple.classList.remove('go');
+    void elRipple.offsetWidth;
+    elRipple.classList.add('go');
+    elSession.textContent = count;
+    const inCycle = count % 99 || 99;
+    elProg.style.width = (inCycle / 99 * 100) + '%';
+    elProgLbl.textContent = inCycle + ' / 99';
+    if (MILESTONES[inCycle]) showMilestone(MILESTONES[inCycle]);
+    if (count > 0 && count % 99 === 0) {
+      rounds++;
+      elRounds.textContent = rounds;
+      localStorage.setItem('tsb_rounds', rounds);
+    }
   }
 
-  const typeLabel = q.type === 'tf' ? '✅ True / False' : '🔘 MCQ';
-
-  document.getElementById('quizBody').innerHTML = `
-    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;">
-      <span class="lecture-tag">📖 ${q.lecture}</span>
-      <span class="q-type-badge">${typeLabel}</span>
-    </div>
-    <div class="q-text">${q.q}</div>
-    <div class="options-list" id="optsList">${optsHtml}</div>
-    <div class="feedback-box" id="feedbackBox"></div>
-    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">
-      ${currentIdx + 1 < questions.length ? 'السؤال التالي ←' : '🏁 عرض النتيجة'}
-    </button>
-  `;
-
-  document.getElementById('quizBody').classList.remove('q-anim');
-  void document.getElementById('quizBody').offsetWidth;
-  document.getElementById('quizBody').classList.add('q-anim');
-}
-
-// ===============================================================
-// SELECT ANSWER
-// ===============================================================
-function selectAnswer(btn, chosen, correct) {
-  if (answered) return;
-  answered = true;
-
-  const allBtns = document.querySelectorAll('.option-btn');
-  allBtns.forEach(b => b.disabled = true);
-
-  const feedbackBox = document.getElementById('feedbackBox');
-  const nextBtn = document.getElementById('nextBtn');
-
-  if (chosen === correct) {
-    btn.classList.add('correct');
-    score++;
-    feedbackBox.className = 'feedback-box show correct-fb';
-    feedbackBox.textContent = '✅ إجابة صحيحة!';
-  } else {
-    btn.classList.add('wrong');
-    feedbackBox.className = 'feedback-box show wrong-fb';
-    feedbackBox.textContent = `❌ خطأ — الإجابة الصحيحة: ${correct}`;
-    // highlight correct
-    allBtns.forEach(b => {
-      const txt = b.textContent.trim();
-      if (txt === correct || txt.endsWith(correct) || b.textContent.includes(correct)) {
-        b.classList.add('reveal-correct');
-      }
-    });
+  function showMilestone(txt) {
+    elMile.textContent = txt;
+    elMile.classList.add('show');
+    clearTimeout(elMile._t);
+    elMile._t = setTimeout(() => elMile.classList.remove('show'), 2500);
   }
 
-  nextBtn.classList.add('show');
-}
-
-// ===============================================================
-// NEXT QUESTION
-// ===============================================================
-function nextQuestion() {
-  currentIdx++;
-  if (currentIdx >= questions.length) {
-    showResult();
-  } else {
-    renderQuestion();
+  function save() {
+    total += count;
+    localStorage.setItem('tsb_total', total);
+    elTotal.textContent = total;
+    count = 0;
+    elCount.textContent = '0';
+    elSession.textContent = '0';
+    elProg.style.width = '0%';
+    elProgLbl.textContent = '0 / 99';
+    elToast.classList.add('show');
+    clearTimeout(elToast._t);
+    elToast._t = setTimeout(() => elToast.classList.remove('show'), 2000);
   }
-}
 
-// ===============================================================
-// SHOW RESULT
-// ===============================================================
-function showResult() {
-  const total = questions.length;
-  const pct = Math.round((score / total) * 100);
-  const wrong = total - score;
-
-  let emoji, title;
-  if (pct >= 90) { emoji='🏆'; title='ممتاز!'; }
-  else if (pct >= 75) { emoji='🌟'; title='جيد جداً!'; }
-  else if (pct >= 60) { emoji='👍'; title='جيد'; }
-  else if (pct >= 50) { emoji='📚'; title='تحتاج مراجعة'; }
-  else { emoji='💪'; title='حاول مجدداً'; }
-
-  document.getElementById('resultEmoji').textContent = emoji;
-  document.getElementById('resultTitle').textContent = title;
-  document.getElementById('resultSubtitle').textContent = examDefs[examKey].title;
-  document.getElementById('scoreBig').textContent = pct + '%';
-  document.getElementById('scoreLabel').textContent = `${score} إجابة صحيحة من ${total} سؤال`;
-  document.getElementById('correctCount').textContent = score;
-  document.getElementById('wrongCount').textContent = wrong;
-  document.getElementById('totalCount').textContent = total;
-
-  showScreen('result');
-}
+  function reset() {
+    count = 0;
+    elCount.textContent = '0';
+    elSession.textContent = '0';
+    elProg.style.width = '0%';
+    elProgLbl.textContent = '0 / 99';
+  }
 </script>
-
 </body>
 </html>
